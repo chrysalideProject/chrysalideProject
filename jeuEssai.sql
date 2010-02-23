@@ -1,6 +1,6 @@
 /*****Création du jeu d'essai*****/
 
-delete from TYPETABLE, TABLEAMANGER, REGIME, TRAVAIL, SURVEILLANCE, PERSONNE, POSTE, SURVEILLANT, AUTRE, PATIENT, CUISINIER, INCOMPATIBILITE, AFFINITE, REPAS, SERT, PRENDRE;
+/*delete from TYPETABLE, TABLEAMANGER, REGIME, TRAVAIL, SURVEILLANCE, PERSONNE, POSTE, SURVEILLANT, AUTRE, PATIENT, CUISINIER, INCOMPATIBILITE, AFFINITE, REPAS, SERT, PRENDRE;*/
 
 insert into TYPETABLE values (1, 'interieur');
 insert into TYPETABLE values (2, 'exterieur');
@@ -46,7 +46,7 @@ insert into SURVEILLANT values (4,2); /* rey antony est un moniteur du foyer */
 insert into SURVEILLANT values (9,3); /* girousse simeon est un moniteur esat */
 
 
-insert into AUTRE values (2);
+insert into AUTRE values (2, "stagiaire");
 
 insert into PATIENT values (5, 1, 1, 1); /* deliancourt lapin travaille a l'atelier, est au regime et a un besoin faible de surveillance */
 insert into PATIENT values (3, 2, 2, 2); /* legrand julien est macon, est sous surveillance et a besoin d'une surveillance moyenne */
