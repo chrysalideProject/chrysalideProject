@@ -1,6 +1,21 @@
 /*****Création du jeu d'essai*****/
 
-/*delete from TYPETABLE, TABLEAMANGER, REGIME, TRAVAIL, SURVEILLANCE, PERSONNE, POSTE, SURVEILLANT, AUTRE, PATIENT, CUISINIER, INCOMPATIBILITE, AFFINITE, REPAS, SERT, PRENDRE;*/
+delete from TYPETABLE;
+delete from TABLEAMANGER;
+delete from REGIME;
+delete from TRAVAIL;
+delete from SURVEILLANCE;
+delete from PERSONNE;
+delete from POSTE;
+delete from SURVEILLANT;
+delete from AUTRE;
+delete from PATIENT;
+delete from CUISINIER;
+delete from INCOMPATIBILITE;
+delete from AFFINITE;
+delete from REPAS;
+delete from SERT;
+delete from PRENDRE;
 
 insert into TYPETABLE values (1, 'interieur');
 insert into TYPETABLE values (2, 'exterieur');
