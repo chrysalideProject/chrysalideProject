@@ -3,17 +3,16 @@
 /*création des tables*/
 create table TYPETABLE
 (
-   	numero integer not null primary key,
-	libelle varchar(50) text not null
+   	numero integer not null,
+	libelle varchar(50) not null
 
 );
 
 create table TABLEAMANGER
 (
-	numero integer not null primary key,
+	numero integer not null,
 	capacite integer not null,
-	typeTable integer not null references TYPETABLE(numero)
-
+	typeTable integer not null
 );
 
 create table PERSONNE
@@ -90,7 +89,7 @@ create table PRENDRE
 
 create table CUISINIER
 (
-	idPersonne integer not null,
+	idPersonne integer not null
 );
 
 create table AUTRE
@@ -102,7 +101,7 @@ create table AUTRE
 create table SURVEILLANT 
 (
 	idPersonne integer not null,
-	idPoste integer not null,
+	idPoste integer not null
 );
 
 create table POSTE
