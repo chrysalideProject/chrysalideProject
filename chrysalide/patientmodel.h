@@ -17,6 +17,8 @@ class patientModel : personneModel
     public:
         patientModel(long, QString, QString, int, int, int);
         static QVector<patientModel*> recupererPatients();
+        void majProfil();
+        void supprimer();
 };
 
 #endif // PATIENTMODEL_H

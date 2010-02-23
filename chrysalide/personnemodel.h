@@ -9,13 +9,15 @@ class personneModel : public QObject
 {
     Q_OBJECT
 
-protected:
-    long id;
-    QString nom;
-    QString prenom;
+    protected:
+        long id;
+        QString nom;
+        QString prenom;
 
     public:
         personneModel(long, QString, QString);
+        void majProfil();
+        void supprimer();
 
 };
 
