@@ -12,3 +12,13 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_action_Ouvrir_triggered()
+{
+
+}
+
+void MainWindow::on_action_Quitter_triggered()
+{
+
+}
