@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="chrysalideProject" company="IG2-DA" webLink="" view-date="2010-02-22" view-index="0" gantt-divider-location="316" resource-divider-location="301" version="2.0">
+    <description><![CDATA[Projet de développement collectif d'une application pour la Chrysalide]]></description>
+    <view zooming-state="default:3" id="gantt-chart"/>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="55" order="0"/>
+        <field id="1" name="Rôle par défaut" width="44" order="0"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <calendar id="1" name="default">
+                <default-week sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+                <overriden-day-types/>
+                <days/>
+            </calendar>
+        </day-types>
+    </calendars>
+    <tasks color="#8cb6ce">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Analyse" color="#8cb6ce" meeting="false" start="2010-02-23" duration="1" complete="0" priority="2" expand="true">
+            <depend id="2" type="2" difference="0" hardness="Strong"/>
+            <depend id="3" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="1" name="Modification et finalisation de la maquette" color="#8cb6ce" meeting="false" start="2010-02-23" duration="4" complete="0" priority="1" expand="true">
+            <depend id="3" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="2" name="BDD + Ecran admin" color="#8cb6ce" meeting="false" start="2010-02-24" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="3" name="Gestion des patients par table des groupes" color="#8cb6ce" meeting="false" start="2010-03-01" duration="4" complete="0" priority="1" expand="true">
+            <depend id="5" type="2" difference="0" hardness="Strong"/>
+            <depend id="9" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="5" name="Intégration" color="#8cb6ce" meeting="false" start="2010-03-05" duration="1" complete="0" priority="1" expand="true"/>
+        <task id="9" name="Rédaction documentaion + manuel" color="#8cb6ce" meeting="false" start="2010-03-05" duration="2" complete="0" priority="1" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Mel Caradec" function="Default:0" contacts="" phone=""/>
+        <resource id="1" name="Elsa Amblard" function="Default:0" contacts="" phone=""/>
+        <resource id="2" name="Florian Van." function="Default:0" contacts="" phone=""/>
+        <resource id="3" name="Frederic Kupelian" function="Default:0" contacts="" phone=""/>
+        <resource id="4" name="Antony Rey" function="Default:0" contacts="" phone=""/>
+        <resource id="5" name="Fabien Deliancourt" function="Default:0" contacts="" phone=""/>
+        <resource id="6" name="Remi Benvenutti" function="Default:0" contacts="" phone=""/>
+        <resource id="7" name="Simeon Girousse" function="Default:0" contacts="" phone=""/>
+        <resource id="8" name="Gilles Thomassin" function="Default:0" contacts="" phone=""/>
+        <resource id="9" name="Quentin Bernard" function="Default:0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="0" resource-id="1" function="SoftwareDevelopment:8" responsible="false" load="100.0"/>
+        <allocation task-id="0" resource-id="0" function="SoftwareDevelopment:8" responsible="false" load="100.0"/>
+        <allocation task-id="0" resource-id="7" function="SoftwareDevelopment:8" responsible="false" load="100.0"/>
+        <allocation task-id="0" resource-id="8" function="SoftwareDevelopment:8" responsible="true" load="100.0"/>
+        <allocation task-id="1" resource-id="5" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="1" resource-id="6" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="1" resource-id="4" function="SoftwareDevelopment:2" responsible="false" load="100.0"/>
+        <allocation task-id="2" resource-id="2" function="SoftwareDevelopment:8" responsible="true" load="100.0"/>
+        <allocation task-id="2" resource-id="3" function="SoftwareDevelopment:8" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="5" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="9" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd3" order="0" width="75"/>
+        <displaycolumn property-id="tpd4" order="1" width="75"/>
+        <displaycolumn property-id="tpd5" order="2" width="75"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
