@@ -1,367 +1,298 @@
 <!DOCTYPE QtCreatorProject>
 <qtcreator>
  <data>
+  <variable>RunConfiguration0-BaseEnvironmentBase</variable>
+  <value type="int">2</value>
+ </data>
+ <data>
   <variable>RunConfiguration0-CommandLineArguments</variable>
-  <valuelist type="QVariantList" />
+  <valuelist type="QVariantList"/>
  </data>
  <data>
   <variable>RunConfiguration0-ProFile</variable>
-  <value type="QString" >/home/gthom/chrysalideProject/chrysalide/chrysalide.pro</value>
+  <value type="QString">../../../gthom/chrysalideProject/chrysalide/chrysalide.pro</value>
  </data>
  <data>
   <variable>RunConfiguration0-RunConfiguration.name</variable>
-  <value type="QString" >chrysalide</value>
+  <value type="QString">chrysalide</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UseDyldImageSuffix</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UseTerminal</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UserEnvironmentChanges</variable>
+  <valuelist type="QVariantList"/>
  </data>
  <data>
   <variable>RunConfiguration0-UserSetName</variable>
-  <value type="bool" >false</value>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UserSetWorkingDirectory</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UserWorkingDirectory</variable>
+  <value type="QString"></value>
  </data>
  <data>
   <variable>RunConfiguration0-type</variable>
-  <value type="QString" >Qt4ProjectManager.Qt4RunConfiguration</value>
+  <value type="QString">Qt4ProjectManager.Qt4RunConfiguration</value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-BaseEnvironmentBase</variable>
+  <value type="int">2</value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-CommandLineArguments</variable>
+  <valuelist type="QVariantList"/>
+ </data>
+ <data>
+  <variable>RunConfiguration1-ProFile</variable>
+  <value type="QString">chrysalide.pro</value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-RunConfiguration.name</variable>
+  <value type="QString">chrysalide</value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-UseDyldImageSuffix</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-UseTerminal</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-UserEnvironmentChanges</variable>
+  <valuelist type="QVariantList"/>
+ </data>
+ <data>
+  <variable>RunConfiguration1-UserSetName</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-UserSetWorkingDirectory</variable>
+  <value type="bool">false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-UserWorkingDirectory</variable>
+  <value type="QString"></value>
+ </data>
+ <data>
+  <variable>RunConfiguration1-type</variable>
+  <value type="QString">Qt4ProjectManager.Qt4RunConfiguration</value>
  </data>
  <data>
   <variable>activeRunConfiguration</variable>
-  <value type="int" >0</value>
+  <value type="int">1</value>
  </data>
  <data>
   <variable>activebuildconfiguration</variable>
-  <value type="QString" >Debug</value>
+  <value type="QString">Debug</value>
  </data>
  <data>
   <variable>buildConfiguration-Debug</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
-   <value key="QtVersionId" type="int" >0</value>
-   <value key="addQDumper" type="" ></value>
-   <value key="buildDirectory" type="QString" >/home/gthom/chrysalideProject/chrysalide</value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <value key="QtVersionId" type="int">0</value>
+   <value key="ToolChain" type="int">0</value>
+   <value key="addQDumper" type=""></value>
+   <value key="buildConfiguration" type="int">10</value>
+   <value key="buildDirectory" type="QString">/home/gthom/chrysalideProject/chrysalide</value>
   </valuemap>
  </data>
  <data>
   <variable>buildConfiguration-Release</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
-   <value key="QtVersionId" type="int" >0</value>
-   <value key="addQDumper" type="" ></value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
+   <value key="QtVersionId" type="int">0</value>
+   <value key="addQDumper" type=""></value>
+   <value key="buildConfiguration" type="int">8</value>
   </valuemap>
  </data>
  <data>
   <variable>buildconfiguration-Debug-buildstep0</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-BaVGef5evY,guid=fcbdbc2015e512d5abf1f96d4b83c045</value>
+    <value type="QString">DESKTOP_SESSION=default</value>
+    <value type="QString">DISPLAY=:0.0</value>
+    <value type="QString">GDMSESSION=default</value>
+    <value type="QString">GDM_LANG=fr_FR.UTF-8</value>
+    <value type="QString">GDM_XSERVER_LOCATION=local</value>
+    <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
+    <value type="QString">GNOME_KEYRING_PID=3938</value>
+    <value type="QString">GNOME_KEYRING_SOCKET=/tmp/keyring-P99cTK/socket</value>
+    <value type="QString">GPG_AGENT_INFO=/tmp/seahorse-yZ7Isv/S.gpg-agent:4138:1</value>
+    <value type="QString">GTK_MODULES=canberra-gtk-module</value>
+    <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/tonixx/.gtkrc-1.2-gnome2</value>
+    <value type="QString">HOME=/home/tonixx</value>
+    <value type="QString">LANG=fr_FR.UTF-8</value>
+    <value type="QString">LD_LIBRARY_PATH=/home/tonixx/qtsdk-2010.02/lib/qtcreator:</value>
+    <value type="QString">LOGNAME=tonixx</value>
+    <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-tonixx</value>
+    <value type="QString">PATH=/home/tonixx/qtsdk-2010.02/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString">PWD=/home/tonixx</value>
+    <value type="QString">QTDIR=/home/tonixx/qtsdk-2010.02/qt</value>
+    <value type="QString">SESSION_MANAGER=local/tonixx-laptop:/tmp/.ICE-unix/3951</value>
+    <value type="QString">SHELL=/bin/bash</value>
+    <value type="QString">SSH_AGENT_PID=4108</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-P99cTK/socket.ssh</value>
+    <value type="QString">USER=tonixx</value>
+    <value type="QString">USERNAME=tonixx</value>
+    <value type="QString">WINDOWPATH=7</value>
+    <value type="QString">XAUTHORITY=/home/tonixx/.Xauthority</value>
+    <value type="QString">XDG_DATA_DIRS=/usr/local/share/:/usr/share/:/usr/share/gdm/</value>
+    <value type="QString">XDG_SESSION_COOKIE=9bac801ad3b6fe5bcf0348c94aca68d8-1266925635.588552-942905290</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">/home/tonixx/chrysalideProject/chrysalide/chrysalide.pro</value>
+    <value type="QString">-spec</value>
+    <value type="QString">linux-g++</value>
+    <value type="QString">-r</value>
+    <value type="QString">CONFIG+=debug_and_release</value>
+    <value type="QString">CONFIG+=debug</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString">/home/tonixx/qtsdk-2010.02/qt/bin/qmake</value>
+   <value key="abstractProcess.enabled" type="bool">false</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/tonixx/chrysalideProject/chrysalide</value>
+   <value key="buildConfiguration" type=""></value>
   </valuemap>
  </data>
  <data>
   <variable>buildconfiguration-Debug-buildstep1</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
-   <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >BROWSER=/usr/bin/www-browser</value>
-    <value type="QString" >CANBERRA_DRIVER=pulse</value>
-    <value type="QString" >COLORFGBG=0;15</value>
-    <value type="QString" >COMPOSITING_WM_START=yes</value>
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-T60pbBCLDs,guid=4b23fc0f2ebed6b0c5fab7654b82764f</value>
-    <value type="QString" >DESKTOP_STARTUP_ID=</value>
-    <value type="QString" >DISPLAY=:0.0</value>
-    <value type="QString" >GCONF_TMPDIR=/tmp</value>
-    <value type="QString" >GPG_AGENT_INFO=/home/gthom/.gnupg/S.gpg-agent:3462:1</value>
-    <value type="QString" >GS_LIB=/home/gthom/.fonts</value>
-    <value type="QString" >GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/gthom/.gtkrc-2.0::/home/gthom/.kde4/share/config/gtkrc-2.0</value>
-    <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
-    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/gthom/.gtkrc::/home/gthom/.kde4/share/config/gtkrc</value>
-    <value type="QString" >G_FILENAME_ENCODING=@locale</value>
-    <value type="QString" >HISTCONTROL=ignoredups</value>
-    <value type="QString" >HISTSIZE=1000</value>
-    <value type="QString" >HOME=/home/gthom</value>
-    <value type="QString" >HOSTNAME=localhost</value>
-    <value type="QString" >INPUTRC=/etc/inputrc</value>
-    <value type="QString" >KDEWM=compiz-fusion</value>
-    <value type="QString" >KDE_FULL_SESSION=true</value>
-    <value type="QString" >KDE_MULTIHEAD=false</value>
-    <value type="QString" >KDE_SESSION_UID=500</value>
-    <value type="QString" >KDE_SESSION_VERSION=4</value>
-    <value type="QString" >KONSOLE_DBUS_SERVICE=:1.97</value>
-    <value type="QString" >KONSOLE_DBUS_SESSION=/Sessions/1</value>
-    <value type="QString" >LANG=fr_FR.UTF-8</value>
-    <value type="QString" >LANGUAGE=fr_FR.UTF-8:fr</value>
-    <value type="QString" >LC_ADDRESS=fr_FR.UTF-8</value>
-    <value type="QString" >LC_COLLATE=fr_FR.UTF-8</value>
-    <value type="QString" >LC_CTYPE=fr_FR.UTF-8</value>
-    <value type="QString" >LC_IDENTIFICATION=fr_FR.UTF-8</value>
-    <value type="QString" >LC_MEASUREMENT=fr_FR.UTF-8</value>
-    <value type="QString" >LC_MESSAGES=fr_FR.UTF-8</value>
-    <value type="QString" >LC_MONETARY=fr_FR.UTF-8</value>
-    <value type="QString" >LC_NAME=fr_FR.UTF-8</value>
-    <value type="QString" >LC_NUMERIC=fr_FR.UTF-8</value>
-    <value type="QString" >LC_PAPER=fr_FR.UTF-8</value>
-    <value type="QString" >LC_SOURCED=1</value>
-    <value type="QString" >LC_TELEPHONE=fr_FR.UTF-8</value>
-    <value type="QString" >LC_TIME=fr_FR.UTF-8</value>
-    <value type="QString" >LESS=-MM</value>
-    <value type="QString" >LESSCHARSET=utf-8</value>
-    <value type="QString" >LESSKEY=/etc/.less</value>
-    <value type="QString" >LESSOPEN=|/usr/bin/lesspipe.sh %s</value>
-    <value type="QString" >LOGNAME=gthom</value>
-    <value type="QString" >LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.cmd=01;32:*.exe=01;32:*.com=01;32:*.btm=01;32:*.bat=01;32:*.sh=01;32:*.csh=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.iso=01;31:*.jpg=01;35:*.jpeg=01;35:*.JPG=01;35:*.JPEG=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.divx=01;35:*.xvid=01;35:*.asf=01;35:*.wmv=01;35:*.mp4=01;35:*.3gp=01;35:*.flv=01;35:*.ico=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:*.mp2=00;36:*.mod=00;36:*.xm=00;36:*.s3m=00;36:*.it=00;36:*.wma=00;36:*~=47;30:*.bak=47;30:*.swp=47;30:*.bck=47;30:*.bk=47;30:*.old=47;30:*.tmp=47;30:*.save=47;30:*.rpmsave=47;30:*.rpmnew=47;30:</value>
-    <value type="QString" >MAIL=/var/spool/mail/gthom</value>
-    <value type="QString" >MALLOC_CHECK_=2</value>
-    <value type="QString" >MDV_MENU_STYLE=mandriva</value>
-    <value type="QString" >META_CLASS=download</value>
-    <value type="QString" >NLSPATH=/usr/share/locale/%l/%N</value>
-    <value type="QString" >OLDPWD=/home/gthom</value>
-    <value type="QString" >PATH=/usr/lib/qt4/bin:/bin:/usr/bin:/usr/bin:/usr/ucb:/usr/games:/usr/lib/qt4/bin:/home/gthom/bin</value>
-    <value type="QString" >PROFILEHOME=</value>
-    <value type="QString" >PULSE_PROP_media.role=none</value>
-    <value type="QString" >PULSE_PROP_phonon.streamid={4e7296f6-75e4-47ee-a443-8930a4d138d3}</value>
-    <value type="QString" >PWD=/home/gthom/chrysalideProject</value>
-    <value type="QString" >PYTHONDONTWRITEBYTECODE=1</value>
-    <value type="QString" >PYTHONPATH=/usr/lib/ooo/basis-link/program:/usr/lib/ooo/basis-link/program</value>
-    <value type="QString" >PYTHONSTARTUP=/etc/pythonrc.py</value>
-    <value type="QString" >QT4DOCDIR=/usr/share/doc/qt4/doc</value>
-    <value type="QString" >QTDIR=/usr</value>
-    <value type="QString" >QTINC=/usr/lib/qt3/include</value>
-    <value type="QString" >QTLIB=/usr/lib</value>
-    <value type="QString" >QT_PLUGIN_PATH=/home/gthom/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/</value>
-    <value type="QString" >QT_XFT=0</value>
-    <value type="QString" >SESSION_MANAGER=local/localhost:@/tmp/.ICE-unix/3633,unix/localhost:/tmp/.ICE-unix/3633</value>
-    <value type="QString" >SHELL=/bin/bash</value>
-    <value type="QString" >SHLVL=2</value>
-    <value type="QString" >TERM=xterm</value>
-    <value type="QString" >TMP=/tmp/</value>
-    <value type="QString" >TMPDIR=/tmp/</value>
-    <value type="QString" >USER=gthom</value>
-    <value type="QString" >WINDOWID=58720285</value>
-    <value type="QString" >WINDOWPATH=7</value>
-    <value type="QString" >XCURSOR_THEME=default</value>
-    <value type="QString" >XDG_CONFIG_DIRS=/etc/xdg:/etc/xdg/kde4</value>
-    <value type="QString" >XDG_DATA_DIRS=/usr/share:/usr/share:/usr/local/share</value>
-    <value type="QString" >XDG_MENU_PREFIX=kde-</value>
-    <value type="QString" >XDG_SESSION_COOKIE=607fd76abc3b4a61715cd4e44a9d3ba7-1266841168.207646-1238749182</value>
-    <value type="QString" >XMODIFIERS=@im=none</value>
-    <value type="QString" >_=/usr/bin/qtcreator</value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-BaVGef5evY,guid=fcbdbc2015e512d5abf1f96d4b83c045</value>
+    <value type="QString">DESKTOP_SESSION=default</value>
+    <value type="QString">DISPLAY=:0.0</value>
+    <value type="QString">GDMSESSION=default</value>
+    <value type="QString">GDM_LANG=fr_FR.UTF-8</value>
+    <value type="QString">GDM_XSERVER_LOCATION=local</value>
+    <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
+    <value type="QString">GNOME_KEYRING_PID=3938</value>
+    <value type="QString">GNOME_KEYRING_SOCKET=/tmp/keyring-P99cTK/socket</value>
+    <value type="QString">GPG_AGENT_INFO=/tmp/seahorse-yZ7Isv/S.gpg-agent:4138:1</value>
+    <value type="QString">GTK_MODULES=canberra-gtk-module</value>
+    <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/tonixx/.gtkrc-1.2-gnome2</value>
+    <value type="QString">HOME=/home/tonixx</value>
+    <value type="QString">LANG=fr_FR.UTF-8</value>
+    <value type="QString">LD_LIBRARY_PATH=/home/tonixx/qtsdk-2010.02/lib/qtcreator:</value>
+    <value type="QString">LOGNAME=tonixx</value>
+    <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-tonixx</value>
+    <value type="QString">PATH=/home/tonixx/qtsdk-2010.02/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString">PWD=/home/tonixx</value>
+    <value type="QString">QTDIR=/home/tonixx/qtsdk-2010.02/qt</value>
+    <value type="QString">SESSION_MANAGER=local/tonixx-laptop:/tmp/.ICE-unix/3951</value>
+    <value type="QString">SHELL=/bin/bash</value>
+    <value type="QString">SSH_AGENT_PID=4108</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-P99cTK/socket.ssh</value>
+    <value type="QString">USER=tonixx</value>
+    <value type="QString">USERNAME=tonixx</value>
+    <value type="QString">WINDOWPATH=7</value>
+    <value type="QString">XAUTHORITY=/home/tonixx/.Xauthority</value>
+    <value type="QString">XDG_DATA_DIRS=/usr/local/share/:/usr/share/:/usr/share/gdm/</value>
+    <value type="QString">XDG_SESSION_COOKIE=9bac801ad3b6fe5bcf0348c94aca68d8-1266925635.588552-942905290</value>
    </valuelist>
-   <valuelist key="abstractProcess.arguments" type="QVariantList" >
-    <value type="QString" >/home/gthom/chrysalideProject/chrysalide/chrysalide.pro</value>
-    <value type="QString" >-spec</value>
-    <value type="QString" >/usr/lib/qt4/mkspecs/linux-g++</value>
-    <value type="QString" >-r</value>
-    <value type="QString" >CONFIG+=debug_and_release</value>
-    <value type="QString" >CONFIG+=debug</value>
+   <value key="abstractProcess.IgnoreReturnValue" type="bool">false</value>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">debug</value>
+    <value type="QString">-w</value>
    </valuelist>
-   <value key="abstractProcess.command" type="QString" >/usr/bin/qmake</value>
-   <value key="abstractProcess.enabled" type="bool" >true</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/home/gthom/chrysalideProject/chrysalide</value>
-   <value key="buildConfiguration" type="int" >10</value>
-  </valuemap>
- </data>
- <data>
-  <variable>buildconfiguration-Debug-buildstep2</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
-   <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >BROWSER=/usr/bin/www-browser</value>
-    <value type="QString" >CANBERRA_DRIVER=pulse</value>
-    <value type="QString" >COLORFGBG=0;15</value>
-    <value type="QString" >COMPOSITING_WM_START=yes</value>
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-T60pbBCLDs,guid=4b23fc0f2ebed6b0c5fab7654b82764f</value>
-    <value type="QString" >DESKTOP_STARTUP_ID=</value>
-    <value type="QString" >DISPLAY=:0.0</value>
-    <value type="QString" >GCONF_TMPDIR=/tmp</value>
-    <value type="QString" >GPG_AGENT_INFO=/home/gthom/.gnupg/S.gpg-agent:3462:1</value>
-    <value type="QString" >GS_LIB=/home/gthom/.fonts</value>
-    <value type="QString" >GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/gthom/.gtkrc-2.0::/home/gthom/.kde4/share/config/gtkrc-2.0</value>
-    <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
-    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/gthom/.gtkrc::/home/gthom/.kde4/share/config/gtkrc</value>
-    <value type="QString" >G_FILENAME_ENCODING=@locale</value>
-    <value type="QString" >HISTCONTROL=ignoredups</value>
-    <value type="QString" >HISTSIZE=1000</value>
-    <value type="QString" >HOME=/home/gthom</value>
-    <value type="QString" >HOSTNAME=localhost</value>
-    <value type="QString" >INPUTRC=/etc/inputrc</value>
-    <value type="QString" >KDEWM=compiz-fusion</value>
-    <value type="QString" >KDE_FULL_SESSION=true</value>
-    <value type="QString" >KDE_MULTIHEAD=false</value>
-    <value type="QString" >KDE_SESSION_UID=500</value>
-    <value type="QString" >KDE_SESSION_VERSION=4</value>
-    <value type="QString" >KONSOLE_DBUS_SERVICE=:1.97</value>
-    <value type="QString" >KONSOLE_DBUS_SESSION=/Sessions/1</value>
-    <value type="QString" >LANG=fr_FR.UTF-8</value>
-    <value type="QString" >LANGUAGE=fr_FR.UTF-8:fr</value>
-    <value type="QString" >LC_ADDRESS=fr_FR.UTF-8</value>
-    <value type="QString" >LC_COLLATE=fr_FR.UTF-8</value>
-    <value type="QString" >LC_CTYPE=fr_FR.UTF-8</value>
-    <value type="QString" >LC_IDENTIFICATION=fr_FR.UTF-8</value>
-    <value type="QString" >LC_MEASUREMENT=fr_FR.UTF-8</value>
-    <value type="QString" >LC_MESSAGES=fr_FR.UTF-8</value>
-    <value type="QString" >LC_MONETARY=fr_FR.UTF-8</value>
-    <value type="QString" >LC_NAME=fr_FR.UTF-8</value>
-    <value type="QString" >LC_NUMERIC=fr_FR.UTF-8</value>
-    <value type="QString" >LC_PAPER=fr_FR.UTF-8</value>
-    <value type="QString" >LC_SOURCED=1</value>
-    <value type="QString" >LC_TELEPHONE=fr_FR.UTF-8</value>
-    <value type="QString" >LC_TIME=fr_FR.UTF-8</value>
-    <value type="QString" >LESS=-MM</value>
-    <value type="QString" >LESSCHARSET=utf-8</value>
-    <value type="QString" >LESSKEY=/etc/.less</value>
-    <value type="QString" >LESSOPEN=|/usr/bin/lesspipe.sh %s</value>
-    <value type="QString" >LOGNAME=gthom</value>
-    <value type="QString" >LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.cmd=01;32:*.exe=01;32:*.com=01;32:*.btm=01;32:*.bat=01;32:*.sh=01;32:*.csh=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.iso=01;31:*.jpg=01;35:*.jpeg=01;35:*.JPG=01;35:*.JPEG=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.divx=01;35:*.xvid=01;35:*.asf=01;35:*.wmv=01;35:*.mp4=01;35:*.3gp=01;35:*.flv=01;35:*.ico=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:*.mp2=00;36:*.mod=00;36:*.xm=00;36:*.s3m=00;36:*.it=00;36:*.wma=00;36:*~=47;30:*.bak=47;30:*.swp=47;30:*.bck=47;30:*.bk=47;30:*.old=47;30:*.tmp=47;30:*.save=47;30:*.rpmsave=47;30:*.rpmnew=47;30:</value>
-    <value type="QString" >MAIL=/var/spool/mail/gthom</value>
-    <value type="QString" >MALLOC_CHECK_=2</value>
-    <value type="QString" >MDV_MENU_STYLE=mandriva</value>
-    <value type="QString" >META_CLASS=download</value>
-    <value type="QString" >NLSPATH=/usr/share/locale/%l/%N</value>
-    <value type="QString" >OLDPWD=/home/gthom</value>
-    <value type="QString" >PATH=/usr/lib/qt4/bin:/bin:/usr/bin:/usr/bin:/usr/ucb:/usr/games:/usr/lib/qt4/bin:/home/gthom/bin</value>
-    <value type="QString" >PROFILEHOME=</value>
-    <value type="QString" >PULSE_PROP_media.role=none</value>
-    <value type="QString" >PULSE_PROP_phonon.streamid={4e7296f6-75e4-47ee-a443-8930a4d138d3}</value>
-    <value type="QString" >PWD=/home/gthom/chrysalideProject</value>
-    <value type="QString" >PYTHONDONTWRITEBYTECODE=1</value>
-    <value type="QString" >PYTHONPATH=/usr/lib/ooo/basis-link/program:/usr/lib/ooo/basis-link/program</value>
-    <value type="QString" >PYTHONSTARTUP=/etc/pythonrc.py</value>
-    <value type="QString" >QT4DOCDIR=/usr/share/doc/qt4/doc</value>
-    <value type="QString" >QTDIR=/usr</value>
-    <value type="QString" >QTINC=/usr/lib/qt3/include</value>
-    <value type="QString" >QTLIB=/usr/lib</value>
-    <value type="QString" >QT_PLUGIN_PATH=/home/gthom/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/</value>
-    <value type="QString" >QT_XFT=0</value>
-    <value type="QString" >SESSION_MANAGER=local/localhost:@/tmp/.ICE-unix/3633,unix/localhost:/tmp/.ICE-unix/3633</value>
-    <value type="QString" >SHELL=/bin/bash</value>
-    <value type="QString" >SHLVL=2</value>
-    <value type="QString" >TERM=xterm</value>
-    <value type="QString" >TMP=/tmp/</value>
-    <value type="QString" >TMPDIR=/tmp/</value>
-    <value type="QString" >USER=gthom</value>
-    <value type="QString" >WINDOWID=58720285</value>
-    <value type="QString" >WINDOWPATH=7</value>
-    <value type="QString" >XCURSOR_THEME=default</value>
-    <value type="QString" >XDG_CONFIG_DIRS=/etc/xdg:/etc/xdg/kde4</value>
-    <value type="QString" >XDG_DATA_DIRS=/usr/share:/usr/share:/usr/local/share</value>
-    <value type="QString" >XDG_MENU_PREFIX=kde-</value>
-    <value type="QString" >XDG_SESSION_COOKIE=607fd76abc3b4a61715cd4e44a9d3ba7-1266841168.207646-1238749182</value>
-    <value type="QString" >XMODIFIERS=@im=none</value>
-    <value type="QString" >_=/usr/bin/qtcreator</value>
-   </valuelist>
-   <valuelist key="abstractProcess.arguments" type="QVariantList" >
-    <value type="QString" >debug</value>
-    <value type="QString" >-w</value>
-   </valuelist>
-   <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
-   <value key="abstractProcess.enabled" type="bool" >true</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/home/gthom/chrysalideProject/chrysalide</value>
-   <valuelist key="makeargs" type="QVariantList" >
-    <value type="QString" >debug</value>
+   <value key="abstractProcess.command" type="QString">/usr/bin/make</value>
+   <value key="abstractProcess.enabled" type="bool">true</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/tonixx/chrysalideProject/chrysalide</value>
+   <valuelist key="makeargs" type="QVariantList">
+    <value type="QString">debug</value>
    </valuelist>
   </valuemap>
  </data>
  <data>
   <variable>buildconfiguration-Debug-cleanstep0</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
-  </valuemap>
- </data>
- <data>
-  <variable>buildconfiguration-Debug-cleanstep1</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <value key="cleanConfig" type="bool">true</value>
+   <valuelist key="makeargs" type="QVariantList">
+    <value type="QString">clean</value>
+   </valuelist>
   </valuemap>
  </data>
  <data>
   <variable>buildconfiguration-Release-buildstep0</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
+   <value key="buildConfiguration" type=""></value>
   </valuemap>
  </data>
  <data>
   <variable>buildconfiguration-Release-buildstep1</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
-   <value key="buildConfiguration" type="int" >8</value>
-  </valuemap>
- </data>
- <data>
-  <variable>buildconfiguration-Release-buildstep2</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
-   <valuelist key="makeargs" type="QVariantList" >
-    <value type="QString" >release</value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
+   <valuelist key="makeargs" type="QVariantList">
+    <value type="QString">release</value>
    </valuelist>
   </valuemap>
  </data>
  <data>
   <variable>buildconfiguration-Release-cleanstep0</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
-  </valuemap>
- </data>
- <data>
-  <variable>buildconfiguration-Release-cleanstep1</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
   </valuemap>
  </data>
  <data>
   <variable>buildconfigurations</variable>
-  <valuelist type="QVariantList" >
-   <value type="QString" >Debug</value>
-   <value type="QString" >Release</value>
+  <valuelist type="QVariantList">
+   <value type="QString">Debug</value>
+   <value type="QString">Release</value>
   </valuelist>
  </data>
  <data>
   <variable>buildstep0</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString"></value>
+   <value key="mkspec" type="QString"></value>
   </valuemap>
  </data>
  <data>
   <variable>buildstep1</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
-   <value key="mkspec" type="QString" ></value>
-  </valuemap>
- </data>
- <data>
-  <variable>buildstep2</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString"></value>
   </valuemap>
  </data>
  <data>
   <variable>buildsteps</variable>
-  <valuelist type="QVariantList" >
-   <value type="QString" >trolltech.qt4projectmanager.gdbmaros</value>
-   <value type="QString" >trolltech.qt4projectmanager.qmake</value>
-   <value type="QString" >trolltech.qt4projectmanager.make</value>
+  <valuelist type="QVariantList">
+   <value type="QString">trolltech.qt4projectmanager.qmake</value>
+   <value type="QString">trolltech.qt4projectmanager.make</value>
   </valuelist>
  </data>
  <data>
   <variable>cleanstep0</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
-   <value key="clean" type="bool" >true</value>
-  </valuemap>
- </data>
- <data>
-  <variable>cleanstep1</variable>
-  <valuemap type="QVariantMap" >
-   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
-   <value key="clean" type="bool" >true</value>
+  <valuemap type="QVariantMap">
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString"></value>
+   <value key="clean" type="bool">true</value>
   </valuemap>
  </data>
  <data>
   <variable>cleansteps</variable>
-  <valuelist type="QVariantList" >
-   <value type="QString" >trolltech.qt4projectmanager.gdbmaros</value>
-   <value type="QString" >trolltech.qt4projectmanager.make</value>
+  <valuelist type="QVariantList">
+   <value type="QString">trolltech.qt4projectmanager.make</value>
   </valuelist>
  </data>
  <data>
   <variable>defaultFileEncoding</variable>
-  <value type="QByteArray" >UTF-8</value>
+  <value type="QByteArray">UTF-8</value>
  </data>
  <data>
   <variable>project</variable>
-  <valuemap type="QVariantMap" />
+  <valuemap type="QVariantMap"/>
  </data>
 </qtcreator>

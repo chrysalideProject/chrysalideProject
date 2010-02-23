@@ -7,8 +7,12 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     personnemodel.cpp \
-    patientmodel.cpp
+    patientmodel.cpp \
+    tableamanger.cpp \
+    typetable.cpp
 HEADERS += mainwindow.h \
     personnemodel.h \
-    patientmodel.h
+    patientmodel.h \
+    tableamanger.h \
+    typetable.h
 FORMS += mainwindow.ui
