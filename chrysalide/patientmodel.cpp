@@ -5,6 +5,9 @@ patientModel::patientModel(long pId, QString pNom, QString pPrenom, int pIdRegim
     idRegime = pIdRegime;
     idSurveillance = pIdSurveillance;
     idTravail = pIdTravail;
+
+    recupererAffinites();
+    recupererIncompatibles();
 }
 
 QVector<patientModel*> patientModel::recupererPatients(){
@@ -36,5 +39,25 @@ void patientModel::supprimer(){
     supprimer.exec();
 
     personneModel::supprimer();
+
+}
+
+void patientModel::recupererAffinites(){
+
+    QSqlQuery recupAffinites("SELECT idPersonne2, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join AFFINITE on AFFINITE.idPersonne2 = PATIENT.idPersonne WHERE idPersonne1 = "+QString::number(id));
+
+    while(recupAffinites.next()){
+        affinites.push_back(new patientModel(recupAffinites.value(0).toInt(), recupAffinites.value(1).toString(), recupAffinites.value(2).toString(), recupAffinites.value(3).toInt(), recupAffinites.value(4).toInt(), recupAffinites.value(5).toInt()));
+    }
+
+}
+
+void patientModel::recupererIncompatibles(){
+
+    QSqlQuery recupIncompatibles("SELECT idPersonne2, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join INCOMPATIBILITE on INCOMPATIBILITE.idPersonne2 = PATIENT.idPersonne WHERE idPersonne1 = "+QString::number(id));
+
+    while(recupIncompatibles.next()){
+        incompatibles.push_back(new patientModel(recupIncompatibles.value(0).toInt(), recupIncompatibles.value(1).toString(), recupIncompatibles.value(2).toString(), recupIncompatibles.value(3).toInt(), recupIncompatibles.value(4).toInt(), recupIncompatibles.value(5).toInt()));
+    }
 
 }

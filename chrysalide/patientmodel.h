@@ -15,10 +15,14 @@ class patientModel : personneModel
         QVector<patientModel*> incompatibles;
 
     public:
+
         patientModel(long, QString, QString, int, int, int);
         static QVector<patientModel*> recupererPatients();
         void majProfil();
         void supprimer();
+
+        void recupererAffinites();
+        void recupererIncompatibles();
 };
 
 #endif // PATIENTMODEL_H
