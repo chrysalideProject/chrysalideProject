@@ -1,6 +1,6 @@
 /***Création des clés primaires***/
 
-alter table PERSONNE add primary key (id);
+alter table PERSONNE add id primary key ;
 alter table CUISINIER add primary key (idPersonne);
 alter table AUTRE add primary key (idPersonne);
 alter table PATIENT add primary key (idPersonne);
