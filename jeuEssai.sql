@@ -1,6 +1,6 @@
 /*****Création du jeu d'essai*****/
 
-delete if exists from TYPETABLE;
+delete from TYPETABLE;
 delete from TABLEAMANGER;
 delete from REGIME;
 delete from TRAVAIL;
