@@ -20,6 +20,10 @@ public:
 private:
     Ui::MainWindowClass *ui;
     QSqlDatabase* database;
+
+private slots:
+    void on_action_Quitter_triggered();
+    void on_action_Ouvrir_triggered();
 };
 
 #endif // MAINWINDOW_H
