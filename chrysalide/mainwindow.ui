@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>400</height>
+    <height>75</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,6 +27,7 @@
     <property name="title">
      <string>&amp;Fichier</string>
     </property>
+    <addaction name="action_Nouveau"/>
     <addaction name="action_Ouvrir"/>
     <addaction name="action_Quitter"/>
    </widget>
@@ -41,9 +42,34 @@
     <property name="title">
      <string>&amp;Aide</string>
     </property>
+    <addaction name="action_Manuel"/>
+    <addaction name="action_Propos"/>
+   </widget>
+   <widget class="QMenu" name="menuEvenements">
+    <property name="title">
+     <string>&amp;Evenements</string>
+    </property>
+    <addaction name="actionArriv_e"/>
+    <addaction name="actionD_part"/>
+   </widget>
+   <widget class="QMenu" name="menuConfiguration">
+    <property name="title">
+     <string>&amp;Configuration</string>
+    </property>
+    <addaction name="actionRentrer_les_Tables"/>
+   </widget>
+   <widget class="QMenu" name="menu_Quotidien">
+    <property name="title">
+     <string>&amp;Quotidien</string>
+    </property>
+    <addaction name="action_Pr_paration_des_tables"/>
+    <addaction name="action_gestion_des_affinit_s"/>
    </widget>
    <addaction name="menu_Fichier"/>
+   <addaction name="menuEvenements"/>
+   <addaction name="menu_Quotidien"/>
    <addaction name="menu_Gestion"/>
+   <addaction name="menuConfiguration"/>
    <addaction name="menu_Aide"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -73,6 +99,46 @@
   <action name="action_Repas">
    <property name="text">
     <string>&amp;Repas</string>
+   </property>
+  </action>
+  <action name="actionArriv_e">
+   <property name="text">
+    <string>Arrivée</string>
+   </property>
+  </action>
+  <action name="actionD_part">
+   <property name="text">
+    <string>Départ</string>
+   </property>
+  </action>
+  <action name="actionRentrer_les_Tables">
+   <property name="text">
+    <string>Rentrer les Tables</string>
+   </property>
+  </action>
+  <action name="action_Nouveau">
+   <property name="text">
+    <string>&amp;Nouveau</string>
+   </property>
+  </action>
+  <action name="action_Pr_paration_des_tables">
+   <property name="text">
+    <string>&amp;Préparation du repas</string>
+   </property>
+  </action>
+  <action name="action_gestion_des_affinit_s">
+   <property name="text">
+    <string>&amp;Gestion des affinités</string>
+   </property>
+  </action>
+  <action name="action_Propos">
+   <property name="text">
+    <string>à &amp;Propos</string>
+   </property>
+  </action>
+  <action name="action_Manuel">
+   <property name="text">
+    <string>&amp;Manuel</string>
    </property>
   </action>
  </widget>
