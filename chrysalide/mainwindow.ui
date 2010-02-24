@@ -44,6 +44,7 @@
     </property>
     <addaction name="actionArriv_e"/>
     <addaction name="actionD_part"/>
+    <addaction name="action_Modification_Personne"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
@@ -96,12 +97,12 @@
   </action>
   <action name="actionArriv_e">
    <property name="text">
-    <string>Arrivée</string>
+    <string>&amp;Arrivée</string>
    </property>
   </action>
   <action name="actionD_part">
    <property name="text">
-    <string>Départ</string>
+    <string>&amp;Départ</string>
    </property>
   </action>
   <action name="actionRentrer_les_Tables">
@@ -137,6 +138,11 @@
   <action name="action_Sauvegarde">
    <property name="text">
     <string>&amp;Sauvegarde</string>
+   </property>
+  </action>
+  <action name="action_Modification_Personne">
+   <property name="text">
+    <string>&amp;Modification Personne</string>
    </property>
   </action>
  </widget>

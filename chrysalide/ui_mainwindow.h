@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Wed Feb 24 09:30:20 2010
+** Created: Wed Feb 24 11:01:25 2010
 **      by: Qt User Interface Compiler version 4.5.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -40,6 +40,7 @@ public:
     QAction *action_Propos;
     QAction *action_Manuel;
     QAction *action_Sauvegarde;
+    QAction *action_Modification_Personne;
     QWidget *centralWidget;
     QMenuBar *menuBar;
     QMenu *menu_Fichier;
@@ -81,6 +82,8 @@ public:
         action_Manuel->setObjectName(QString::fromUtf8("action_Manuel"));
         action_Sauvegarde = new QAction(MainWindowClass);
         action_Sauvegarde->setObjectName(QString::fromUtf8("action_Sauvegarde"));
+        action_Modification_Personne = new QAction(MainWindowClass);
+        action_Modification_Personne->setObjectName(QString::fromUtf8("action_Modification_Personne"));
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         MainWindowClass->setCentralWidget(centralWidget);
@@ -117,6 +120,7 @@ public:
         menu_Aide->addAction(action_Propos);
         menuEvenements->addAction(actionArriv_e);
         menuEvenements->addAction(actionD_part);
+        menuEvenements->addAction(action_Modification_Personne);
         menuConfiguration->addAction(actionRentrer_les_Tables);
         menuConfiguration->addAction(action_Sauvegarde);
         menu_Quotidien->addAction(action_Pr_paration_des_tables);
@@ -134,8 +138,8 @@ public:
         action_Quitter->setText(QApplication::translate("MainWindowClass", "&Quitter", 0, QApplication::UnicodeUTF8));
         action_Patients->setText(QApplication::translate("MainWindowClass", "&Patients", 0, QApplication::UnicodeUTF8));
         action_Repas->setText(QApplication::translate("MainWindowClass", "&Repas", 0, QApplication::UnicodeUTF8));
-        actionArriv_e->setText(QApplication::translate("MainWindowClass", "Arriv\303\251e", 0, QApplication::UnicodeUTF8));
-        actionD_part->setText(QApplication::translate("MainWindowClass", "D\303\251part", 0, QApplication::UnicodeUTF8));
+        actionArriv_e->setText(QApplication::translate("MainWindowClass", "&Arriv\303\251e", 0, QApplication::UnicodeUTF8));
+        actionD_part->setText(QApplication::translate("MainWindowClass", "&D\303\251part", 0, QApplication::UnicodeUTF8));
         actionRentrer_les_Tables->setText(QApplication::translate("MainWindowClass", "&Rentrer les Tables", 0, QApplication::UnicodeUTF8));
         action_Nouveau->setText(QApplication::translate("MainWindowClass", "&Nouveau", 0, QApplication::UnicodeUTF8));
         action_Pr_paration_des_tables->setText(QApplication::translate("MainWindowClass", "&Pr\303\251paration du repas", 0, QApplication::UnicodeUTF8));
@@ -143,6 +147,7 @@ public:
         action_Propos->setText(QApplication::translate("MainWindowClass", "\303\240 &Propos", 0, QApplication::UnicodeUTF8));
         action_Manuel->setText(QApplication::translate("MainWindowClass", "&Manuel", 0, QApplication::UnicodeUTF8));
         action_Sauvegarde->setText(QApplication::translate("MainWindowClass", "&Sauvegarde", 0, QApplication::UnicodeUTF8));
+        action_Modification_Personne->setText(QApplication::translate("MainWindowClass", "&Modification Personne", 0, QApplication::UnicodeUTF8));
         menu_Fichier->setTitle(QApplication::translate("MainWindowClass", "&Fichier", 0, QApplication::UnicodeUTF8));
         menu_Aide->setTitle(QApplication::translate("MainWindowClass", "&Aide", 0, QApplication::UnicodeUTF8));
         menuEvenements->setTitle(QApplication::translate("MainWindowClass", "&Evenements", 0, QApplication::UnicodeUTF8));

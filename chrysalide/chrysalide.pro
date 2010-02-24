@@ -25,3 +25,4 @@ SOURCES += gerertypestables.cpp \
            tableamanger.cpp \
            typetable.cpp \
            qtc-gdbmacros/gdbmacros.cpp
+QT += sql

@@ -16,7 +16,15 @@ class typeTable : public QObject
 
     public:
         typeTable(int);
+
+        int getNumero(){ return numero; }
+        QString getLibelle(){ return libelle; }
+
         static QVector<typeTable*> recupererTypesTables();
+        static typeTable* nouveauTypeTable();
+
+    signals:
+        void typesTablesChanged();
 };
 
 #endif // TYPETABLE_H

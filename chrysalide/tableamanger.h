@@ -14,8 +14,13 @@ class tableAManger : public QObject
 
     public:
         tableAManger(int, int, int);
-        void setTypeTable(typeTable*);
+        void setCapacite(int);
+        void setType(typeTable*);
         static QVector<tableAManger*> recupererTables();
+
+    signals:
+        void capaciteChanged(int);
+        void typeChanged(typeTable*);
 };
 
 #endif // TABLEAMANGER_H

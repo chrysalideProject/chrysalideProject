@@ -8,6 +8,26 @@ tableAManger::tableAManger(int pNumero, int pCapacite, int pNumeroTypeTable)
     type = new typeTable(pNumeroTypeTable);
 }
 
+
+void tableAManger::setCapacite(int pCapacite){
+
+    capacite = pCapacite;
+    QSqlQuery query("UPDATE TABLEAMANGER SET capacite = "+QString::number(capacite));
+    query.exec();
+
+    emit capaciteChanged(capacite);
+
+}
+
+
+void tableAManger::setType(typeTable* pTypeTable){
+
+    type = pTypeTable;
+    emit typeChanged(type);
+
+}
+
+
 QVector<tableAManger*> tableAManger::recupererTables(){
 
     QVector<tableAManger*> resultat;

@@ -14,6 +14,23 @@ typeTable::typeTable(int pNumero)
 
 }
 
+typeTable* typeTable::nouveauTypeTable(){
+
+    typeTable* resultat;
+
+    QSqlQuery query("INSERT INTO TYPETABLE (libelle) VALUES ('Nouveau type')");
+    query.exec();
+
+    QSqlQuery typeCree("SELECT * FROM TYPETABLE WHERE numero = (SELECT MAX(numero) FROM TYPETABLE)");
+
+    if (typeCree.first()){
+        resultat = new typeTable(typeCree.value(0).toInt());
+    }
+
+    return resultat;
+
+}
+
 QVector<typeTable*> typeTable::recupererTypesTables(){
 
     QVector<typeTable*> resultat;
