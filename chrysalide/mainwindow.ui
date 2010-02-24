@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>445</width>
     <height>75</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Chrysalide Gestion des repas</string>
+   <string>Chrysalide</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>445</width>
      <height>26</height>
     </rect>
    </property>
@@ -30,13 +30,6 @@
     <addaction name="action_Nouveau"/>
     <addaction name="action_Ouvrir"/>
     <addaction name="action_Quitter"/>
-   </widget>
-   <widget class="QMenu" name="menu_Gestion">
-    <property name="title">
-     <string>&amp;Gestion</string>
-    </property>
-    <addaction name="action_Patients"/>
-    <addaction name="action_Repas"/>
    </widget>
    <widget class="QMenu" name="menu_Aide">
     <property name="title">
@@ -57,6 +50,7 @@
      <string>&amp;Configuration</string>
     </property>
     <addaction name="actionRentrer_les_Tables"/>
+    <addaction name="action_Sauvegarde"/>
    </widget>
    <widget class="QMenu" name="menu_Quotidien">
     <property name="title">
@@ -68,7 +62,6 @@
    <addaction name="menu_Fichier"/>
    <addaction name="menuEvenements"/>
    <addaction name="menu_Quotidien"/>
-   <addaction name="menu_Gestion"/>
    <addaction name="menuConfiguration"/>
    <addaction name="menu_Aide"/>
   </widget>
@@ -113,7 +106,7 @@
   </action>
   <action name="actionRentrer_les_Tables">
    <property name="text">
-    <string>Rentrer les Tables</string>
+    <string>&amp;Rentrer les Tables</string>
    </property>
   </action>
   <action name="action_Nouveau">
@@ -139,6 +132,11 @@
   <action name="action_Manuel">
    <property name="text">
     <string>&amp;Manuel</string>
+   </property>
+  </action>
+  <action name="action_Sauvegarde">
+   <property name="text">
+    <string>&amp;Sauvegarde</string>
    </property>
   </action>
  </widget>
