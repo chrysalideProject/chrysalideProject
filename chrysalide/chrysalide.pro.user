@@ -98,7 +98,7 @@
     <value type="QString" >KDE_SESSION_UID=500</value>
     <value type="QString" >KDE_SESSION_VERSION=4</value>
     <value type="QString" >KONSOLE_DBUS_SERVICE=:1.69</value>
-    <value type="QString" >KONSOLE_DBUS_SESSION=/Sessions/1</value>
+    <value type="QString" >KONSOLE_DBUS_SESSION=/Sessions/2</value>
     <value type="QString" >LANG=fr_FR.UTF-8</value>
     <value type="QString" >LANGUAGE=fr_FR.UTF-8:fr</value>
     <value type="QString" >LC_ADDRESS=fr_FR.UTF-8</value>
@@ -125,12 +125,12 @@
     <value type="QString" >MDV_MENU_STYLE=mandriva</value>
     <value type="QString" >META_CLASS=download</value>
     <value type="QString" >NLSPATH=/usr/share/locale/%l/%N</value>
-    <value type="QString" >OLDPWD=/home/gthom/chrysalideProject</value>
+    <value type="QString" >OLDPWD=/home/gthom/chrysalideProject/chrysalide</value>
     <value type="QString" >PATH=/usr/lib/qt4/bin:/bin:/usr/bin:/usr/bin:/usr/ucb:/usr/games:/usr/lib/qt4/bin:/home/gthom/bin</value>
     <value type="QString" >PROFILEHOME=</value>
     <value type="QString" >PULSE_PROP_media.role=none</value>
-    <value type="QString" >PULSE_PROP_phonon.streamid={4ca735cd-2e71-4230-98dd-6b6a5d4b01fd}</value>
-    <value type="QString" >PWD=/home/gthom/chrysalideProject/chrysalide</value>
+    <value type="QString" >PULSE_PROP_phonon.streamid={af7e6c07-ab84-4a1a-88a9-48b31998a9df}</value>
+    <value type="QString" >PWD=/home/gthom/chrysalideProject</value>
     <value type="QString" >PYTHONDONTWRITEBYTECODE=1</value>
     <value type="QString" >PYTHONPATH=/usr/lib/ooo/basis-link/program:/usr/lib/ooo/basis-link/program</value>
     <value type="QString" >PYTHONSTARTUP=/etc/pythonrc.py</value>
@@ -200,7 +200,7 @@
     <value type="QString" >KDE_SESSION_UID=500</value>
     <value type="QString" >KDE_SESSION_VERSION=4</value>
     <value type="QString" >KONSOLE_DBUS_SERVICE=:1.69</value>
-    <value type="QString" >KONSOLE_DBUS_SESSION=/Sessions/1</value>
+    <value type="QString" >KONSOLE_DBUS_SESSION=/Sessions/2</value>
     <value type="QString" >LANG=fr_FR.UTF-8</value>
     <value type="QString" >LANGUAGE=fr_FR.UTF-8:fr</value>
     <value type="QString" >LC_ADDRESS=fr_FR.UTF-8</value>
@@ -227,12 +227,12 @@
     <value type="QString" >MDV_MENU_STYLE=mandriva</value>
     <value type="QString" >META_CLASS=download</value>
     <value type="QString" >NLSPATH=/usr/share/locale/%l/%N</value>
-    <value type="QString" >OLDPWD=/home/gthom/chrysalideProject</value>
+    <value type="QString" >OLDPWD=/home/gthom/chrysalideProject/chrysalide</value>
     <value type="QString" >PATH=/usr/lib/qt4/bin:/bin:/usr/bin:/usr/bin:/usr/ucb:/usr/games:/usr/lib/qt4/bin:/home/gthom/bin</value>
     <value type="QString" >PROFILEHOME=</value>
     <value type="QString" >PULSE_PROP_media.role=none</value>
-    <value type="QString" >PULSE_PROP_phonon.streamid={4ca735cd-2e71-4230-98dd-6b6a5d4b01fd}</value>
-    <value type="QString" >PWD=/home/gthom/chrysalideProject/chrysalide</value>
+    <value type="QString" >PULSE_PROP_phonon.streamid={af7e6c07-ab84-4a1a-88a9-48b31998a9df}</value>
+    <value type="QString" >PWD=/home/gthom/chrysalideProject</value>
     <value type="QString" >PYTHONDONTWRITEBYTECODE=1</value>
     <value type="QString" >PYTHONPATH=/usr/lib/ooo/basis-link/program:/usr/lib/ooo/basis-link/program</value>
     <value type="QString" >PYTHONSTARTUP=/etc/pythonrc.py</value>
