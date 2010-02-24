@@ -26,7 +26,7 @@ void MainWindow::on_action_Ouvrir_triggered()
     dialogOuvertureBase.setFilter("*.db");
   if(dialogOuvertureBase.exec())
     {
-      QString fileName=dialogOuvertureBase.getOpenFileName();
+      QString fileName=dialogOuvertureBase.selectedFiles().first();
       database->setDatabaseName(fileName);
       if (!database->open())
       {
