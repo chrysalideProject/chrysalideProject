@@ -1,4 +1,5 @@
 #include "tableamanger.h"
+#include <QDebug>
 
 tableAManger::tableAManger(int pNumero, int pCapacite, int pNumeroTypeTable)
 {
@@ -43,3 +44,12 @@ QVector<tableAManger*> tableAManger::recupererTables(){
     return resultat;
 
 }
+void tableAManger::capaciteChanged(int nouvelleCapacite)
+{
+    qDebug()<<"void tableAManger::capaciteChanged(int nouvelleCapacite)";
+}
+void tableAManger::typeChanged(typeTable* nouveauTypeTable)
+{
+    qDebug()<<"void tableAManger::typeChanged(typeTable* nouveauTypeTable)";
+}
+
