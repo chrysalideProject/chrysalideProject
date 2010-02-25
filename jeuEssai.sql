@@ -34,7 +34,7 @@ insert into REGIME values (2, 'surveillance');
 insert into REGIME values (3, 'normal');
 
 insert into TRAVAIL values (1, 'atelier');
-insert into TRAVAIL values (2, 'macon');
+insert into TRAVAIL values (2, 'maçon');
 insert into TRAVAIL values (3, 'espacesVerts');
 
 insert into SURVEILLANCE values (1, 'faible');

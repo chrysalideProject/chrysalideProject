@@ -1,10 +1,10 @@
 /********************************************************************************
-** Form generated from reading UI file 'gerertypestables.ui'
+** Form generated from reading ui file 'gerertypestables.ui'
 **
-** Created: Tue Feb 23 21:59:14 2010
-**      by: Qt User Interface Compiler version 4.6.2
+** Created: Thu Feb 25 10:12:59 2010
+**      by: Qt User Interface Compiler version 4.5.3
 **
-** WARNING! All changes made in this file will be lost when recompiling UI file!
+** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/
 
 #ifndef UI_GERERTYPESTABLES_H
@@ -89,6 +89,7 @@ public:
         label_3->setText(QApplication::translate("gererTypesTables", "Libelle", 0, QApplication::UnicodeUTF8));
         pushButton_2->setText(QApplication::translate("gererTypesTables", "Appliquer", 0, QApplication::UnicodeUTF8));
         supprimerButton->setText(QApplication::translate("gererTypesTables", "Supprimer", 0, QApplication::UnicodeUTF8));
+        Q_UNUSED(gererTypesTables);
     } // retranslateUi
 
 };

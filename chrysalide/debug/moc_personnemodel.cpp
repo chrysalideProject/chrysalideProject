@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'personnemodel.h'
 **
-** Created: Wed Feb 24 09:04:59 2010
+** Created: Thu Feb 25 11:06:13 2010
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.3)
 **
 ** WARNING! All changes made in this file will be lost!

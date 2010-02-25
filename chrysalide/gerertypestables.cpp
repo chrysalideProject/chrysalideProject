@@ -48,7 +48,7 @@ void gererTypesTables::changeEvent(QEvent *e)
 
 void gererTypesTables::on_nouveauTypeTableButton_clicked()
 {
-    typesTables.push_back(typeTable::nouveauTypeTable());
+    typesTables.push_back(new typeTable("nouveau type"));
     ui->listeTypesTables->addItem(typesTables.last()->getLibelle());
 }
 

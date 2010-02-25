@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include <QCloseEvent>
 #include <QDebug>
+#include "dialogsalleconceptor.h"
 
 MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
@@ -40,11 +41,10 @@ void MainWindow::on_action_Quitter_triggered()
 {
     qDebug()<<"void MainWindow::on_action_Quitter_triggered()";
     //choix de l'option quitter du menu
-    qDebug()<<"void MainWindow::on_action_Quitter_triggered()";
   close();
 }
 
-void MainWindow::onCloseEvent(QCloseEvent* event)
+void MainWindow::closeEvent(QCloseEvent* event)
 {
     //demande de fermeture de la part de l'utilisateur
     qDebug()<<"void MainWindow::onCloseEvent(QCloseEvent* event)";
@@ -72,6 +72,9 @@ void MainWindow::on_actionRentrer_les_Tables_triggered()
 {
     qDebug()<<"void MainWindow::on_actionRentrer_les_Tables_triggered()";
     //configuration initiale on rentre les tables constituant la salle de restauration
+    DialogSalleConceptor* dsc=new DialogSalleConceptor(this);
+    dsc->exec();
+    delete dsc;
 }
 
 void MainWindow::on_action_Nouveau_triggered()

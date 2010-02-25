@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'typetable.h'
 **
-** Created: Wed Feb 24 09:05:00 2010
+** Created: Thu Feb 25 16:21:13 2010
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,16 +23,19 @@ static const uint qt_meta_data_typeTable[] = {
        2,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       1,   12, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
+
+ // signals: signature, parameters, type, tag, flags
+      11,   10,   10,   10, 0x05,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_typeTable[] = {
-    "typeTable\0"
+    "typeTable\0\0typesTablesChanged()\0"
 };
 
 const QMetaObject typeTable::staticMetaObject = {
@@ -58,6 +61,19 @@ int typeTable::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: typesTablesChanged(); break;
+        default: ;
+        }
+        _id -= 1;
+    }
     return _id;
+}
+
+// SIGNAL 0
+void typeTable::typesTablesChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }
 QT_END_MOC_NAMESPACE

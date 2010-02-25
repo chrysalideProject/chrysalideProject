@@ -33,7 +33,7 @@ private slots:
     void on_actionArriv_e_triggered();
     void on_action_Quitter_triggered();
     void on_action_Ouvrir_triggered();
-    void onCloseEvent(QCloseEvent* event);
+    void closeEvent(QCloseEvent* event);
 };
 
 #endif // MAINWINDOW_H

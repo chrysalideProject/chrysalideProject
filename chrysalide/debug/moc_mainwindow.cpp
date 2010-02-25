@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Wed Feb 24 09:39:05 2010
+** Created: Thu Feb 25 11:06:12 2010
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -57,7 +57,7 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_actionArriv_e_triggered()\0"
     "on_action_Quitter_triggered()\0"
     "on_action_Ouvrir_triggered()\0event\0"
-    "onCloseEvent(QCloseEvent*)\0"
+    "closeEvent(QCloseEvent*)\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -96,7 +96,7 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 8: on_actionArriv_e_triggered(); break;
         case 9: on_action_Quitter_triggered(); break;
         case 10: on_action_Ouvrir_triggered(); break;
-        case 11: onCloseEvent((*reinterpret_cast< QCloseEvent*(*)>(_a[1]))); break;
+        case 11: closeEvent((*reinterpret_cast< QCloseEvent*(*)>(_a[1]))); break;
         default: ;
         }
         _id -= 12;

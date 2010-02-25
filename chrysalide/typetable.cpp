@@ -1,34 +1,34 @@
 #include "typetable.h"
+#include <QDebug>
 
 typeTable::typeTable(int pNumero)
 {
     numero = pNumero;
 
-    QSqlQuery typeTable("SELECT * FROM TYPETABLE WHERE numero = "+QString::number(numero));
+    QSqlQuery typeTable("SELECT libelle FROM TYPETABLE WHERE numero = "+QString::number(numero));
 
     if (typeTable.first()){
 
-        libelle = typeTable.value(1).toString();
+        libelle = typeTable.value(0).toString();
 
+    }
+    else
+    {
+        libelle="No "+QString::number(numero)+" non trouvé dans la table";
     }
 
 }
 
-typeTable* typeTable::nouveauTypeTable(){
+typeTable::typeTable(QString pLibelle){
 
-    typeTable* resultat;
 
-    QSqlQuery query("INSERT INTO TYPETABLE (libelle) VALUES ('Nouveau type')");
-    query.exec();
-
-    QSqlQuery typeCree("SELECT * FROM TYPETABLE WHERE numero = (SELECT MAX(numero) FROM TYPETABLE)");
-
-    if (typeCree.first()){
-        resultat = new typeTable(typeCree.value(0).toInt());
-    }
-
-    return resultat;
-
+    QSqlQuery queryMax("SELECT MAX(numero)+1 FROM TYPETABLE");
+    queryMax.first();
+    int numeroTable=queryMax.value(0).toInt();
+    QSqlQuery query("INSERT INTO TYPETABLE (numero,libelle) VALUES ("+QString::number(numeroTable)+",'"+pLibelle+"')");
+    query.exec();    
+    this->numero=numeroTable;
+    this->libelle=pLibelle;
 }
 
 QVector<typeTable*> typeTable::recupererTypesTables(){
@@ -40,7 +40,18 @@ QVector<typeTable*> typeTable::recupererTypesTables(){
     while (typesTables.next()){
         resultat.push_back(new typeTable(typesTables.value(0).toInt()));
     }
-
     return resultat;
 
+}
+QVector <tableAManger*> typeTable::getTablesAManger()
+{
+    qDebug()<<"QVector& <tableAManger*> typeTable::getTablesAManger();";
+    QVector<tableAManger*> resultat;
+
+    QSqlQuery requeteLesTables("SELECT * FROM TABLEAMANGER WHERE TYPETABLE="+QString::number(numero));
+
+    while (requeteLesTables.next()){
+        resultat.push_back(new tableAManger(requeteLesTables.value(0).toInt()));
+    }
+    return resultat;
 }
