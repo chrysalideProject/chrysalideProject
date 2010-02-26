@@ -27,6 +27,9 @@ private:
 
 
 private slots:
+    void on_pushButtonQuitter_clicked();
+    void on_actionSupprimerTable_triggered();
+    void on_pushButtonSauver_clicked();
     void on_pushButtonNewSalle_clicked();
     void on_comboBoxSalle_currentIndexChanged(int index);
 };

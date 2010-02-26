@@ -12,8 +12,20 @@ MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
 {
     ui->setupUi(this);
     database = pDatabase;
+    //desactivation des menus tant que il n'a pas réussi l'ouverture d'une base ou sa création
+    activedesactiveMenusNecessitantOuvertureBase(false);
 }
-
+void MainWindow::activedesactiveMenusNecessitantOuvertureBase(bool activation)
+{
+   ui->actionArriv_e->setEnabled(activation);
+   ui->actionD_part->setEnabled(activation);
+   ui->actionRentrer_les_Tables->setEnabled(activation);
+   ui->action_gestion_des_affinit_s->setEnabled(activation);
+   ui->action_Modification_Personne->setEnabled(activation);
+   ui->action_Patients->setEnabled(activation);
+   ui->action_Repas->setEnabled(activation);
+   ui->action_Sauvegarde->setEnabled(activation);
+}
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -33,6 +45,8 @@ void MainWindow::on_action_Ouvrir_triggered()
       {
           QMessageBox::critical(this, windowTitle()+" Erreur", "Impossible d'ouvrir cette base de données");
       }
+      else activedesactiveMenusNecessitantOuvertureBase(true);
+
   }
 
 }

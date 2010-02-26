@@ -100,7 +100,7 @@
     <value type="QString" >BROWSER=/usr/bin/www-browser</value>
     <value type="QString" >CANBERRA_DRIVER=pulse</value>
     <value type="QString" >COMPOSITING_WM_START=yes</value>
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-4J6vXZOfJc,guid=22add68526037ed4016cffa44b860cb3</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-cacEnMgLUO,guid=a68fc1c0a1e84f21600c7b7d4b8766cb</value>
     <value type="QString" >DESKTOP_SESSION=01KDE4</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
@@ -110,7 +110,7 @@
     <value type="QString" >DVDCSS_RAW_DEVICE=/dev/rdvd</value>
     <value type="QString" >DVDCSS_VERBOSE=0</value>
     <value type="QString" >GCONF_TMPDIR=/tmp</value>
-    <value type="QString" >GPG_AGENT_INFO=/home/gthom/.gnupg/S.gpg-agent:16806:1</value>
+    <value type="QString" >GPG_AGENT_INFO=/home/gthom/.gnupg/S.gpg-agent:14367:1</value>
     <value type="QString" >GS_LIB=/home/gthom/.fonts</value>
     <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
     <value type="QString" >G_FILENAME_ENCODING=@locale</value>
@@ -153,7 +153,7 @@
     <value type="QString" >PATH=/usr/lib/qt4/bin:/usr/bin:/bin:/usr/local/bin:/usr/X11R6/bin/:/usr/games:/usr/lib/qt4/bin:/home/gthom/bin</value>
     <value type="QString" >PILOTPORT=usb:</value>
     <value type="QString" >PULSE_PROP_media.role=none</value>
-    <value type="QString" >PULSE_PROP_phonon.streamid={6c9cc09d-1396-48c7-a078-c3b8a953f11c}</value>
+    <value type="QString" >PULSE_PROP_phonon.streamid={d684119d-ade0-4948-b4b3-414944ac5d09}</value>
     <value type="QString" >PWD=/home/gthom</value>
     <value type="QString" >PYTHONDONTWRITEBYTECODE=1</value>
     <value type="QString" >PYTHONPATH=/usr/lib/ooo/basis-link/program</value>
@@ -164,12 +164,12 @@
     <value type="QString" >QTLIB=/usr/lib</value>
     <value type="QString" >QT_PLUGIN_PATH=/home/gthom/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/</value>
     <value type="QString" >QT_XFT=0</value>
-    <value type="QString" >SESSION_MANAGER=local/drozophille.gapline.org:@/tmp/.ICE-unix/16183,unix/drozophille.gapline.org:/tmp/.ICE-unix/16183</value>
+    <value type="QString" >SESSION_MANAGER=local/drozophille.gapline.org:@/tmp/.ICE-unix/789,unix/drozophille.gapline.org:/tmp/.ICE-unix/789</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SHLVL=1</value>
-    <value type="QString" >SSH_AGENT_PID=15911</value>
+    <value type="QString" >SSH_AGENT_PID=533</value>
     <value type="QString" >SSH_ASKPASS=/usr/lib/ssh/ssh-askpass</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-QPvUx15910/agent.15910</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-jbNTauu532/agent.532</value>
     <value type="QString" >TMP=/tmp/</value>
     <value type="QString" >TMPDIR=/tmp/</value>
     <value type="QString" >USER=gthom</value>
@@ -178,7 +178,7 @@
     <value type="QString" >XDG_CONFIG_DIRS=/etc/xdg:/etc/xdg/kde4</value>
     <value type="QString" >XDG_DATA_DIRS=/usr/share:/usr/share:/usr/local/share</value>
     <value type="QString" >XDG_MENU_PREFIX=kde-</value>
-    <value type="QString" >XDG_SESSION_COOKIE=d97e583252b24613970dfb004720ea4f-1267076274.252798-1167893904</value>
+    <value type="QString" >XDG_SESSION_COOKIE=d97e583252b24613970dfb004720ea4f-1267164874.578087-723819252</value>
     <value type="QString" >XDM_MANAGED=method=classic</value>
     <value type="QString" >XMODIFIERS=@im=none</value>
     <value type="QString" >_=/usr/bin/kdeinit4</value>
@@ -204,7 +204,7 @@
     <value type="QString" >BROWSER=/usr/bin/www-browser</value>
     <value type="QString" >CANBERRA_DRIVER=pulse</value>
     <value type="QString" >COMPOSITING_WM_START=yes</value>
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-4J6vXZOfJc,guid=22add68526037ed4016cffa44b860cb3</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-cacEnMgLUO,guid=a68fc1c0a1e84f21600c7b7d4b8766cb</value>
     <value type="QString" >DESKTOP_SESSION=01KDE4</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
@@ -214,7 +214,7 @@
     <value type="QString" >DVDCSS_RAW_DEVICE=/dev/rdvd</value>
     <value type="QString" >DVDCSS_VERBOSE=0</value>
     <value type="QString" >GCONF_TMPDIR=/tmp</value>
-    <value type="QString" >GPG_AGENT_INFO=/home/gthom/.gnupg/S.gpg-agent:16806:1</value>
+    <value type="QString" >GPG_AGENT_INFO=/home/gthom/.gnupg/S.gpg-agent:14367:1</value>
     <value type="QString" >GS_LIB=/home/gthom/.fonts</value>
     <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
     <value type="QString" >G_FILENAME_ENCODING=@locale</value>
@@ -257,7 +257,7 @@
     <value type="QString" >PATH=/usr/lib/qt4/bin:/usr/bin:/bin:/usr/local/bin:/usr/X11R6/bin/:/usr/games:/usr/lib/qt4/bin:/home/gthom/bin</value>
     <value type="QString" >PILOTPORT=usb:</value>
     <value type="QString" >PULSE_PROP_media.role=none</value>
-    <value type="QString" >PULSE_PROP_phonon.streamid={6c9cc09d-1396-48c7-a078-c3b8a953f11c}</value>
+    <value type="QString" >PULSE_PROP_phonon.streamid={d684119d-ade0-4948-b4b3-414944ac5d09}</value>
     <value type="QString" >PWD=/home/gthom</value>
     <value type="QString" >PYTHONDONTWRITEBYTECODE=1</value>
     <value type="QString" >PYTHONPATH=/usr/lib/ooo/basis-link/program</value>
@@ -268,12 +268,12 @@
     <value type="QString" >QTLIB=/usr/lib</value>
     <value type="QString" >QT_PLUGIN_PATH=/home/gthom/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/</value>
     <value type="QString" >QT_XFT=0</value>
-    <value type="QString" >SESSION_MANAGER=local/drozophille.gapline.org:@/tmp/.ICE-unix/16183,unix/drozophille.gapline.org:/tmp/.ICE-unix/16183</value>
+    <value type="QString" >SESSION_MANAGER=local/drozophille.gapline.org:@/tmp/.ICE-unix/789,unix/drozophille.gapline.org:/tmp/.ICE-unix/789</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SHLVL=1</value>
-    <value type="QString" >SSH_AGENT_PID=15911</value>
+    <value type="QString" >SSH_AGENT_PID=533</value>
     <value type="QString" >SSH_ASKPASS=/usr/lib/ssh/ssh-askpass</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-QPvUx15910/agent.15910</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-jbNTauu532/agent.532</value>
     <value type="QString" >TMP=/tmp/</value>
     <value type="QString" >TMPDIR=/tmp/</value>
     <value type="QString" >USER=gthom</value>
@@ -282,7 +282,7 @@
     <value type="QString" >XDG_CONFIG_DIRS=/etc/xdg:/etc/xdg/kde4</value>
     <value type="QString" >XDG_DATA_DIRS=/usr/share:/usr/share:/usr/local/share</value>
     <value type="QString" >XDG_MENU_PREFIX=kde-</value>
-    <value type="QString" >XDG_SESSION_COOKIE=d97e583252b24613970dfb004720ea4f-1267076274.252798-1167893904</value>
+    <value type="QString" >XDG_SESSION_COOKIE=d97e583252b24613970dfb004720ea4f-1267164874.578087-723819252</value>
     <value type="QString" >XDM_MANAGED=method=classic</value>
     <value type="QString" >XMODIFIERS=@im=none</value>
     <value type="QString" >_=/usr/bin/kdeinit4</value>

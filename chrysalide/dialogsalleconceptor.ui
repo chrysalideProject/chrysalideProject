@@ -101,15 +101,26 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonQuitter">
        <property name="text">
-        <string>PushButton</string>
+        <string>&amp;Quitter</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
+  <action name="actionSupprimerTable">
+   <property name="text">
+    <string>SupprimerTable</string>
+   </property>
+   <property name="toolTip">
+    <string>supression des tables sélectionnées</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

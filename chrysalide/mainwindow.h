@@ -34,6 +34,7 @@ private slots:
     void on_action_Quitter_triggered();
     void on_action_Ouvrir_triggered();
     void closeEvent(QCloseEvent* event);
+    void activedesactiveMenusNecessitantOuvertureBase(bool);
 };
 
 #endif // MAINWINDOW_H

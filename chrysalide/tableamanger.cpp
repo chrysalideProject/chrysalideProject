@@ -59,7 +59,8 @@ void tableAManger::setPos(QPointF pPos)
     //sauvegarde de la position de la tableAManger dans le sgbd
     qDebug()<<"void tableAManger::setPos(QPointF pPos)";
   position=pPos;
-  QSqlQuery query("UPDATE TABLEAMANGER SET x= "+QString::number(pPos.x())+", y="+QString::number(pPos.y())+" where numero="+ QString::number(numero));
+  QString texteRequete="UPDATE TABLEAMANGER SET x= "+QString::number(position.x())+", y="+QString::number(position.y())+" where numero="+ QString::number(numero);
+  QSqlQuery query(texteRequete);
     query.exec();
 
 }
@@ -87,6 +88,13 @@ QVector<tableAManger*> tableAManger::recupererTables(){
 
     return resultat;
 
+}
+void tableAManger::supprime()
+{
+    qDebug()<<"void tableAManger::supprime()";
+    //supression de la table dans le sgbd
+    QSqlQuery reqsupr("delete TABLEAMANGER where numero="+QString::number(this->numero));
+    reqsupr.exec();
 }
 
 

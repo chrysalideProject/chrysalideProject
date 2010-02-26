@@ -11,6 +11,7 @@ DialogSalleConceptor::DialogSalleConceptor(QWidget *parent) :
     remplirComboTypeDeTable();
     //toute QGraphics View doit avoir une scene donc on la crée
     m_ui->salleViewCourante->setScene(new QGraphicsScene(this));
+    m_ui->salleViewCourante->addAction(m_ui->actionSupprimerTable);
 }
 
 DialogSalleConceptor::~DialogSalleConceptor()
@@ -37,11 +38,13 @@ void DialogSalleConceptor::remplirComboTypeDeTable()
     m_ui->comboBoxSalle->clear();
     //ajout des types de tables de la base de données dans le vecteur
      vectTypesTable=typeTable::recupererTypesTables();
-     //on remplit la combo de choix
+     //on remplit la combo de choix de la salle/typeDeTable
     foreach(typeTable* tT,vectTypesTable)
     {
         m_ui->comboBoxSalle->insertItem(0,tT->getLibelle(),(qlonglong)tT);
     }
+    //on raffrachit la vue du typeTable Courant
+    emit(on_comboBoxSalle_currentIndexChanged(m_ui->comboBoxSalle->currentIndex()));
 }
 typeTable* DialogSalleConceptor::typeTableCourant()
 {
@@ -64,6 +67,7 @@ void DialogSalleConceptor::on_comboBoxSalle_currentIndexChanged(int index)
 
 void DialogSalleConceptor::on_pushButtonNewSalle_clicked()
 {
+    qDebug()<<"void DialogSalleConceptor::on_pushButtonNewSalle_clicked()";
     bool ok;
     QString nouveauType = QInputDialog::getText(0, QObject::tr("Nouveau type"),QObject::tr("Nom:"), QLineEdit::Normal,"", &ok);
     if (ok && !nouveauType.isEmpty())
@@ -79,3 +83,21 @@ void DialogSalleConceptor::on_pushButtonNewSalle_clicked()
 }
 
 
+
+void DialogSalleConceptor::on_pushButtonSauver_clicked()
+{
+    qDebug()<<"void DialogSalleConceptor::on_pushButtonSauver_clicked()";
+    m_ui->salleViewCourante->enregistrePositions();
+}
+
+void DialogSalleConceptor::on_actionSupprimerTable_triggered()
+{
+    qDebug()<<"void DialogSalleConceptor::on_actionSupprimerTable_triggered()";
+    m_ui->salleViewCourante->supprimeTablesSelectionnees();
+}
+
+void DialogSalleConceptor::on_pushButtonQuitter_clicked()
+{
+    qDebug()<<"void DialogSalleConceptor::on_pushButtonQuitter_clicked()";
+    close();
+}

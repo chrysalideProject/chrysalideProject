@@ -25,6 +25,7 @@ class tableAManger : public QObject
         QPointF getPosition(){return position;};
         void setType(typeTable*);
         static QVector<tableAManger*> recupererTables();
+        void supprime();
 
     signals:
         void capaciteChanged(int);
