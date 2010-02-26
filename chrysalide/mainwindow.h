@@ -22,6 +22,7 @@ private:
     QSqlDatabase* database;
 
 private slots:
+    void on_action_Salles_typeTable_triggered();
     void on_action_Sauvegarde_triggered();
     void on_action_Manuel_triggered();
     void on_action_Propos_triggered();

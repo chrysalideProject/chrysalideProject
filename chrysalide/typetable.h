@@ -20,6 +20,12 @@ class typeTable : public QObject
         //construction à partir de l'identifiant et du sgbd
         typeTable(int);
         typeTable(QString);
+        void setTypeTable(int);
+        void setLibelle(QString);
+        void save();
+        void supprimer();
+
+        bool isUsedByATable();
 //méthodes métier
         QVector  <tableAManger*>getTablesAManger(); //obtient la liste des tables du  type/salle
 //accesseur en lecture seule
@@ -32,7 +38,7 @@ class typeTable : public QObject
         QPointF centre();
 
     signals:
-        void typesTablesChanged();
+        void libelleChanged();
 };
 
 #endif // TYPETABLE_H

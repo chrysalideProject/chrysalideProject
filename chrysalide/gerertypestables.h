@@ -22,13 +22,14 @@ class gererTypesTables : public QDialog {
 
     public:
         static gererTypesTables* getInstance();
+        gererTypesTables(QWidget *parent = 0);
         void closeEvent(QCloseEvent *);
 
     protected:
         void changeEvent(QEvent *e);
 
     private:
-        gererTypesTables(QWidget *parent = 0);
+
         ~gererTypesTables();
 
         static gererTypesTables* instance;

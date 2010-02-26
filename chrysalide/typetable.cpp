@@ -18,7 +18,63 @@ typeTable::typeTable(int pNumero)
     }
 
 }
+void typeTable::setLibelle(QString pLibelle){
+    libelle = pLibelle;
+    emit libelleChanged();
+}
 
+void typeTable::setTypeTable(int pNumero){
+
+    numero = pNumero;
+
+    QSqlQuery typeTable("SELECT * FROM TYPETABLE WHERE numero = "+QString::number(numero));
+
+    if (typeTable.first()){
+        libelle = typeTable.value(1).toString();
+    }
+
+}
+
+QVector<typeTable*> typeTable::recupererTypesTables(){
+
+    QVector<typeTable*> resultat;
+
+    QSqlQuery typesTables("SELECT * FROM TYPETABLE");
+
+    while (typesTables.next()){
+        resultat.push_back(new typeTable(typesTables.value(0).toInt()));
+    }
+
+    return resultat;
+
+}
+
+typeTable* typeTable::nouveauTypeTable(){
+
+    QSqlQuery("INSERT INTO TYPETABLE (libelle) VALUES ('Nouveau type')");
+
+}
+
+void typeTable::save(){
+
+    QSqlQuery("UPDATE TYPETABLE SET libelle = '"+libelle+"' WHERE numero = "+QString::number(numero));
+
+}
+
+void typeTable::supprimer(){
+
+    QSqlQuery("DELETE FROM TYPETABLE WHERE numero = "+QString::number(numero));
+
+}
+
+bool typeTable::isUsedByATable(){
+
+    QSqlQuery isUsed("SELECT COUNT(*) FROM TABLEAMANGER WHERE typeTable = "+QString::number(numero));
+
+    if (isUsed.first()){
+        return (isUsed.value(0).toInt() > 0);
+    }
+}
 typeTable::typeTable(QString pLibelle){
 
 
@@ -31,18 +87,7 @@ typeTable::typeTable(QString pLibelle){
     this->libelle=pLibelle;
 }
 
-QVector<typeTable*> typeTable::recupererTypesTables(){
 
-    QVector<typeTable*> resultat;
-
-    QSqlQuery typesTables("SELECT * FROM TYPETABLE");
-
-    while (typesTables.next()){
-        resultat.push_back(new typeTable(typesTables.value(0).toInt()));
-    }
-    return resultat;
-
-}
 QVector <tableAManger*> typeTable::getTablesAManger()
 {
     qDebug()<<"QVector& <tableAManger*> typeTable::getTablesAManger();";
