@@ -22,6 +22,8 @@ public:
     void dragEnterEvent(QDragEnterEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
+    void enregistrePositions();
+    void supprimeTablesSelectionnees();
 };
 
 #endif // TYPETABLEVIEW_H

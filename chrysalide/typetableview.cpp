@@ -5,18 +5,19 @@
 
 typeTableView::typeTableView(QWidget* parent): QGraphicsView(parent)
 {
-
+//rien à faire du tout...
 }
 void typeTableView::setTypeTable(int numeroTypeDeTable)
 {
+    //mise en relation de la vue avec son modele
     sonType=new typeTable(numeroTypeDeTable);
     affiche();
 }
 void typeTableView::clear()
 {
-    //effacement des tablesAManger
+    //effacement graphique des tablesAManger
     qDebug()<<"void typeTableView::clear()";
-    QList<QGraphicsItem*> all =this->items(this->rect(),Qt::ContainsItemShape);
+    QList<QGraphicsItem*> all =this->items();
     foreach(QGraphicsItem* uneTable,all)
     {
         delete(uneTable);
@@ -24,6 +25,7 @@ void typeTableView::clear()
 }
 void typeTableView::affiche()
 {
+    qDebug()<<"void typeTableView::affiche()";
   //recup de ttes les tables et instanciations correspondantes
     QVector<tableAManger*> mesTables=sonType->getTablesAManger();
     //j'efface tout
@@ -35,9 +37,7 @@ void typeTableView::affiche()
         tableAMangerView * nouvelleTable=new tableAMangerView(this->scene());
         //on fait le rapprochement entre la vue et son modèle
         nouvelleTable->setModel(uneTable);
-
     }
-
 }
 void typeTableView::dragEnterEvent(QDragEnterEvent *event)
  {
@@ -57,14 +57,13 @@ void typeTableView::dragMoveEvent(QDragMoveEvent *event)
  }
 
 void typeTableView::dropEvent(QDropEvent *event)
-{  QPointF lePointMapp=this->mapToScene(event->pos());
+{
+    qDebug()<<"void typeTableView::dropEvent(QDropEvent *event)";
+    QPointF lePointMapp=this->mapToScene(event->pos());
    QPoint  lePointMappe=lePointMapp.toPoint();
     if(event->source()->objectName()=="listWidgetTable")
     {
-        /*QStandardItemModel model(this->parent());
-                    model.dropMimeData(event->mimeData(), Qt::CopyAction, 0,0, QModelIndex());
-                    condition=delimiteur+model.item(0,0)->text()+delimiteur;QStandardItemModel model(this->parent());*/
-        //création d'une table
+
         bool ok;
         int nombreDePlace=QInputDialog::getInt(this,"Saisie du nombre de place","Nombre de places:",6,2,30,2,&ok);
         if (ok)
@@ -72,6 +71,26 @@ void typeTableView::dropEvent(QDropEvent *event)
             tableAMangerView * nouvelleTable= new tableAMangerView(this->scene());
             nouvelleTable->setModel(new tableAManger(nombreDePlace,sonType->getNumero(),lePointMappe.x(),lePointMappe.y()));
         }
+    }
+}
+void typeTableView::enregistrePositions()
+{
+    qDebug()<<"void typeTableView::enregistrePositions()";
+    QList<QGraphicsItem*> all =this->items(this->rect(),Qt::ContainsItemShape);
+    foreach(QGraphicsItem* uneTable,all)
+    {
 
+        ((tableAMangerView*)uneTable)->enregistrePosition();
+    }
+}
+void typeTableView::supprimeTablesSelectionnees()
+{
+      //effacement des tablesAManger
+    qDebug()<<"void typeTableView::clear()";
+    QList<QGraphicsItem*> listeDesTablesSelectionnees =this->scene()->selectedItems();
+    foreach(QGraphicsItem* uneTable,listeDesTablesSelectionnees)
+    {
+        ((tableAMangerView *)uneTable)->supprimeModel();
+        delete(uneTable);
     }
 }
