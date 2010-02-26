@@ -17,11 +17,13 @@ HEADERS += gerertypestables.h \
     typetable.h \
     dialogsalleconceptor.h \
     typetableview.h \
-    tableamangerview.h
+    tableamangerview.h \
+    arriveepersonne.h
 FORMS += gerertypestables.ui \
     gestiontable.ui \
     mainwindow.ui \
-    dialogsalleconceptor.ui
+    dialogsalleconceptor.ui \
+    arriveepersonne.ui
 SOURCES += gerertypestables.cpp \
     gestiontable.cpp \
     main.cpp \
@@ -33,5 +35,6 @@ SOURCES += gerertypestables.cpp \
     qtc-gdbmacros/gdbmacros.cpp \
     dialogsalleconceptor.cpp \
     typetableview.cpp \
-    tableamangerview.cpp
+    tableamangerview.cpp \
+    arriveepersonne.cpp
 QT += sql
