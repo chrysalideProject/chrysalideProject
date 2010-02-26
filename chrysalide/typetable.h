@@ -29,6 +29,7 @@ class typeTable : public QObject
         static QVector<typeTable*> recupererTypesTables();
 
         static typeTable* nouveauTypeTable();
+        QPointF centre();
 
     signals:
         void typesTablesChanged();

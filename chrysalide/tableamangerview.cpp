@@ -26,6 +26,7 @@ void tableAMangerView::enregistrePosition()
 }
 void tableAMangerView::supprimeModel()
 {
+    qDebug()<<"void tableAMangerView::supprimeModel()";
     model->supprime();
 }
 tableAMangerView::~tableAMangerView()

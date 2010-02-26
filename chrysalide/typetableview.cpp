@@ -38,6 +38,7 @@ void typeTableView::affiche()
         //on fait le rapprochement entre la vue et son modèle
         nouvelleTable->setModel(uneTable);
     }
+    centrer();
 }
 void typeTableView::dragEnterEvent(QDragEnterEvent *event)
  {
@@ -93,4 +94,14 @@ void typeTableView::supprimeTablesSelectionnees()
         ((tableAMangerView *)uneTable)->supprimeModel();
         delete(uneTable);
     }
+}
+void typeTableView::centrer()
+{
+    centerOn(centre());
+}
+QPointF typeTableView::centre()
+{
+    QPointF leCentre(0,0);
+
+    return leCentre;
 }

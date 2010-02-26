@@ -66,26 +66,25 @@ void tableAManger::setPos(QPointF pPos)
 }
 
 
-void tableAManger::setType(typeTable* pTypeTable){
-
+void tableAManger::setType(typeTable* pTypeTable)
+{
     type = pTypeTable;
     emit typeChanged(type);
-
 }
 
 
-QVector<tableAManger*> tableAManger::recupererTables(){
+QVector<tableAManger*> tableAManger::recupererTables()
+{
+    qDebug()<<"QVector<tableAManger*> tableAManger::recupererTables()";
 
     QVector<tableAManger*> resultat;
 
     QSqlQuery tables("SELECT * FROM TABLEAMANGER");
 
-    while (tables.next()){
-
+    while (tables.next())
+    {
         resultat.push_back(new tableAManger(tables.value(0).toInt(), tables.value(1).toInt(), tables.value(2).toInt()));
-
     }
-
     return resultat;
 
 }
@@ -93,7 +92,7 @@ void tableAManger::supprime()
 {
     qDebug()<<"void tableAManger::supprime()";
     //supression de la table dans le sgbd
-    QSqlQuery reqsupr("delete TABLEAMANGER where numero="+QString::number(this->numero));
+    QSqlQuery reqsupr("delete from TABLEAMANGER where numero="+QString::number(this->numero));
     reqsupr.exec();
 }
 

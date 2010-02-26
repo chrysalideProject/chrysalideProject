@@ -24,6 +24,8 @@ public:
     void dropEvent(QDropEvent *event);
     void enregistrePositions();
     void supprimeTablesSelectionnees();
+    QPointF centre();
+    void centrer();
 };
 
 #endif // TYPETABLEVIEW_H

@@ -55,3 +55,11 @@ QVector <tableAManger*> typeTable::getTablesAManger()
     }
     return resultat;
 }
+QPointF typeTable::centre()
+{
+    QPointF leCentre;
+    QSqlQuery req("select avg(x),avg(y) from tableamanger where typetable="+QString::number(numero));
+    if(req.first()) leCentre=QPointF(req.value(0).toDouble(),req.value(1).toDouble());
+    else leCentre=QPointF(50,50);
+    return leCentre;
+}
