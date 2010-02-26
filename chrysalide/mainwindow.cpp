@@ -6,6 +6,7 @@
 #include <QCloseEvent>
 #include <QDebug>
 #include "dialogsalleconceptor.h"
+#include "arriveepersonne.h"
 
 MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
@@ -74,6 +75,8 @@ void MainWindow::on_actionArriv_e_triggered()
 {
    qDebug()<<"void MainWindow::on_actionArriv_e_triggered()";
    //arrivée d'une personne concernée par l'application
+   arriveePersonne* dialogArriveePersonne=new arriveePersonne(this);
+   dialogArriveePersonne->exec();
 }
 
 void MainWindow::on_actionD_part_triggered()

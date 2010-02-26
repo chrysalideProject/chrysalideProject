@@ -30,15 +30,15 @@ void arriveePersonne::on_pushButton_continuer_clicked()
     //créer une instance du dialog d'elsa
     if (m_ui->comboBox_rang->itemText(m_ui->comboBox_rang->currentIndex()) == "Cuisinier")
     {
-        QSqlQuery requete = "select MAX(id) from personne";
-        if (requete.exec())
-        {
-            QSqlQuery req = "insert into personne values ()";
-            req.bindValue("id", requete.value(1)+1, QSql::ParamType = QSql::In);
-            req.bindValue("nom", m_ui->lineEdit_nomPersonne->text(), QSql::ParamType = QSql::In);
-            req.bindValue("prenom", m_ui->lineEdit_prenomPersonne->text(), QSql::ParamType = QSql::In);
-            req.exec();
-        }
+        QSqlQuery requete ("select MAX(id) from personne");
+
+        requete.first();
+        QSqlQuery req ("insert into personne values (:id,:nom,:prenom)");
+        req.bindValue(":id", requete.value(0).toInt()+1, QSql::In);
+        req.bindValue(":nom", m_ui->lineEdit_nomPersonne->text(), QSql::In);
+        req.bindValue(":prenom", m_ui->lineEdit_prenomPersonne->text(), QSql::In);
+        req.exec();
+
     }
 }
 
