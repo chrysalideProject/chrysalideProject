@@ -8,6 +8,7 @@
 #include "dialogsalleconceptor.h"
 #include "arriveepersonne.h"
 #include "gerertypestables.h"
+#include "sauvegarde.h"
 
 MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
@@ -130,6 +131,9 @@ void MainWindow::on_action_Sauvegarde_triggered()
 {
     qDebug()<<"void MainWindow::on_action_Sauvegarde_triggered()";
     //sauvegarde de la base sur un support amovible
+    sauvegarde * leDialogPourSauvegarder = new sauvegarde(this);
+    leDialogPourSauvegarder->setWindowTitle(windowTitle()+" sauvegarde");
+    leDialogPourSauvegarder->exec();
 }
 
 void MainWindow::on_action_Salles_typeTable_triggered()
