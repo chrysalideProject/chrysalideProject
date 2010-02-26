@@ -1,5 +1,6 @@
 #include "gerertypestables.h"
 #include "ui_gerertypestables.h"
+#include <QDebug>
 
 gererTypesTables* gererTypesTables::instance = NULL;
 
@@ -10,18 +11,18 @@ gererTypesTables::gererTypesTables(QWidget *parent) :
     ui->setupUi(this);
 
     ui->typeTableView->hide();
-    typesTables = typeTable::recupererTypesTables();
-
-    ui->listeTypesTables->clear();
-
-    for(long cpt=0; cpt < typesTables.size(); cpt++){
-        ui->listeTypesTables->addItem(typesTables[cpt]->getLibelle());
-    }
 }
 
 gererTypesTables::~gererTypesTables()
 {
     delete ui;
+}
+
+void gererTypesTables::closeEvent(QCloseEvent* event){
+
+    emit closed();
+    event->accept();
+
 }
 
 gererTypesTables* gererTypesTables::getInstance(){
@@ -30,6 +31,7 @@ gererTypesTables* gererTypesTables::getInstance(){
         gererTypesTables::instance = new gererTypesTables;
     }
 
+    gererTypesTables::instance->updateView();
     return gererTypesTables::instance;
 
 }
@@ -48,15 +50,14 @@ void gererTypesTables::changeEvent(QEvent *e)
 
 void gererTypesTables::on_nouveauTypeTableButton_clicked()
 {
-    typesTables.push_back(new typeTable("nouveau type"));
-    ui->listeTypesTables->addItem(typesTables.last()->getLibelle());
+    typeTable::nouveauTypeTable();
+    updateView();
 }
 
 void gererTypesTables::on_supprimerButton_clicked()
 {
-    typesTables.remove(ui->listeTypesTables->currentRow());
-    ui->listeTypesTables->takeItem(ui->listeTypesTables->currentRow());
-    ui->listeTypesTables->setCurrentRow(0);
+    typesTables[ui->listeTypesTables->currentRow()]->supprimer();
+    updateView();
 }
 
 void gererTypesTables::on_listeTypesTables_currentRowChanged(int currentRow)
@@ -65,5 +66,37 @@ void gererTypesTables::on_listeTypesTables_currentRowChanged(int currentRow)
         ui->numeroLabel->setText(QString::number(typesTables[currentRow]->getNumero()));
         ui->libelleLineEdit->setText(typesTables[currentRow]->getLibelle());
         ui->typeTableView->show();
+        if (typesTables[currentRow]->isUsedByATable()) ui->supprimerButton->setDisabled(true);
+        else ui->supprimerButton->setEnabled(true);
     }
+}
+
+void gererTypesTables::updateView(){
+
+    ui->listeTypesTables->clear();
+    ui->libelleLineEdit->clear();
+    ui->numeroLabel->clear();
+    ui->supprimerButton->setDisabled(true);
+
+    typesTables = typeTable::recupererTypesTables();
+
+    for (long cpt=0; cpt < typesTables.size(); cpt++){
+        ui->listeTypesTables->addItem(typesTables.at(cpt)->getLibelle());
+    }
+
+    ui->listeTypesTables->setCurrentRow(0);
+
+}
+
+void gererTypesTables::on_appliquerPushButton_clicked()
+{
+    typesTables[ui->listeTypesTables->currentRow()]->setLibelle(ui->libelleLineEdit->text());
+    typesTables[ui->listeTypesTables->currentRow()]->save();
+    updateView();
+}
+
+void gererTypesTables::on_libelleLineEdit_textEdited(QString value)
+{
+    if (value.isEmpty()) ui->appliquerPushButton->setDisabled(true);
+    else ui->appliquerPushButton->setEnabled(true);
 }

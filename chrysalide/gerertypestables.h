@@ -10,6 +10,7 @@
 
 #include <QDialog>
 #include "typetable.h"
+#include <QCloseEvent>
 
 namespace Ui {
     class gererTypesTables;
@@ -21,6 +22,7 @@ class gererTypesTables : public QDialog {
 
     public:
         static gererTypesTables* getInstance();
+        void closeEvent(QCloseEvent *);
 
     protected:
         void changeEvent(QEvent *e);
@@ -34,10 +36,16 @@ class gererTypesTables : public QDialog {
         Ui::gererTypesTables *ui;
         QVector<typeTable*> typesTables;
 
-private slots:
-    void on_listeTypesTables_currentRowChanged(int currentRow);
-    void on_supprimerButton_clicked();
-    void on_nouveauTypeTableButton_clicked();
+    private slots:
+        void on_libelleLineEdit_textEdited(QString );
+        void on_appliquerPushButton_clicked();
+        void on_listeTypesTables_currentRowChanged(int currentRow);
+        void on_supprimerButton_clicked();
+        void on_nouveauTypeTableButton_clicked();
+        void updateView();
+
+    signals:
+        void closed();
 };
 
 #endif // GERERTYPESTABLES_H
