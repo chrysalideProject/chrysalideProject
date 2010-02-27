@@ -4,19 +4,15 @@
 typeTable::typeTable(int pNumero)
 {
     numero = pNumero;
-
     QSqlQuery typeTable("SELECT libelle FROM TYPETABLE WHERE numero = "+QString::number(numero));
-
-    if (typeTable.first()){
-
+    if (typeTable.first())
+    {
         libelle = typeTable.value(0).toString();
-
     }
     else
     {
         libelle="No "+QString::number(numero)+" non trouvé dans la table";
     }
-
 }
 void typeTable::setLibelle(QString pLibelle){
     libelle = pLibelle;
@@ -26,7 +22,6 @@ void typeTable::setLibelle(QString pLibelle){
 void typeTable::setTypeTable(int pNumero){
 
     numero = pNumero;
-
     QSqlQuery typeTable("SELECT * FROM TYPETABLE WHERE numero = "+QString::number(numero));
 
     if (typeTable.first()){
@@ -36,6 +31,7 @@ void typeTable::setTypeTable(int pNumero){
 }
 
 QVector<typeTable*> typeTable::recupererTypesTables(){
+    qDebug()<<"QVector<typeTable*> typeTable::recupererTypesTables()";
 
     QVector<typeTable*> resultat;
 
@@ -44,40 +40,36 @@ QVector<typeTable*> typeTable::recupererTypesTables(){
     while (typesTables.next()){
         resultat.push_back(new typeTable(typesTables.value(0).toInt()));
     }
-
     return resultat;
-
 }
 
-typeTable* typeTable::nouveauTypeTable(){
 
-    QSqlQuery("INSERT INTO TYPETABLE (libelle) VALUES ('Nouveau type')");
 
-}
-
-void typeTable::save(){
-
+void typeTable::save()
+{
     QSqlQuery("UPDATE TYPETABLE SET libelle = '"+libelle+"' WHERE numero = "+QString::number(numero));
-
 }
 
-void typeTable::supprimer(){
-
+void typeTable::supprimer()
+{
     QSqlQuery("DELETE FROM TYPETABLE WHERE numero = "+QString::number(numero));
-
 }
 
-bool typeTable::isUsedByATable(){
+bool typeTable::isUsedByATable()
+{
+    qDebug()<<"bool typeTable::isUsedByATable()";
+    bool estUtilise=false;
+    QSqlQuery reqIsUsed("SELECT COUNT(*) FROM TABLEAMANGER WHERE typeTable = "+QString::number(numero));
 
-    QSqlQuery isUsed("SELECT COUNT(*) FROM TABLEAMANGER WHERE typeTable = "+QString::number(numero));
-
-    if (isUsed.first()){
-        return (isUsed.value(0).toInt() > 0);
+    if (reqIsUsed.first())
+    {
+        estUtilise=reqIsUsed.value(0).toInt() > 0;
     }
+    return estUtilise;
 }
-typeTable::typeTable(QString pLibelle){
-
-
+typeTable::typeTable(QString pLibelle)
+{
+    qDebug()<<"typeTable::typeTable(QString pLibelle)";
     QSqlQuery queryMax("SELECT MAX(numero)+1 FROM TYPETABLE");
     queryMax.first();
     int numeroTable=queryMax.value(0).toInt();

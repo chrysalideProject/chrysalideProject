@@ -2,7 +2,7 @@
 #include "ui_gerertypestables.h"
 #include <QDebug>
 
-gererTypesTables* gererTypesTables::instance = NULL;
+
 
 gererTypesTables::gererTypesTables(QWidget *parent) :
     QDialog(parent),
@@ -11,6 +11,7 @@ gererTypesTables::gererTypesTables(QWidget *parent) :
     ui->setupUi(this);
 
     ui->typeTableView->hide();
+    updateView();
 }
 
 gererTypesTables::~gererTypesTables()
@@ -18,23 +19,7 @@ gererTypesTables::~gererTypesTables()
     delete ui;
 }
 
-void gererTypesTables::closeEvent(QCloseEvent* event){
 
-    emit closed();
-    event->accept();
-
-}
-
-gererTypesTables* gererTypesTables::getInstance(){
-
-    if (gererTypesTables::instance == NULL){
-        gererTypesTables::instance = new gererTypesTables;
-    }
-
-    gererTypesTables::instance->updateView();
-    return gererTypesTables::instance;
-
-}
 
 void gererTypesTables::changeEvent(QEvent *e)
 {
@@ -50,7 +35,7 @@ void gererTypesTables::changeEvent(QEvent *e)
 
 void gererTypesTables::on_nouveauTypeTableButton_clicked()
 {
-    typeTable::nouveauTypeTable();
+    typeTable* nouveauTypeTable=new typeTable("Nouveau Type");
     updateView();
 }
 
@@ -99,4 +84,9 @@ void gererTypesTables::on_libelleLineEdit_textEdited(QString value)
 {
     if (value.isEmpty()) ui->appliquerPushButton->setDisabled(true);
     else ui->appliquerPushButton->setEnabled(true);
+}
+
+void gererTypesTables::on_pushButtonQuitter_clicked()
+{
+    close();
 }

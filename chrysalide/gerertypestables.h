@@ -21,9 +21,9 @@ class gererTypesTables : public QDialog {
     Q_OBJECT
 
     public:
-        static gererTypesTables* getInstance();
+
         gererTypesTables(QWidget *parent = 0);
-        void closeEvent(QCloseEvent *);
+
 
     protected:
         void changeEvent(QEvent *e);
@@ -31,13 +31,11 @@ class gererTypesTables : public QDialog {
     private:
 
         ~gererTypesTables();
-
-        static gererTypesTables* instance;
-
         Ui::gererTypesTables *ui;
         QVector<typeTable*> typesTables;
 
     private slots:
+        void on_pushButtonQuitter_clicked();
         void on_libelleLineEdit_textEdited(QString );
         void on_appliquerPushButton_clicked();
         void on_listeTypesTables_currentRowChanged(int currentRow);
@@ -45,8 +43,6 @@ class gererTypesTables : public QDialog {
         void on_nouveauTypeTableButton_clicked();
         void updateView();
 
-    signals:
-        void closed();
 };
 
 #endif // GERERTYPESTABLES_H

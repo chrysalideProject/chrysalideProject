@@ -6,134 +6,150 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>395</height>
+    <width>523</width>
+    <height>290</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Gérer les types de tables</string>
   </property>
-  <widget class="QListWidget" name="listeTypesTables">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>211</width>
-     <height>301</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="nouveauTypeTableButton">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>360</y>
-     <width>166</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Nouveau type de table</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>20</y>
-     <width>101</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Types de tables</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="typeTableView" native="true">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>79</y>
-     <width>291</width>
-     <height>211</height>
-    </rect>
-   </property>
-   <widget class="QLabel" name="numeroLabel">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>10</y>
-      <width>62</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="libelleLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>40</y>
-      <width>113</width>
-      <height>27</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>10</y>
-      <width>62</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Numero</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>40</y>
-      <width>62</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Libelle</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="appliquerPushButton">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>100</y>
-      <width>92</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Appliquer</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="supprimerButton">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>140</y>
-      <width>92</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Supprimer</string>
-    </property>
-   </widget>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout_4">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Types de tables:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="listeTypesTables"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="nouveauTypeTableButton">
+         <property name="text">
+          <string>&amp;Nouveau type de table</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QWidget" name="typeTableView" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Numero :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="numeroLabel">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Libelle:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="libelleLineEdit"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="supprimerButton">
+              <property name="text">
+               <string>&amp;Supprimer</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="appliquerPushButton">
+              <property name="text">
+               <string>&amp;Appliquer</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonQuitter">
+       <property name="text">
+        <string>&amp;Fermer</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

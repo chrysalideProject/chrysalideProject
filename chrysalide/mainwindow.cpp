@@ -133,7 +133,7 @@ void MainWindow::on_action_Sauvegarde_triggered()
     //sauvegarde de la base sur un support amovible
     sauvegarde * leDialogPourSauvegarder = new sauvegarde(this);
     leDialogPourSauvegarder->setWindowTitle(windowTitle()+" sauvegarde");
-    leDialogPourSauvegarder->exec();
+    leDialogPourSauvegarder->show();
 }
 
 void MainWindow::on_action_Salles_typeTable_triggered()

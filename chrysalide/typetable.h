@@ -28,14 +28,13 @@ class typeTable : public QObject
         bool isUsedByATable();
 //méthodes métier
         QVector  <tableAManger*>getTablesAManger(); //obtient la liste des tables du  type/salle
+        QPointF centre();//renvoie le centre des tables d'un certain type
 //accesseur en lecture seule
         int getNumero(){ return numero; }
         QString getLibelle(){ return libelle; }
 //méthodes et propriétés de portée classe
         static QVector<typeTable*> recupererTypesTables();
 
-        static typeTable* nouveauTypeTable();
-        QPointF centre();
 
     signals:
         void libelleChanged();
