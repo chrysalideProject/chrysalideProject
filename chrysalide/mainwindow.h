@@ -16,6 +16,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QSqlDatabase* pDatabase, QWidget *parent = 0);
     ~MainWindow();
+    QSqlDatabase *getDatabase(){return database;}
 
 private:
     Ui::MainWindowClass *ui;

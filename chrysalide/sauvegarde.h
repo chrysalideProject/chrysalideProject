@@ -9,7 +9,7 @@ namespace Ui {
     class sauvegarde;
 }
 
-class sauvegarde : public QWidget {
+class sauvegarde : public QDialog {
     Q_OBJECT
     Q_DISABLE_COPY(sauvegarde)
 public:
@@ -23,6 +23,7 @@ private:
     Ui::sauvegarde *m_ui;
 
 private slots:
+    void on_pushButtonFermer_clicked();
     void on_pushButtonSauvegarder_clicked();
     void on_pushButtonParcourir_clicked();
 };
