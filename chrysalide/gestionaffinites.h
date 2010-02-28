@@ -25,6 +25,7 @@ private:
 
 
 private slots:
+    void on_pushButtonFermer_clicked();
     void on_comboBox_patient_currentIndexChanged(int index);
 };
 

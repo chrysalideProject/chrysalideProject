@@ -9,6 +9,7 @@
 #include "arriveepersonne.h"
 #include "gerertypestables.h"
 #include "sauvegarde.h"
+#include "gestionaffinites.h"
 
 MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
@@ -113,6 +114,8 @@ void MainWindow::on_action_gestion_des_affinit_s_triggered()
 {
         qDebug()<<"void MainWindow::on_action_gestion_des_affinit_s_triggered()";
         //gestion des incidents et des affinités entre patients
+        gestionAffinites* fenGestAffinite=new gestionAffinites(this);
+        fenGestAffinite->exec();
 }
 
 void MainWindow::on_action_Propos_triggered()
