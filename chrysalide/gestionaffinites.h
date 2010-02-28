@@ -25,6 +25,10 @@ private:
 
 
 private slots:
+    void on_pushButton_ajoutIncompatibilite_clicked();
+    void on_pushButton_ajoutAffinite_clicked();
+    void on_pushButton_supprIncompatibilite_clicked();
+    void on_pushButton_suppAffinite_clicked();
     void on_pushButtonFermer_clicked();
     void on_comboBox_patient_currentIndexChanged(int index);
 };

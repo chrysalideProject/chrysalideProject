@@ -12,7 +12,7 @@ gestionAffinites::gestionAffinites(QWidget *parent) :
     while(recupPatient.next())
     {
 
-        m_ui->comboBox_patient->addItem(recupPatient.value(1).toString()+" "+recupPatient.value(2).toString(),recupPatient.value(2).toString());
+        m_ui->comboBox_patient->addItem(recupPatient.value(1).toString()+" "+recupPatient.value(2).toString(),recupPatient.value(0).toString());
         /*nom=recupPatient.value(1).toString();
         prenom=recupPatient.value(2).toString();
         idEnCours=recupPatient.value(0).toString();*/
@@ -43,13 +43,16 @@ void gestionAffinites::changeEvent(QEvent *e)
 void gestionAffinites::on_comboBox_patient_currentIndexChanged(int index)
 {
     //Récupère l'id du patient sélectionné
-
+    qDebug()<<"void gestionAffinites::on_comboBox_patient_currentIndexChanged(int index)";
     QString patient = m_ui->comboBox_patient->currentText();
     QString LId=m_ui->comboBox_patient->itemData(m_ui->comboBox_patient->currentIndex()).toString();
-
+    m_ui->listWidget_affinite->clear();
+    m_ui->listWidget_incompatibilite->clear();
 
     //Récupère les affinités
-    QSqlQuery recupAffinites("SELECT * FROM AFFINITE where idPersonne1="+LId+ "or idPersonne2="+LId);
+    QString textReqA="SELECT * FROM AFFINITE where idPersonne1="+LId+ " or idPersonne2="+LId;
+    qDebug()<<textReqA;
+    QSqlQuery recupAffinites(textReqA);
     while(recupAffinites.next())
     {
         //Parcours les résultats
@@ -74,7 +77,7 @@ void gestionAffinites::on_comboBox_patient_currentIndexChanged(int index)
     }
 
     //Récupère les incompatibilités
-    QSqlQuery recupIncompatibiles("SELECT * FROM INCOMPATIBILITE where idPersonne1="+LId+ "or idPersonne2="+LId);
+    QSqlQuery recupIncompatibiles("SELECT * FROM INCOMPATIBILITE where idPersonne1="+LId+ " or idPersonne2="+LId);
     while(recupIncompatibiles.next())
     {
         //Parcours les résultats
@@ -98,12 +101,14 @@ void gestionAffinites::on_comboBox_patient_currentIndexChanged(int index)
 
     }
     //Remplit la combobox des autres patients ceux qui ne sont ni incompatibles ni copains
-    QString textReq="SELECT * from PATIENT inner join PERSONNE on Personne.id=PATIENT.idPersonne  where id<>"+LId;
+    m_ui->comboBox_listePatient->clear();
+    QString textReq="SELECT id,nom,prenom from PATIENT inner join PERSONNE on Personne.id=PATIENT.idPersonne  where id<>"+LId;
+    qDebug()<<textReq;
     QSqlQuery reqTousPatients(textReq);
     while(reqTousPatients.next())
     {
         //si ni ds l'un ni ds l'autre alors insertion dans la combo
-        QString nomPrenom=reqTousPatients.value(2).toString()+" "+reqTousPatients.value(3).toString();
+        QString nomPrenom=reqTousPatients.value(1).toString()+" "+reqTousPatients.value(2).toString();
         if((m_ui->listWidget_affinite->findItems(nomPrenom,Qt::MatchExactly).empty()&&(m_ui->listWidget_incompatibilite->findItems(nomPrenom,Qt::MatchExactly).empty())))
         {
             //ajout
@@ -115,4 +120,57 @@ void gestionAffinites::on_comboBox_patient_currentIndexChanged(int index)
 void gestionAffinites::on_pushButtonFermer_clicked()
 {
     close();
+}
+
+void gestionAffinites::on_pushButton_suppAffinite_clicked()
+{
+    //quelle affinité est à supprimer?
+    QListWidgetItem * copain=m_ui->listWidget_affinite->selectedItems()[0];
+    QString numeroCopain=copain->data(32).toString();
+    QString LId=m_ui->comboBox_patient->itemData(m_ui->comboBox_patient->currentIndex()).toString();
+    QString texteRequete="delete from affinite where (idPersonne1="+LId+" and idPersonne2="+numeroCopain+") or (idPersonne1="+numeroCopain+" and idPersonne2="+LId+")";
+    QSqlQuery req(texteRequete);
+    req.exec();
+    //raffraichissement
+    on_comboBox_patient_currentIndexChanged(m_ui->comboBox_patient->currentIndex());
+
+}
+
+void gestionAffinites::on_pushButton_supprIncompatibilite_clicked()
+{
+    //quelle incompatibilite est à supprimer?
+    QListWidgetItem * pasCopain=m_ui->listWidget_incompatibilite->selectedItems()[0];
+    QString numeroPasCopain=pasCopain->data(32).toString();
+    QString LId=m_ui->comboBox_patient->itemData(m_ui->comboBox_patient->currentIndex()).toString();
+    QString texteRequete="delete from incompatibilite where (idPersonne1="+LId+" and idPersonne2="+numeroPasCopain+") or (idPersonne1="+numeroPasCopain+" and idPersonne2="+LId+")";
+    QSqlQuery req(texteRequete);
+    req.exec();
+    //raffraichissement
+    on_comboBox_patient_currentIndexChanged(m_ui->comboBox_patient->currentIndex());
+
+}
+
+void gestionAffinites::on_pushButton_ajoutAffinite_clicked()
+{
+    QString LId=m_ui->comboBox_patient->itemData(m_ui->comboBox_patient->currentIndex()).toString();
+    QString numeroDeLautre=m_ui->comboBox_listePatient->itemData(m_ui->comboBox_listePatient->currentIndex()).toString();
+    QString texteRequete="insert into AFFINITE values("+LId+","+numeroDeLautre+")";
+    qDebug()<<texteRequete;
+    QSqlQuery req(texteRequete);
+    req.exec();
+    //raffraichissement
+    on_comboBox_patient_currentIndexChanged(m_ui->comboBox_patient->currentIndex());
+}
+
+void gestionAffinites::on_pushButton_ajoutIncompatibilite_clicked()
+{
+    QString LId=m_ui->comboBox_patient->itemData(m_ui->comboBox_patient->currentIndex()).toString();
+    QString numeroDeLautre=m_ui->comboBox_listePatient->itemData(m_ui->comboBox_listePatient->currentIndex()).toString();
+    QString texteRequete="insert into INCOMPATIBILITE values("+LId+","+numeroDeLautre+")";
+    qDebug()<<texteRequete;
+    QSqlQuery req(texteRequete);
+    req.exec();
+    //raffraichissement
+    on_comboBox_patient_currentIndexChanged(m_ui->comboBox_patient->currentIndex());
+
 }
