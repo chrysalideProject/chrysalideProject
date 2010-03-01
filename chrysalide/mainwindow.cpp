@@ -11,6 +11,7 @@
 #include "sauvegarde.h"
 #include "gestionaffinites.h"
 #include "rentrertables.h"
+#include <QSqlError>
 
 MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
@@ -100,16 +101,57 @@ void MainWindow::on_actionRentrer_les_Tables_triggered()
 
 void MainWindow::on_action_Nouveau_triggered()
 {
-        qDebug()<<"void MainWindow::on_action_Nouveau_triggered()";
-        //nouvelle base de donnée
-        //création de la base et exécution du script sql de création des tables sans jeu d'essais
+    qDebug()<<"void MainWindow::on_action_Nouveau_triggered()";
+    //nouvelle base de donnée
+    //création de la base et exécution du script sql de création des tables sans jeu d'essais
+    //database->close();
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setFilter("*.db");
+    if (dialog.exec())
+    {
+        database->setDatabaseName(dialog.selectedFiles()[0]);
+        database->open();
+        //execution du script de création des tables
+        QFile scriptSql("crebase.sql");
+        scriptSql.open(QIODevice::ReadOnly);
+        QTextStream in(&scriptSql);
+        QString megaLigne;
+        while (!in.atEnd())
+        {
+            QString line = in.readLine();
+            megaLigne+=line;
+        }
+        QStringList listeDesRequetes=megaLigne.split(";");
+        QSqlQuery req;
+        foreach(QString textReq,listeDesRequetes)
+        {
+        if(req.exec(textReq))
+        {
+            qDebug()<<"success";
+        }
+        else
+            qDebug()<<database->lastError().databaseText();
+    }
+
+
+    }
 }
 
 void MainWindow::on_action_Pr_paration_des_tables_triggered()
 {
         qDebug()<<"void MainWindow::on_action_Pr_paration_des_tables_triggered()";
-        //le gros du taf: oraganisation du repas
+        //le gros du taf: organisation du repas
         //ici on cree les repas midi et soir et on place les gens à leurs tables
+        //choix de la date
+        //du midi ou du soir
+        //patients extérieurs
+        //patients serveurs repas 11h 18h
+        //cuisiniers repas 11h 18h
+        //affectation des autres patients
+        //surveillance(3 surveillants)
+
+
 
 }
 

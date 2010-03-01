@@ -29,7 +29,9 @@ create table TABLEAMANGER
 (
 	numero integer not null primary key,
 	capacite integer not null,
-	typeTable integer not null references TYPETABLE(numero)
+	typeTable integer not null references TYPETABLE(numero),
+        x integer,
+        y integer
 );
 
 create table PERSONNE
