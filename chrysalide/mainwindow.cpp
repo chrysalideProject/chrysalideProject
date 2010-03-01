@@ -109,6 +109,8 @@ void MainWindow::on_action_Pr_paration_des_tables_triggered()
 {
         qDebug()<<"void MainWindow::on_action_Pr_paration_des_tables_triggered()";
         //le gros du taf: oraganisation du repas
+        //ici on cree les repas midi et soir et on place les gens à leurs tables
+
 }
 
 void MainWindow::on_action_gestion_des_affinit_s_triggered()

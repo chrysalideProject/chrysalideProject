@@ -44,7 +44,11 @@ void DialogSalleConceptor::remplirComboTypeDeTable()
         m_ui->comboBoxSalle->insertItem(0,tT->getLibelle(),(qlonglong)tT);
     }
     //on raffrachit la vue du typeTable Courant
-    emit(on_comboBoxSalle_currentIndexChanged(m_ui->comboBoxSalle->currentIndex()));
+    if(m_ui->comboBoxSalle->count()>0)
+    {
+    m_ui->comboBoxSalle->setCurrentIndex(0);
+    on_comboBoxSalle_currentIndexChanged(0);
+}
 }
 typeTable* DialogSalleConceptor::typeTableCourant()
 {
