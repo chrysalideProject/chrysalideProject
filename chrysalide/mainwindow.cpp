@@ -111,10 +111,12 @@ void MainWindow::on_action_Nouveau_triggered()
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     dialog.setFilter("*.db");
-    if (dialog.exec())
+    QString nom=dialog.getSaveFileName(this,"fichier contenant la base","base sqlite3(*.db,*.sqlite)","*.db");
+    if (!nom.isEmpty())
     {
-        database->setDatabaseName(dialog.selectedFiles()[0]);
-        database->open();
+        database->setDatabaseName(nom);
+        if(database->open())
+        {
         //execution du script de création des tables
         QFile scriptSql("crebase.sql");
         scriptSql.open(QIODevice::ReadOnly);
@@ -137,6 +139,9 @@ void MainWindow::on_action_Nouveau_triggered()
                 qDebug()<<database->lastError().databaseText();
         }
         activedesactiveMenusNecessitantOuvertureBase(true);
+    }
+        else
+             QMessageBox::critical(this, windowTitle()+" Erreur", "Impossible d'ouvrir cette base de données");
 
     }
 }
