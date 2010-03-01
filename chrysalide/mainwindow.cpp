@@ -31,6 +31,9 @@ void MainWindow::activedesactiveMenusNecessitantOuvertureBase(bool activation)
    ui->action_Patients->setEnabled(activation);
    ui->action_Repas->setEnabled(activation);
    ui->action_Sauvegarde->setEnabled(activation);
+   ui->actionRentrerBis->setEnabled(activation);
+   ui->action_Salles_typeTable->setEnabled(activation);
+   ui->action_Pr_paration_des_tables->setEnabled(activation);
 }
 MainWindow::~MainWindow()
 {
@@ -126,14 +129,14 @@ void MainWindow::on_action_Nouveau_triggered()
         QSqlQuery req;
         foreach(QString textReq,listeDesRequetes)
         {
-        if(req.exec(textReq))
-        {
-            qDebug()<<"success";
+            if(req.exec(textReq))
+            {
+                qDebug()<<"success";
+            }
+            else
+                qDebug()<<database->lastError().databaseText();
         }
-        else
-            qDebug()<<database->lastError().databaseText();
-    }
-
+        activedesactiveMenusNecessitantOuvertureBase(true);
 
     }
 }
