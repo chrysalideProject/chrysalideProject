@@ -1,6 +1,11 @@
 #include "tableamanger.h"
 #include <QDebug>
 
+void tableAManger::nouvelleTable(){
+
+    QSqlQuery nouvelle("INSERT INTO TABLEAMANGER (capacite, typeTable) VALUES (6, (SELECT numero FROM TYPETABLE LIMIT 0,1))");
+
+}
 tableAManger::tableAManger(int pNumero)
 {
     //construction d'une table à partir du sgbd
@@ -94,6 +99,21 @@ void tableAManger::supprime()
     //supression de la table dans le sgbd
     QSqlQuery reqsupr("delete from TABLEAMANGER where numero="+QString::number(this->numero));
     reqsupr.exec();
+}
+void tableAManger::supprimer(){
+
+    QSqlQuery suppression("DELETE FROM TABLEAMANGER WHERE numero = "+QString::number(numero));
+    emit tableSupprimee();
+
+}void tableAManger::setTypeTable(int pType){
+
+    type->setTypeTable(pType);
+
+}
+void tableAManger::save(){
+
+    QSqlQuery saving("UPDATE TABLEAMANGER SET capacite = "+QString::number(capacite)+" , typeTable = "+QString::number(type->getNumero())+" WHERE numero = "+QString::number(numero));
+
 }
 
 

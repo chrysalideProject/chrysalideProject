@@ -3,7 +3,17 @@
 #include <QDebug>
 
 
+gererTypesTables* gererTypesTables::instance = NULL;
+gererTypesTables* gererTypesTables::getInstance(){
 
+    if (gererTypesTables::instance == NULL){
+        gererTypesTables::instance = new gererTypesTables;
+    }
+
+    gererTypesTables::instance->updateView();
+    return gererTypesTables::instance;
+
+}
 gererTypesTables::gererTypesTables(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::gererTypesTables)

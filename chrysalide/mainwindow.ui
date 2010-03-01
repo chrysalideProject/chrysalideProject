@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>445</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Fichier">
@@ -53,6 +53,7 @@
     <addaction name="actionRentrer_les_Tables"/>
     <addaction name="action_Sauvegarde"/>
     <addaction name="action_Salles_typeTable"/>
+    <addaction name="actionRentrerBis"/>
    </widget>
    <widget class="QMenu" name="menu_Quotidien">
     <property name="title">
@@ -149,6 +150,11 @@
   <action name="action_Salles_typeTable">
    <property name="text">
     <string>Salles/&amp;typeTable</string>
+   </property>
+  </action>
+  <action name="actionRentrerBis">
+   <property name="text">
+    <string>RentrerBis</string>
    </property>
   </action>
  </widget>

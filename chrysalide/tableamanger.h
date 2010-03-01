@@ -22,14 +22,22 @@ class tableAManger : public QObject
         void setCapacite(int);
         void setPos(QPointF pPos);
         int getCapacite(){return capacite;};
+        int getNumero(){ return numero; };
+        typeTable* getType(){ return type; };
+        void save();
         QPointF getPosition(){return position;};
         void setType(typeTable*);
         static QVector<tableAManger*> recupererTables();
         void supprime();
+        void setTypeTable(int);
 
+        static void nouvelleTable();
+        void supprimer();
     signals:
         void capaciteChanged(int);
         void typeChanged(typeTable*);
+        void tableSupprimee();
+
 };
 
 #endif // TABLEAMANGER_H

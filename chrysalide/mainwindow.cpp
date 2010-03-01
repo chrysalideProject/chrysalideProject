@@ -10,6 +10,7 @@
 #include "gerertypestables.h"
 #include "sauvegarde.h"
 #include "gestionaffinites.h"
+#include "rentrertables.h"
 
 MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
@@ -143,4 +144,10 @@ void MainWindow::on_action_Salles_typeTable_triggered()
 {
     gererTypesTables * fenGestionDesTypes=new gererTypesTables(this);
     fenGestionDesTypes->exec();
+}
+
+void MainWindow::on_actionRentrerBis_triggered()
+{
+    rentrerTables* fenRentrerTables= rentrerTables::getInstance();
+    fenRentrerTables->exec();
 }
