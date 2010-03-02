@@ -22,7 +22,10 @@ HEADERS += gerertypestables.h \
     gestionaffinites.h \
     sauvegarde.h \
     rentrertables.h \
-    tableview.h
+    tableview.h \
+    dialogrepas.h \
+    arriveewizard.h \
+    arrivwizardpagepersonne.h
 FORMS += gerertypestables.ui \
     gestiontable.ui \
     mainwindow.ui \
@@ -31,7 +34,8 @@ FORMS += gerertypestables.ui \
     gestionaffinites.ui \
     sauvegarde.ui \
     rentrertables.ui \
-    tableview.ui
+    tableview.ui \
+    dialogrepas.ui
 SOURCES += gerertypestables.cpp \
     gestiontable.cpp \
     main.cpp \
@@ -48,5 +52,8 @@ SOURCES += gerertypestables.cpp \
     gestionaffinites.cpp \
     sauvegarde.cpp \
     rentrertables.cpp \
-    tableview.cpp
+    tableview.cpp \
+    dialogrepas.cpp \
+    arriveewizard.cpp \
+    arrivwizardpagepersonne.cpp
 QT += sql

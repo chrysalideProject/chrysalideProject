@@ -12,6 +12,7 @@
 #include "gestionaffinites.h"
 #include "rentrertables.h"
 #include <QSqlError>
+#include "arriveewizard.h"
 
 MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
@@ -202,4 +203,10 @@ void MainWindow::on_actionRentrerBis_triggered()
 {
     rentrerTables* fenRentrerTables= rentrerTables::getInstance();
     fenRentrerTables->exec();
+}
+
+void MainWindow::on_actionARRIVEEWIZARD_triggered()
+{
+    arriveeWizard* leWiz=new arriveeWizard(this);
+    leWiz->show();
 }

@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>445</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Fichier">
@@ -45,6 +45,7 @@
     <addaction name="actionArriv_e"/>
     <addaction name="actionD_part"/>
     <addaction name="action_Modification_Personne"/>
+    <addaction name="actionARRIVEEWIZARD"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
@@ -155,6 +156,11 @@
   <action name="actionRentrerBis">
    <property name="text">
     <string>RentrerBis</string>
+   </property>
+  </action>
+  <action name="actionARRIVEEWIZARD">
+   <property name="text">
+    <string>ARRIVEEWIZARD</string>
    </property>
   </action>
  </widget>
