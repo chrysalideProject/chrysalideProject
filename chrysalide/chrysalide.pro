@@ -28,7 +28,6 @@ HEADERS += gerertypestables.h \
     arrivwizardpagepersonne.h \
     arrivwizardpagepatient.h \
     arrivwizardpagesurveillant.h \
-    arrivwizardpagecuisinier.h \
     arrivwizardpageautre.h
 FORMS += gerertypestables.ui \
     gestiontable.ui \
@@ -62,6 +61,5 @@ SOURCES += gerertypestables.cpp \
     arrivwizardpagepersonne.cpp \
     arrivwizardpagepatient.cpp \
     arrivwizardpagesurveillant.cpp \
-    arrivwizardpagecuisinier.cpp \
     arrivwizardpageautre.cpp
 QT += sql

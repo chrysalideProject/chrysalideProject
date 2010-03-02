@@ -51,7 +51,7 @@ int arrivWizardPagePersonne::nextId() const
         else
         {
             if(comboBoxType->currentText()=="Cuisinier")
-                return arriveeWizard::PageCuisinier;
+                return -1;
             else
             {
                 return arriveeWizard::PageAutre;

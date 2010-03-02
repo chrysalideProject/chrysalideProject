@@ -10,6 +10,10 @@ class arrivWizardPageAutre : public QWizardPage
 {
 public:
     arrivWizardPageAutre();
+    QLineEdit* lineEditFonction;
+     QLabel * labelFonction;
+     int nextId() const{return -1;};
+
 };
 
 #endif // ARRIVWIZARDPAGEAUTRE_H

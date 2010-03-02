@@ -16,7 +16,7 @@ public:
      QLabel * labelRegime;
      QLabel * labelSurveillance;
      QLabel* labelTravail;
-     int nextId() const;
+      int nextId() const{return -1;};
 
 };
 

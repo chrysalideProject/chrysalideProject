@@ -61,8 +61,4 @@ arrivWizardPagePatient::arrivWizardPagePatient()
      registerField("surveillance*",comboBoxSurveillance);
      registerField("travail*", comboBoxTravail);
 }
-int arrivWizardPagePatient::nextId() const
-{
-    return(arriveeWizard::PageConclusion);
-}
 

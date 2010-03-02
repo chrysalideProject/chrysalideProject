@@ -26,7 +26,4 @@ setTitle(tr("Arrivée d'un Surveillant"));
 
      registerField("poste*", comboBoxPoste);
  }
-int arrivWizardPageSurveillant::nextId() const
-{
-    return(arriveeWizard::PageConclusion);
-}
+

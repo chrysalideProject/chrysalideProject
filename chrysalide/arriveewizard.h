@@ -13,7 +13,7 @@ class arriveeWizard : public QWizard
      arrivWizardPagePersonne * pagePersonne;
 public:
     arriveeWizard(QWidget* parent);
-    enum { PagePersonne, PagePatient, PageSurveillant, PageCuisinier, PageAutre,
+    enum { PagePersonne, PagePatient, PageSurveillant,  PageAutre,
             PageConclusion };
 };
 
