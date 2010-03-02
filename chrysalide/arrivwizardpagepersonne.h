@@ -5,6 +5,7 @@
 #include <QLabel>
  #include    <QLineEdit>
   #include   <QComboBox>
+#include "arriveewizard.h"
 
 class arrivWizardPagePersonne : public QWizardPage
 {
@@ -16,6 +17,7 @@ public:
      QLineEdit * lineEditNom;
      QLineEdit * lineEditPrenom;
      QComboBox * comboBoxType;
+     int nextId() const;
 };
 
 #endif // ARRIVWIZARDPAGEPERSONNE_H

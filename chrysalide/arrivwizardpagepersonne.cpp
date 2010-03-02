@@ -8,7 +8,7 @@ arrivWizardPagePersonne::arrivWizardPagePersonne()
      setLayout(layoutVerticale);
      QHBoxLayout * layoutNom = new QHBoxLayout;
      layoutVerticale->addLayout(layoutNom);
-     labelNom = new QLabel("&Nom:");
+     labelNom = new QLabel(tr("&Nom:"),this);
      layoutNom->addWidget(labelNom);
      lineEditNom = new QLineEdit(this);
      labelNom->setBuddy(lineEditNom);
@@ -22,9 +22,12 @@ arrivWizardPagePersonne::arrivWizardPagePersonne()
      labelPrenom->setBuddy(lineEditPrenom);
      QHBoxLayout * layoutType = new QHBoxLayout;
      layoutVerticale->addLayout(layoutType);
-     labelType=new QLabel("&Type");
+     labelType=new QLabel(tr("&Type"),this);
+
      layoutType->addWidget(labelType);
      comboBoxType = new QComboBox(this);
+     labelType->setBuddy(comboBoxType);
+     comboBoxType->addItem("Choisissez");
      comboBoxType->addItem("Patient");
      comboBoxType->addItem("Surveillant");
      comboBoxType->addItem("Cuisinier");
@@ -35,3 +38,25 @@ arrivWizardPagePersonne::arrivWizardPagePersonne()
      registerField("prenom*",lineEditPrenom);
      registerField("type*", comboBoxType);
 }
+int arrivWizardPagePersonne::nextId() const
+{
+    if (comboBoxType->currentText()=="Patient" )
+    {
+        return arriveeWizard::PagePatient;
+    }
+    else
+    {
+        if(comboBoxType->currentText()=="Surveillant")
+            return arriveeWizard::PageSurveillant;
+        else
+        {
+            if(comboBoxType->currentText()=="Cuisinier")
+                return arriveeWizard::PageCuisinier;
+            else
+            {
+                return arriveeWizard::PageAutre;
+            }
+        }
+    }
+ }
+
