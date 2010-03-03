@@ -3,7 +3,7 @@
 #include <QHBoxLayout>
 arrivWizardPagePersonne::arrivWizardPagePersonne()
 {
-     setTitle("Arrivée");
+     setTitle(tr("Arrivée"));
      QVBoxLayout *layoutVerticale = new QVBoxLayout(this);
      setLayout(layoutVerticale);
      QHBoxLayout * layoutNom = new QHBoxLayout;

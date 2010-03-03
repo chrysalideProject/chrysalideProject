@@ -65,3 +65,4 @@ SOURCES += gerertypestables.cpp \
     arrivwizardpageautre.cpp \
     arrivwizardpagerecapitulatif.cpp
 QT += sql
+RESOURCES += chrysalide.qrc

@@ -9,7 +9,9 @@
 arriveeWizard::arriveeWizard(QWidget* parent):QWizard(parent)
 {
     //création des pages
-
+    setWizardStyle(QWizard::ModernStyle);
+    setPixmap(QWizard::LogoPixmap,QPixmap(":new/prefix1/tallard"));
+    setPixmap(QWizard::WatermarkPixmap,QPixmap(":new/prefix1/chrysalide"));
     addPage(new arrivWizardPagePersonne());
     addPage(new arrivWizardPagePatient());
     addPage(new arrivWizardPageSurveillant());

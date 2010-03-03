@@ -42,7 +42,6 @@
     <property name="title">
      <string>&amp;Evenements</string>
     </property>
-    <addaction name="actionArriv_e"/>
     <addaction name="actionD_part"/>
     <addaction name="action_Modification_Personne"/>
     <addaction name="actionARRIVEEWIZARD"/>
@@ -79,11 +78,19 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Ouvrir">
+   <property name="icon">
+    <iconset resource="chrysalide.qrc">
+     <normaloff>:/new/prefix1/fileOpen</normaloff>:/new/prefix1/fileOpen</iconset>
+   </property>
    <property name="text">
     <string>&amp;Ouvrir</string>
    </property>
   </action>
   <action name="action_Quitter">
+   <property name="icon">
+    <iconset resource="chrysalide.qrc">
+     <normaloff>:/new/prefix1/fileQuit</normaloff>:/new/prefix1/fileQuit</iconset>
+   </property>
    <property name="text">
     <string>&amp;Quitter</string>
    </property>
@@ -114,6 +121,10 @@
    </property>
   </action>
   <action name="action_Nouveau">
+   <property name="icon">
+    <iconset resource="chrysalide.qrc">
+     <normaloff>:/new/prefix1/fileNew</normaloff>:/new/prefix1/fileNew</iconset>
+   </property>
    <property name="text">
     <string>&amp;Nouveau</string>
    </property>
@@ -160,11 +171,13 @@
   </action>
   <action name="actionARRIVEEWIZARD">
    <property name="text">
-    <string>ARRIVEEWIZARD</string>
+    <string>&amp;Arrivée</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="chrysalide.qrc"/>
+ </resources>
  <connections/>
 </ui>

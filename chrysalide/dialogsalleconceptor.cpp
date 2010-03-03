@@ -47,7 +47,7 @@ void DialogSalleConceptor::remplirComboTypeDeTable()
     if(m_ui->comboBoxSalle->count()>0)
     {
     m_ui->comboBoxSalle->setCurrentIndex(0);
-    on_comboBoxSalle_currentIndexChanged(0);
+
 }
 }
 typeTable* DialogSalleConceptor::typeTableCourant()

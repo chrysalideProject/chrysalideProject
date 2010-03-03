@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/new/prefix1" >
+        <file alias="chrysalide" >images/chrysalide.png</file>
+        <file alias="tallard" >images/tallard-chateau.jpg</file>
+        <file alias="fileNew" >images/filenew.png</file>
+        <file alias="fileOpen" >images/fileopen.png</file>
+        <file alias="fileQuit" >images/i_file_quit.png</file>
+    </qresource>
+</RCC>

@@ -53,7 +53,7 @@ void MainWindow::on_action_Ouvrir_triggered()
       database->setDatabaseName(fileName);
       if (!database->open())
       {
-          QMessageBox::critical(this, windowTitle()+" Erreur", "Impossible d'ouvrir cette base de données");
+          QMessageBox::critical(this, windowTitle()+" Erreur", tr("Impossible d'ouvrir cette base de données"));
       }
       else activedesactiveMenusNecessitantOuvertureBase(true);
 
@@ -72,7 +72,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
     //demande de fermeture de la part de l'utilisateur
     qDebug()<<"void MainWindow::onCloseEvent(QCloseEvent* event)";
-    if (QMessageBox::warning(this,this->windowTitle()+" Quitter?","Etes-vous sûr de vouloir quitter l'application?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No)==QMessageBox::Yes)
+    if (QMessageBox::warning(this,this->windowTitle()+" Quitter?",tr("Etes-vous sûr de vouloir quitter l'application?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No)==QMessageBox::Yes)
     {
         event->accept();
     }
@@ -142,7 +142,7 @@ void MainWindow::on_action_Nouveau_triggered()
         activedesactiveMenusNecessitantOuvertureBase(true);
     }
         else
-             QMessageBox::critical(this, windowTitle()+" Erreur", "Impossible d'ouvrir cette base de données");
+             QMessageBox::critical(this, windowTitle()+" Erreur", tr("Impossible d'ouvrir cette base de données"));
 
     }
 }

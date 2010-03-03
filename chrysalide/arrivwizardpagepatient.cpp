@@ -5,7 +5,7 @@
 
 arrivWizardPagePatient::arrivWizardPagePatient()
 {
-    setTitle("Arrivée d'un patient");
+    setTitle(tr("Arrivée d'un patient"));
      QVBoxLayout *layoutVerticale = new QVBoxLayout(this);
      setLayout(layoutVerticale);
      QHBoxLayout * layoutRegime = new QHBoxLayout;
