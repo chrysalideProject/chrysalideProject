@@ -13,8 +13,9 @@ class arriveeWizard : public QWizard
      arrivWizardPagePersonne * pagePersonne;
 public:
     arriveeWizard(QWidget* parent);
+    void enregistre();
     enum { PagePersonne, PagePatient, PageSurveillant,  PageAutre,
-            PageConclusion };
+            PageRecapitulatif};
 };
 
 #endif // ARRIVEEWIZARD_H

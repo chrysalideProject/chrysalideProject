@@ -15,7 +15,7 @@ public:
     arrivWizardPageSurveillant();
     QComboBox * comboBoxPoste;
     QLabel * labelPoste;
-    int nextId() const{return -1;};
+    int nextId() const{return arriveeWizard::PageRecapitulatif;};
 };
 
 #endif // ARRIVWIZARDPAGESURVEILLANT_H

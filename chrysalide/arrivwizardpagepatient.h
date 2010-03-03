@@ -16,7 +16,7 @@ public:
      QLabel * labelRegime;
      QLabel * labelSurveillance;
      QLabel* labelTravail;
-      int nextId() const{return -1;};
+      int nextId() const{return arriveeWizard::PageRecapitulatif;};
 
 };
 

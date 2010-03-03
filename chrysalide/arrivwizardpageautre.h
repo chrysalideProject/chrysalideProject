@@ -12,7 +12,7 @@ public:
     arrivWizardPageAutre();
     QLineEdit* lineEditFonction;
      QLabel * labelFonction;
-     int nextId() const{return -1;};
+     int nextId() const{return arriveeWizard::PageRecapitulatif;};
 
 };
 

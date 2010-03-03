@@ -16,6 +16,7 @@ class personneModel : public QObject
 
     public:
         personneModel(long, QString, QString);
+        static int insert(QString,QString);
         void majProfil();
         void supprimer();
 

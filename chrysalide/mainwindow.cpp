@@ -208,5 +208,8 @@ void MainWindow::on_actionRentrerBis_triggered()
 void MainWindow::on_actionARRIVEEWIZARD_triggered()
 {
     arriveeWizard* leWiz=new arriveeWizard(this);
-    leWiz->show();
+    if(leWiz->exec())
+    {
+        leWiz->enregistre();
+    };
 }
