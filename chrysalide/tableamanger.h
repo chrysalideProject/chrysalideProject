@@ -1,7 +1,11 @@
 #ifndef TABLEAMANGER_H
 #define TABLEAMANGER_H
 #include <QPointF>
+#include <QMap>
 #include "typetable.h"
+#include "patientmodel.h"
+#include "surveillantmodel.h"
+
 class typeTable;
 class tableAManger : public QObject
 {
@@ -13,7 +17,11 @@ class tableAManger : public QObject
         //salle de la table
         typeTable* type;
         //position
-        QPointF position;
+        QPointF position;// Individus à la table
+        QMap<int, patientModel*> mapPatients;
+        QMap<int, surveillantModel*> mapSurveillants;
+        surveillantModel* surveillant;
+
 
     public:
         tableAManger(int, int, int);//hum....
@@ -29,8 +37,17 @@ class tableAManger : public QObject
         void setType(typeTable*);
         static QVector<tableAManger*> recupererTables();
         void supprime();
-        void setTypeTable(int);
+        void afficher();
 
+        void setTypeTable(int);
+bool needsSurveillant();
+        bool isCompatibleWith(patientModel*);
+        bool estPleineSansSurveillant();
+        bool estPleine();
+        bool estVide();
+        bool ajouterSurveillant(surveillantModel*);
+        bool ajouterPatient(patientModel*);
+        bool ajouterPatientSansCompatibilite(patientModel*);
         static void nouvelleTable();
         void supprimer();
     signals:

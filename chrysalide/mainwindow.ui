@@ -79,7 +79,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Ouvrir">
    <property name="icon">
-    <iconset resource="chrysalide.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/fileOpen</normaloff>:/new/prefix1/fileOpen</iconset>
    </property>
    <property name="text">
@@ -88,7 +88,7 @@
   </action>
   <action name="action_Quitter">
    <property name="icon">
-    <iconset resource="chrysalide.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/fileQuit</normaloff>:/new/prefix1/fileQuit</iconset>
    </property>
    <property name="text">
@@ -98,16 +98,6 @@
   <action name="action_Patients">
    <property name="text">
     <string>&amp;Patients</string>
-   </property>
-  </action>
-  <action name="action_Repas">
-   <property name="text">
-    <string>&amp;Repas</string>
-   </property>
-  </action>
-  <action name="actionArriv_e">
-   <property name="text">
-    <string>&amp;Arrivée</string>
    </property>
   </action>
   <action name="actionD_part">
@@ -122,7 +112,7 @@
   </action>
   <action name="action_Nouveau">
    <property name="icon">
-    <iconset resource="chrysalide.qrc">
+    <iconset>
      <normaloff>:/new/prefix1/fileNew</normaloff>:/new/prefix1/fileNew</iconset>
    </property>
    <property name="text">
@@ -176,8 +166,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="chrysalide.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

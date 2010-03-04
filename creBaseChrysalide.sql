@@ -93,7 +93,8 @@ create table SERT
 create table REPAS
 (
 	id integer not null primary key,
-	dateRepas date not null
+	dateRepas date not null,
+    quand varchar(4) not null check(quand in('Midi','Soir'))
 );
 
 create table PRENDRE

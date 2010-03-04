@@ -74,9 +74,9 @@ insert into INCOMPATIBILITE values(3,5);
 
 insert into AFFINITE values (7, 8);
 
-insert into REPAS values (1,'2010-02-17');
-insert into REPAS values (2,'2010-02-18');
-insert into REPAS values (3,'2010-02-19');
+insert into REPAS values (1,'2010-02-17','Midi');
+insert into REPAS values (2,'2010-02-18','Soir');
+insert into REPAS values (3,'2010-02-19','Midi');
 
 insert into SERT values (5,1,2); /* deliancourt lapin va faire le service pour la table se trouvant au sous-sol le 17 fevrier 2010*/
 insert into SERT values (3,2,1); /* julien legrand va faire le service pour la table 1 à l'interieur le 18 fevrier 2010 */

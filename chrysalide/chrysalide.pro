@@ -18,28 +18,31 @@ HEADERS += gerertypestables.h \
     dialogsalleconceptor.h \
     typetableview.h \
     tableamangerview.h \
-    arriveepersonne.h \
     gestionaffinites.h \
     sauvegarde.h \
     rentrertables.h \
     tableview.h \
-    dialogrepas.h \
     arriveewizard.h \
     arrivwizardpagepersonne.h \
     arrivwizardpagepatient.h \
     arrivwizardpagesurveillant.h \
     arrivwizardpageautre.h \
-    arrivwizardpagerecapitulatif.h
+    arrivwizardpagerecapitulatif.h \
+    surveillantmodel.h \
+    preparerrepas.h \
+    cuisiniermodel.h \
+    cuisinierview.h \
+    repasmodel.h \
+    surveillantview.h
 FORMS += gerertypestables.ui \
     gestiontable.ui \
     mainwindow.ui \
     dialogsalleconceptor.ui \
-    arriveepersonne.ui \
     gestionaffinites.ui \
     sauvegarde.ui \
     rentrertables.ui \
     tableview.ui \
-    dialogrepas.ui
+    preparerrepas.ui
 SOURCES += gerertypestables.cpp \
     gestiontable.cpp \
     main.cpp \
@@ -52,17 +55,21 @@ SOURCES += gerertypestables.cpp \
     dialogsalleconceptor.cpp \
     typetableview.cpp \
     tableamangerview.cpp \
-    arriveepersonne.cpp \
     gestionaffinites.cpp \
     sauvegarde.cpp \
     rentrertables.cpp \
     tableview.cpp \
-    dialogrepas.cpp \
     arriveewizard.cpp \
     arrivwizardpagepersonne.cpp \
     arrivwizardpagepatient.cpp \
     arrivwizardpagesurveillant.cpp \
     arrivwizardpageautre.cpp \
-    arrivwizardpagerecapitulatif.cpp
+    arrivwizardpagerecapitulatif.cpp \
+    surveillantmodel.cpp \
+    preparerrepas.cpp \
+    cuisiniermodel.cpp \
+    cuisinierview.cpp \
+    repasmodel.cpp \
+    surveillantview.cpp
 QT += sql
 RESOURCES += chrysalide.qrc

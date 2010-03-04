@@ -1,4 +1,31 @@
 #include "patientmodel.h"
+#include <QDebug>
+patientModel::patientModel(int pNumPatient) : personneModel(pNumPatient)
+{
+    QSqlQuery recupInfos("SELECT * FROM PATIENT WHERE idPersonne = "+QString::number(pNumPatient));
+
+    if (recupInfos.first()){
+        idRegime = recupInfos.value(2).toInt();
+        idSurveillance = recupInfos.value(3).toInt();
+        idTravail = recupInfos.value(1).toInt();
+        recupererAffinites();
+        recupererIncompatibles();
+    }
+
+}
+QMap<int, patientModel*> patientModel::recupererPatients(){
+
+    QMap<int, patientModel*> resultat;
+
+    QSqlQuery recupPatients("SELECT idPersonne FROM PATIENT");
+
+    while (recupPatients.next()){
+        resultat[recupPatients.value(0).toInt()] = new patientModel(recupPatients.value(0).toInt());
+    }
+
+    return resultat;
+
+}
 
 patientModel::patientModel(long pId, QString pNom, QString pPrenom, int pIdRegime, int pIdSurveillance, int pIdTravail) : personneModel(pId, pNom, pPrenom)
 {
@@ -10,7 +37,7 @@ patientModel::patientModel(long pId, QString pNom, QString pPrenom, int pIdRegim
     recupererIncompatibles();
 }
 
-QVector<patientModel*> patientModel::recupererPatients(){
+/*QVector<patientModel*> patientModel::recupererPatients(){
 
     QVector<patientModel*> resultat;
 
@@ -22,7 +49,7 @@ QVector<patientModel*> patientModel::recupererPatients(){
 
     return resultat;
 
-}
+}*/
 
 void patientModel::majProfil(){
 

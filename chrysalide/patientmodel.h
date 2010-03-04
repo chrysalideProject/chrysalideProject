@@ -4,25 +4,34 @@
 #include <QVector>
 #include "personnemodel.h"
 
-class patientModel : personneModel
+class patientModel :public  personneModel
 {
-    private:
-        int idRegime;
-        int idSurveillance;
-        int idTravail;
+private:
+    int idRegime;
+    int idSurveillance;
+    int idTravail;
+    bool isServeur;
+    QVector<patientModel*> affinites;
+    QVector<patientModel*> incompatibles;
 
-        QVector<patientModel*> affinites;
-        QVector<patientModel*> incompatibles;
+public:
 
-    public:
+    patientModel(long, QString, QString, int, int, int);
+    patientModel(int);
 
-        patientModel(long, QString, QString, int, int, int);
-        static QVector<patientModel*> recupererPatients();
-        void majProfil();
-        void supprimer();
+    //static QVector<patientModel*> recupererPatients();
+    static QMap<int, patientModel*> recupererPatients();
 
-        void recupererAffinites();
-        void recupererIncompatibles();
+    void majProfil();
+    void supprimer();
+    int getIdRegime(){ return idRegime; }
+    int getIdSurveillance(){ return idSurveillance; }
+    int getIdTravail(){ return idTravail; }
+    bool getIsServeur(){ return isServeur; }
+
+    void setIsServeur(bool);
+    void recupererAffinites();
+    void recupererIncompatibles();
 };
 
 #endif // PATIENTMODEL_H

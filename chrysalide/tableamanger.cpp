@@ -116,4 +116,133 @@ void tableAManger::save(){
 
 }
 
+bool tableAManger::needsSurveillant(){
+
+    bool found = false;
+    int cpt = 0;
+
+    // Pour voir si la table a besoin d'un surveillant, on regarde si elle contient quelqu'un qui
+    // a besoin d'etre surveillé
+
+    while(cpt < mapPatients.size() && !found){
+        if (mapPatients.value(mapPatients.keys().at(cpt))->getIdSurveillance() == 3){
+            found = true;
+        }
+        else cpt++;
+    }
+
+    // On a trouvé quelqu'un qui a besoin d'etre surveillé, on regarde si il n'y aurait pas déja un surveillant
+    if (found){
+        return (mapSurveillants.size() == 0);
+    }
+
+    else return false;
+
+}
+
+bool tableAManger::isCompatibleWith(patientModel* lePatient){
+
+        // La table contient-elle quelqu'un qui n'ait pas le meme regime ?
+        bool foundNotCompatible = false;
+        int cpt = 0;
+
+        while (!foundNotCompatible && cpt < mapPatients.size()){
+            qDebug()<<mapPatients.value(mapPatients.keys().at(cpt))->getNom()<<" : "<<mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime();
+            qDebug()<<lePatient->getNom()<<" : "<<lePatient->getIdRegime();
+            if (mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime() != lePatient->getIdRegime()){
+                foundNotCompatible = true;
+            }
+            else cpt++;
+        }
+
+        if (foundNotCompatible){
+            return false;
+        }
+
+        else{
+            // La table est compatible avec le patient
+            qDebug()<<lePatient->getNom()<<" est compatible avec la table "<<numero;
+            return true;
+        }
+
+}
+
+bool tableAManger::ajouterPatient(patientModel* lePatient){
+
+    // On regarde si la table n'est pas pleine
+    if (!estPleineSansSurveillant()){
+
+        // On vérifie que le patient soit compatible avec la table
+        if (isCompatibleWith(lePatient)){
+
+            mapPatients[lePatient->getId()] = lePatient;
+            return true;
+
+        }
+
+        else return false;
+    }
+
+    else return false;
+
+}
+
+bool tableAManger::ajouterPatientSansCompatibilite(patientModel* lePatient){
+
+    // On regarde si la table n'est pas pleine
+    if (!estPleineSansSurveillant()){
+
+            mapPatients[lePatient->getId()] = lePatient;
+            return true;
+    }
+
+    else return false;
+
+}
+
+void tableAManger::afficher(){
+
+    qDebug()<<"************************";
+    qDebug()<<QString::fromUtf8("Table N°")<<numero;
+
+    for (int cpt=0; cpt < mapSurveillants.size(); cpt++){
+
+        qDebug()<<cpt+1<<" : "<<mapSurveillants.value(mapSurveillants.keys().at(cpt))->getNom()<<" (surveillant)";
+
+    }
+
+    for (int cpt=0; cpt < mapPatients.size(); cpt++){
+
+        qDebug()<<cpt+2<<" : "<<mapPatients.value(mapPatients.keys().at(cpt))->getNom();
+
+    }
+
+    qDebug()<<"****************************";
+
+}
+
+bool tableAManger::ajouterSurveillant(surveillantModel* leSurveillant){
+
+    if (!estPleine()){
+        mapSurveillants[leSurveillant->getId()] = leSurveillant;
+        return true;
+    }
+
+    else return false;
+
+}
+
+bool tableAManger::estPleineSansSurveillant(){
+
+    return (mapPatients.size() == 5);
+}
+
+bool tableAManger::estPleine(){
+
+    return (mapPatients.size()+mapSurveillants.size() == 6);
+}
+
+bool tableAManger::estVide(){
+    return (mapPatients.size() == 0);
+}
 

@@ -34,7 +34,7 @@ private slots:
     void on_action_Nouveau_triggered();
     void on_actionRentrer_les_Tables_triggered();
     void on_actionD_part_triggered();
-    void on_actionArriv_e_triggered();
+
     void on_action_Quitter_triggered();
     void on_action_Ouvrir_triggered();
     void closeEvent(QCloseEvent* event);

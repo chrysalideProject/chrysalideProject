@@ -6,13 +6,14 @@
 #include <QCloseEvent>
 #include <QDebug>
 #include "dialogsalleconceptor.h"
-#include "arriveepersonne.h"
+
 #include "gerertypestables.h"
 #include "sauvegarde.h"
 #include "gestionaffinites.h"
 #include "rentrertables.h"
 #include <QSqlError>
 #include "arriveewizard.h"
+#include "preparerrepas.h"
 
 MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
@@ -21,16 +22,17 @@ MainWindow::MainWindow(QSqlDatabase* pDatabase, QWidget *parent)
     database = pDatabase;
     //desactivation des menus tant que il n'a pas réussi l'ouverture d'une base ou sa création
     activedesactiveMenusNecessitantOuvertureBase(false);
+    this->move(QPoint(10,10));
 }
 void MainWindow::activedesactiveMenusNecessitantOuvertureBase(bool activation)
 {
-   ui->actionArriv_e->setEnabled(activation);
+   ui->actionARRIVEEWIZARD->setEnabled(activation);
    ui->actionD_part->setEnabled(activation);
    ui->actionRentrer_les_Tables->setEnabled(activation);
    ui->action_gestion_des_affinit_s->setEnabled(activation);
    ui->action_Modification_Personne->setEnabled(activation);
    ui->action_Patients->setEnabled(activation);
-   ui->action_Repas->setEnabled(activation);
+   //ui->action_Repas->setEnabled(activation);
    ui->action_Sauvegarde->setEnabled(activation);
    ui->actionRentrerBis->setEnabled(activation);
    ui->action_Salles_typeTable->setEnabled(activation);
@@ -80,13 +82,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
         event->ignore();
 }
 
-void MainWindow::on_actionArriv_e_triggered()
-{
-   qDebug()<<"void MainWindow::on_actionArriv_e_triggered()";
-   //arrivée d'une personne concernée par l'application
-   arriveePersonne* dialogArriveePersonne=new arriveePersonne(this);
-   dialogArriveePersonne->exec();
-}
+
 
 void MainWindow::on_actionD_part_triggered()
 {
@@ -159,6 +155,9 @@ void MainWindow::on_action_Pr_paration_des_tables_triggered()
         //cuisiniers repas 11h 18h
         //affectation des autres patients
         //surveillance(3 surveillants)
+        preparerRepas* fenPrepaRepas=new preparerRepas();
+        fenPrepaRepas->exec();
+        delete fenPrepaRepas;
 
 
 
@@ -170,6 +169,7 @@ void MainWindow::on_action_gestion_des_affinit_s_triggered()
         //gestion des incidents et des affinités entre patients
         gestionAffinites* fenGestAffinite=new gestionAffinites(this);
         fenGestAffinite->exec();
+        delete fenGestAffinite;
 }
 
 void MainWindow::on_action_Propos_triggered()
@@ -191,18 +191,21 @@ void MainWindow::on_action_Sauvegarde_triggered()
     sauvegarde * leDialogPourSauvegarder = new sauvegarde(this);
     leDialogPourSauvegarder->setWindowTitle(windowTitle()+" sauvegarde");
     leDialogPourSauvegarder->exec();
+    delete leDialogPourSauvegarder;
 }
 
 void MainWindow::on_action_Salles_typeTable_triggered()
 {
     gererTypesTables * fenGestionDesTypes=new gererTypesTables(this);
     fenGestionDesTypes->exec();
+    delete fenGestionDesTypes;
 }
 
 void MainWindow::on_actionRentrerBis_triggered()
 {
     rentrerTables* fenRentrerTables= rentrerTables::getInstance();
     fenRentrerTables->exec();
+    delete fenRentrerTables;
 }
 
 void MainWindow::on_actionARRIVEEWIZARD_triggered()
@@ -212,4 +215,5 @@ void MainWindow::on_actionARRIVEEWIZARD_triggered()
     {
         leWiz->enregistre();
     };
+    delete leWiz;
 }

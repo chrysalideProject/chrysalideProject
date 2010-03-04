@@ -13,6 +13,8 @@ class rentrerTables : public QDialog {
     Q_OBJECT
 public:
     static rentrerTables* getInstance();
+    ~rentrerTables();
+
 
 
 protected:
@@ -21,7 +23,6 @@ protected:
 private:
     Ui::rentrerTables *ui;
     rentrerTables(QWidget *parent = 0);
-    ~rentrerTables();
 
     static rentrerTables* instance;
 
