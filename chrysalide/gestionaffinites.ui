@@ -171,12 +171,18 @@
        <property name="text">
         <string>&amp;Fermer</string>
        </property>
+       <property name="icon">
+        <iconset resource="chrysalide.qrc">
+         <normaloff>:/new/prefix1/images/dialog-close.png</normaloff>:/new/prefix1/images/dialog-close.png</iconset>
+       </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="chrysalide.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -17,29 +17,29 @@ delete from REPAS;
 delete from SERT;
 delete from PRENDRE;
 
-insert into TYPETABLE values (1, 'interieur');
-insert into TYPETABLE values (2, 'exterieur');
+insert into TYPETABLE values (1, 'Intérieur');
+insert into TYPETABLE values (2, 'Extèrieur');
 insert into TYPETABLE values (3, 'sous-sol');
-insert into TYPETABLE values (4, 'cuisiniers');
-insert into TYPETABLE values (5, 'personnel');
+insert into TYPETABLE values (4, 'Cuisiniers');
+insert into TYPETABLE values (5, 'Personnel');
 
 
-insert into TABLEAMANGER values (1, 6, 1); /* une table a l'interrieur de capacité 6 places */
-insert into TABLEAMANGER values (2, 6, 3); /* la table au sous sol de capacité 6 places */
-insert into TABLEAMANGER values (3, 12, 4); /* table pour les cuisinier de 12 places */
-insert into TABLEAMANGER values (4, 12, 5); /* table pour le personnel de 12 places */
+insert into TABLEAMANGER values (1, 6, 1,0,0); /* une table a l'interrieur de capacité 6 places */
+insert into TABLEAMANGER values (2, 6, 3,0,0); /* la table au sous sol de capacité 6 places */
+insert into TABLEAMANGER values (3, 12, 4,0,0); /* table pour les cuisinier de 12 places */
+insert into TABLEAMANGER values (4, 12, 5,0,0); /* table pour le personnel de 12 places */
 
-insert into REGIME values (1, 'regime');
-insert into REGIME values (2, 'surveillance');
-insert into REGIME values (3, 'normal');
+insert into REGIME values (1, 'sans pain');
+insert into REGIME values (2, '1 pain');
+insert into REGIME values (3, 'pain à volonté');
 
-insert into TRAVAIL values (1, 'atelier');
-insert into TRAVAIL values (2, 'maçon');
-insert into TRAVAIL values (3, 'espacesVerts');
+insert into TRAVAIL values (1, 'Atelier');
+insert into TRAVAIL values (2, 'Maçon');
+insert into TRAVAIL values (3, 'Espaces verts');
 
-insert into SURVEILLANCE values (1, 'faible');
-insert into SURVEILLANCE values (2, 'moyenne');
-insert into SURVEILLANCE values (3, 'forte');
+insert into SURVEILLANCE values (1, 'Faible');
+insert into SURVEILLANCE values (2, 'Moyenne');
+insert into SURVEILLANCE values (3, 'Forte');
 
 insert into PERSONNE values (1, 'Goret', 'Roger');
 insert into PERSONNE values (2, 'Patate', 'Monsieur');

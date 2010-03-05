@@ -44,7 +44,7 @@ create table PERSONNE
 create table PATIENT
 (
 	idPersonne integer not null references PERSONNE(id),
-	idTravail integer not null references TRAVAIL(id),
+	idTravail integer  references TRAVAIL(id),
 	idRegime integer not null references REGIME(id),
 	idSurveillance integer not null references SURVEILLANCE(id),
 	primary key (idPersonne)

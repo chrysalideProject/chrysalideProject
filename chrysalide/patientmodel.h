@@ -21,7 +21,7 @@ public:
 
     //static QVector<patientModel*> recupererPatients();
     static QMap<int, patientModel*> recupererPatients();
-
+    static QMap<int, patientModel*>recupererPatientsAvecSelection(QString where);
     void majProfil();
     void supprimer();
     int getIdRegime(){ return idRegime; }
@@ -32,6 +32,7 @@ public:
     void setIsServeur(bool);
     void recupererAffinites();
     void recupererIncompatibles();
+    static QMap<int,QString>recupererMetiers();
 };
 
 #endif // PATIENTMODEL_H

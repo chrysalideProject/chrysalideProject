@@ -5,6 +5,7 @@
 #include "patientmodel.h"
 #include "surveillantmodel.h"
 #include "cuisiniermodel.h"
+#include "autrepersonnelmodel.h"
 #include "tableamanger.h"
 
 namespace Ui {
@@ -26,16 +27,21 @@ class preparerRepas : public QDialog {
         QMap<int, patientModel*> mapPatients;
         QMap<int, surveillantModel*> mapSurveillants;
         QMap <int, cuisinierModel*> mapCuisiniers;
+        QMap <int, autrePersonnelModel*> mapAutrePersonnels;
         QVector<tableAManger*> tablesAManger;
         int repasCourant;
 
     private slots:
+        void on_pushButtonFermer_clicked();
         void placerPersonnes();
         void updateView();
         void initialiserCuisiniers();
         void initialiserSurveillants();
+        void initialiserAutresPersonnels();
+        void initialiserTreeWidgetExterieur();
         void faireTravaillerCuisinier(QListWidgetItem*);
         void faireTravaillerSurveillant(QListWidgetItem*);
+        void faireTravaillerAutrePersonnel(QListWidgetItem*);
         void changeRepasCourant();
 
 };

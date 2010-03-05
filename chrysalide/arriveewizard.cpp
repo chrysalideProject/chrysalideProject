@@ -42,6 +42,9 @@ void arriveeWizard::enregistre()
             QString regime=field("regime").toString();
             QString surveillance=field("surveillance").toString();
             QString travail=field("travail").toString();
+            //verif de l'existence du travail
+            QSqlQuery reqVerif("select * from TRAVAIL where id="+travail);
+            if(!reqVerif.first()) travail="NULL";
             QSqlQuery reqPatient("insert into patient values("+QString::number(numero)+","+travail+","+regime+","+surveillance+")");
             reqPatient.exec();
 

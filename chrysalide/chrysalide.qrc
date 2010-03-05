@@ -5,5 +5,6 @@
         <file alias="fileNew" >images/filenew.png</file>
         <file alias="fileOpen" >images/fileopen.png</file>
         <file alias="fileQuit" >images/i_file_quit.png</file>
+        <file>images/dialog-close.png</file>
     </qresource>
 </RCC>

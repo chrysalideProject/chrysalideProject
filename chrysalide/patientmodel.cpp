@@ -13,6 +13,17 @@ patientModel::patientModel(int pNumPatient) : personneModel(pNumPatient)
     }
 
 }
+QMap<int,QString> patientModel::recupererMetiers()
+{
+    QMap<int,QString> resultat;
+    QSqlQuery recupMetiers("SELECT distinct idTravail,libelle FROM PATIENT inner join TRAVAIL on travail.id=patient.idtravail");
+     while (recupMetiers.next()){
+        resultat[recupMetiers.value(0).toInt()] = recupMetiers.value(1).toString();
+    }
+
+    return resultat;
+
+}
 QMap<int, patientModel*> patientModel::recupererPatients(){
 
     QMap<int, patientModel*> resultat;
@@ -26,7 +37,19 @@ QMap<int, patientModel*> patientModel::recupererPatients(){
     return resultat;
 
 }
+QMap<int, patientModel*> patientModel::recupererPatientsAvecSelection(QString where){
 
+    QMap<int, patientModel*> resultat;
+
+    QSqlQuery recupPatients("SELECT idPersonne FROM PATIENT WHERE "+where);
+
+    while (recupPatients.next()){
+        resultat[recupPatients.value(0).toInt()] = new patientModel(recupPatients.value(0).toInt());
+    }
+
+    return resultat;
+
+}
 patientModel::patientModel(long pId, QString pNom, QString pPrenom, int pIdRegime, int pIdSurveillance, int pIdTravail) : personneModel(pId, pNom, pPrenom)
 {
     idRegime = pIdRegime;

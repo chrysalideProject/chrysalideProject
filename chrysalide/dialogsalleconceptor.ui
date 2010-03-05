@@ -103,7 +103,11 @@
      <item>
       <widget class="QPushButton" name="pushButtonQuitter">
        <property name="text">
-        <string>&amp;Quitter</string>
+        <string>&amp;Fermer</string>
+       </property>
+       <property name="icon">
+        <iconset resource="chrysalide.qrc">
+         <normaloff>:/new/prefix1/images/dialog-close.png</normaloff>:/new/prefix1/images/dialog-close.png</iconset>
        </property>
       </widget>
      </item>
@@ -129,6 +133,8 @@
    <header>typetableview.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="chrysalide.qrc"/>
+ </resources>
  <connections/>
 </ui>

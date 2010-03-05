@@ -9,7 +9,6 @@ INCLUDEPATH += .
 
 # Input
 HEADERS += gerertypestables.h \
-    gestiontable.h \
     mainwindow.h \
     patientmodel.h \
     personnemodel.h \
@@ -20,7 +19,6 @@ HEADERS += gerertypestables.h \
     tableamangerview.h \
     gestionaffinites.h \
     sauvegarde.h \
-    rentrertables.h \
     tableview.h \
     arriveewizard.h \
     arrivwizardpagepersonne.h \
@@ -33,18 +31,18 @@ HEADERS += gerertypestables.h \
     cuisiniermodel.h \
     cuisinierview.h \
     repasmodel.h \
-    surveillantview.h
+    surveillantview.h \
+    autrepersonnelmodel.h \
+    autrepersonnelview.h \
+    arbredespatientsparmetier.h
 FORMS += gerertypestables.ui \
-    gestiontable.ui \
     mainwindow.ui \
     dialogsalleconceptor.ui \
     gestionaffinites.ui \
     sauvegarde.ui \
-    rentrertables.ui \
     tableview.ui \
     preparerrepas.ui
 SOURCES += gerertypestables.cpp \
-    gestiontable.cpp \
     main.cpp \
     mainwindow.cpp \
     patientmodel.cpp \
@@ -57,7 +55,6 @@ SOURCES += gerertypestables.cpp \
     tableamangerview.cpp \
     gestionaffinites.cpp \
     sauvegarde.cpp \
-    rentrertables.cpp \
     tableview.cpp \
     arriveewizard.cpp \
     arrivwizardpagepersonne.cpp \
@@ -70,6 +67,9 @@ SOURCES += gerertypestables.cpp \
     cuisiniermodel.cpp \
     cuisinierview.cpp \
     repasmodel.cpp \
-    surveillantview.cpp
+    surveillantview.cpp \
+    autrepersonnelmodel.cpp \
+    autrepersonnelview.cpp \
+    arbredespatientsparmetier.cpp
 QT += sql
 RESOURCES += chrysalide.qrc

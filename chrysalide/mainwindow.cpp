@@ -10,7 +10,6 @@
 #include "gerertypestables.h"
 #include "sauvegarde.h"
 #include "gestionaffinites.h"
-#include "rentrertables.h"
 #include <QSqlError>
 #include "arriveewizard.h"
 #include "preparerrepas.h"
@@ -203,9 +202,7 @@ void MainWindow::on_action_Salles_typeTable_triggered()
 
 void MainWindow::on_actionRentrerBis_triggered()
 {
-    rentrerTables* fenRentrerTables= rentrerTables::getInstance();
-    fenRentrerTables->exec();
-    delete fenRentrerTables;
+
 }
 
 void MainWindow::on_actionARRIVEEWIZARD_triggered()
