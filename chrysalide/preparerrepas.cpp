@@ -6,6 +6,8 @@
 #include "autrepersonnelview.h"
 #include <QVariant>
 #include "modelarbredespatientsparmetier.h"
+#include <QTreeWidgetItem>
+#include <QVariant>
 
 
 preparerRepas::preparerRepas(QWidget *parent) :
@@ -18,11 +20,12 @@ preparerRepas::preparerRepas(QWidget *parent) :
     initialiserCuisiniers();
     initialiserSurveillants();
     initialiserAutresPersonnels();
+    initialiserTreeWidgetExterieur();
 
     connect(ui->dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(changeRepasCourant()));
     connect(ui->comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(changeRepasCourant()));
 
-    placerPersonnes();
+    //placerPersonnes();
 }
 void preparerRepas::changeRepasCourant()
 {
@@ -40,12 +43,41 @@ void preparerRepas::changeRepasCourant()
 }
 void preparerRepas::initialiserTreeWidgetExterieur()
 {
+    ui->treeWidgetPatientsParMetiers->clear();
     qDebug()<<"void preparerRepas::initialiserTreeWidgetExterieur()";
-    lesPatientsParMetier=new modelArbreDesPatientsParMetier("Métier\nPatient",this);
-    ui->treeViewPatientsParMetiers->setModel(lesPatientsParMetier);
-    //ui->treeViewPatientsParMetiers->show();
+    QMap<int,QString> mapMetiers=patientModel::recupererMetiers();
+    //deconnecter le signal du slot
+    ui->treeWidgetPatientsParMetiers->disconnect(this);
+    for(QMap<int,QString>::iterator it=mapMetiers.begin();it!=mapMetiers.end();it++)
+    {
+        QStringList(it.value());
+        QTreeWidgetItem * nouv=new QTreeWidgetItem(QStringList(it.value()));;
+        nouv->setFlags(Qt::ItemIsEnabled|Qt::ItemIsUserCheckable);
+        nouv->setCheckState(0,Qt::Unchecked);
+        ui->treeWidgetPatientsParMetiers->addTopLevelItem(nouv);//ajout du métier
+
+        QMap<int,patientModel *> mapPatients=patientModel::recupererPatientsAvecSelection("idtravail="+QString::number(it.key()));
+        //boucle d'ajout des patients
+        for(QMap<int,patientModel *>::iterator itP=mapPatients.begin();itP!=mapPatients.end();itP++)
+        {
+            patientModel * lePatient=itP.value();
+            QString data2=lePatient->getPrenom()+" "+lePatient->getNom();
+            QTreeWidgetItem * nouvP=new QTreeWidgetItem(QStringList(data2));
+
+            nouvP->setData(1,32,(int)lePatient->getId());//je stocke le numero du patient
+            nouv->addChild(nouvP);
+            nouvP->setFlags(Qt::ItemIsEnabled|Qt::ItemIsUserCheckable);
+            Qt::CheckState etat;
+            if(lePatient->estALExterieur(repasCourant))etat=Qt::Checked;
+            else etat=Qt::Unchecked;
+            nouvP->setCheckState(0,etat);
+        }
+    }
+    //et reconnexion
+    connect(ui->treeWidgetPatientsParMetiers,SIGNAL(itemChanged(QTreeWidgetItem*,int)),this,SLOT(on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem*,int)));
 
 }
+
 void preparerRepas::initialiserCuisiniers()
 {
     qDebug()<<"void preparerRepas::initialiserCuisiniers()";
@@ -366,4 +398,31 @@ void preparerRepas::changeEvent(QEvent *e)
 void preparerRepas::on_pushButtonFermer_clicked()
 {
     close();
+}
+
+void preparerRepas::on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem* item, int column)
+{
+    qDebug()<<"void preparerRepas::on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem* item, int column)";
+    //si c'est un metier
+    if(item->parent()==0)
+    {
+        //tout cocher
+    }
+    else
+    {
+        //sinon c'est donc un patient
+        if(column==0)//changement d'état
+        {
+            Qt::CheckState etat=item->checkState(0);
+            patientModel * lePatient=new patientModel(item->data(1,32).toInt());
+            if(etat==Qt::Unchecked)
+            {
+                lePatient->mangerExterieur(repasCourant,false);
+            }
+            else
+            {
+                lePatient->mangerExterieur(repasCourant,true);
+            }
+        }
+    }
 }

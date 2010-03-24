@@ -34,7 +34,9 @@ HEADERS += gerertypestables.h \
     surveillantview.h \
     autrepersonnelmodel.h \
     autrepersonnelview.h \
-    arbredespatientsparmetier.h
+    arbredespatientsparmetier.h \
+    modelarbredespatientsparmetier.h \
+    treeitempatient.h
 FORMS += gerertypestables.ui \
     mainwindow.ui \
     dialogsalleconceptor.ui \
@@ -70,6 +72,8 @@ SOURCES += gerertypestables.cpp \
     surveillantview.cpp \
     autrepersonnelmodel.cpp \
     autrepersonnelview.cpp \
-    arbredespatientsparmetier.cpp
+    arbredespatientsparmetier.cpp \
+    modelarbredespatientsparmetier.cpp \
+    treeitempatient.cpp
 QT += sql
 RESOURCES += chrysalide.qrc

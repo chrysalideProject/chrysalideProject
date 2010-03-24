@@ -7,6 +7,7 @@
 #include "treeitempatient.h"
 class modelArbreDesPatientsParMetier : public QAbstractItemModel
 {
+ Q_OBJECT
 public:
     modelArbreDesPatientsParMetier(const QString &data, QObject *parent);
     ~modelArbreDesPatientsParMetier();
@@ -21,7 +22,7 @@ public:
      int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
  private:
-     void setupModelData(const QStringList &lines, treeitemPatient *parent);
+     void setupModelData( treeitemPatient *parent);
 
      treeitemPatient *rootItem;
 };

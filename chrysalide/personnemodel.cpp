@@ -1,4 +1,5 @@
 #include "personnemodel.h"
+#include <QDebug>
 personneModel::personneModel(int pNumPersonne){
 
     QSqlQuery recupInfos("SELECT * FROM PERSONNE WHERE id = "+QString::number(pNumPersonne));
@@ -42,6 +43,25 @@ void personneModel::supprimer(){
     QSqlQuery supprimer("DELETE FROM PERSONNE WHERE id = "+QString::number(id));
     supprimer.exec();
 
+}
+bool personneModel::estALExterieur(int noRepas)
+{
+    qDebug()<<"bool personneModel::estALExterieur(int noRepas)";
+    QSqlQuery req("select * from prendre natural join tableamanger natural join  typetable where typetable.libelle='Extèrieur' and idPersonne="+QString::number(id)+" and idRepas="+QString::number(noRepas));
+    return req.first();
+}
+
+void personneModel::mangerExterieur(int noRepas,bool exterieur)
+{
+    qDebug()<<"void personneModel::mangerExterieur(int noRepas,bool exterieur)";
+    if(exterieur)
+    {
+        prendreRepas(noRepas,2);//2 correspond au typetable extérieur
+    }
+    else
+    {
+        prendreRepas(noRepas,0);
+    }
 }
 
 void personneModel::prendreRepas(int noRepas,int pNoTable)//si noTable vaux 0 donc faux on efface l'inscription au repas

@@ -92,8 +92,8 @@ void gererTypesTables::on_appliquerPushButton_clicked()
 
 void gererTypesTables::on_libelleLineEdit_textEdited(QString value)
 {
-    if (value.isEmpty()) ui->appliquerPushButton->setDisabled(true);
-    else ui->appliquerPushButton->setEnabled(true);
+    //if (value.isEmpty()) ui->appliquerPushButton->setDisabled(true);
+    //else ui->appliquerPushButton->setEnabled(true);
 }
 
 void gererTypesTables::on_pushButtonQuitter_clicked()

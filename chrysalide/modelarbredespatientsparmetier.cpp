@@ -11,7 +11,7 @@
      QList<QVariant> rootData;
      rootData << "Métier" << "Patient";
      rootItem = new treeitemPatient(rootData);
-     setupModelData(data.split(QString("\n")), rootItem);
+     setupModelData( rootItem);
  }
 
  modelArbreDesPatientsParMetier::~modelArbreDesPatientsParMetier()
@@ -29,6 +29,7 @@
 
  QVariant modelArbreDesPatientsParMetier::data(const QModelIndex &index, int role) const
  {
+
      if (!index.isValid())
          return QVariant();
 
@@ -105,16 +106,18 @@
      return parentItem->childCount();
  }
 
- void modelArbreDesPatientsParMetier::setupModelData(const QStringList &lines, treeitemPatient *parent)
+ void modelArbreDesPatientsParMetier::setupModelData( treeitemPatient *parent)
  {
-     qDebug()<<"void preparerRepas::initialiserTreeWidgetExterieur()";
+     qDebug()<<"void modelArbreDesPatientsParMetier::setupModelData(const QStringList &lines, treeitemPatient *parent)";
     //afficher les métiers et leurs patients
     QMap<int,QString> mapMetiers=patientModel::recupererMetiers();
     for(QMap<int,QString>::iterator it=mapMetiers.begin();it!=mapMetiers.end();it++)
     {
         QList<QVariant> data;
         data<<QStringList(it.value());
-        treeitemPatient * nouv=new treeitemPatient(data);
+        treeitemPatient * nouv=new treeitemPatient(data,parent);
+
+        parent->appendChild(nouv);
 
         QMap<int,patientModel *> mapPatients=patientModel::recupererPatientsAvecSelection("idtravail="+QString::number(it.key()));
         for(QMap<int,patientModel *>::iterator itP=mapPatients.begin();itP!=mapPatients.end();itP++)
@@ -123,6 +126,7 @@
             QList<QVariant> data2;
             data2<<QStringList(lePatient->getPrenom()+" "+lePatient->getNom());
             treeitemPatient * nouvP=new treeitemPatient(data2,nouv);
+            nouv->appendChild(nouvP);
 
         }
     }

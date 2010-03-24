@@ -8,6 +8,7 @@
 #include "autrepersonnelmodel.h"
 #include "tableamanger.h"
 #include "modelarbredespatientsparmetier.h"
+#include <QTreeWidgetItem>
 
 namespace Ui {
     class preparerRepas;
@@ -34,6 +35,7 @@ class preparerRepas : public QDialog {
         modelArbreDesPatientsParMetier* lesPatientsParMetier;
 
     private slots:
+        void on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem* item, int column);
         void on_pushButtonFermer_clicked();
         void placerPersonnes();
         void updateView();

@@ -2,9 +2,11 @@
 #define TREEITEMPATIENT_H
 #include <QList>
 #include <QVariant>
+#include <QStandardItemModel>
 
-class treeitemPatient
+class treeitemPatient: public QStandardItemModel
 {
+    Q_OBJECT
 public:
     treeitemPatient(const QList<QVariant> &data, treeitemPatient *parent = 0);
      ~treeitemPatient();
@@ -22,6 +24,13 @@ public:
      QList<treeitemPatient*> childItems;
      QList<QVariant> itemData;
      treeitemPatient *parentItem;
+
+     Qt::ItemFlags flags() const
+     {
+        return Qt::ItemIsEnabled | Qt::ItemIsUserCheckable;
+     }
+
 };
+
 
 #endif // treeitemPatientPATIENT_H

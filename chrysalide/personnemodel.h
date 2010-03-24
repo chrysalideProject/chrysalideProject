@@ -25,7 +25,8 @@ class personneModel : public QObject
         void supprimer();
         void prendreRepas(int noRepas,int noTable);
         void prendreRepas(int noRepas);
-
+        void mangerExterieur(int noRepas,bool exterieur);
+        bool estALExterieur(int noRepas);
 };
 
 #endif // PERSONNEMODEL_H
