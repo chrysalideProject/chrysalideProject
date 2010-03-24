@@ -5,6 +5,7 @@
 #include "surveillantview.h"
 #include "autrepersonnelview.h"
 #include <QVariant>
+#include "modelarbredespatientsparmetier.h"
 
 
 preparerRepas::preparerRepas(QWidget *parent) :
@@ -40,24 +41,9 @@ void preparerRepas::changeRepasCourant()
 void preparerRepas::initialiserTreeWidgetExterieur()
 {
     qDebug()<<"void preparerRepas::initialiserTreeWidgetExterieur()";
-    //afficher les métiers et leurs patients
-    QMap<int,QString> mapMetiers=patientModel::recupererMetiers();
-    for(QMap<int,QString>::iterator it=mapMetiers.begin();it!=mapMetiers.end();it++)
-    {
-
-        QTreeWidgetItem * nouv=new QTreeWidgetItem(QStringList(it.value()));
-        ui->treeWidgetExterieur->insertTopLevelItem(0,nouv);
-        //recup des patients qui ont ce métier
-        QMap<int,patientModel *> mapPatients=patientModel::recupererPatientsAvecSelection("idtravail="+QString::number(it.key()));
-        for(QMap<int,patientModel *>::iterator itP=mapPatients.begin();itP!=mapPatients.end();itP++)
-        {
-            patientModel * lePatient=itP.value();
-            QTreeWidgetItem * nouvP=new QTreeWidgetItem(nouv,QStringList(lePatient->getPrenom()+" "+lePatient->getNom()));
-            //ui->treeWidgetExterieur->insertTopLevelItem(nouv,nouvP);
-            //recup des patients qui ont ce métier
-
-        }
-    }
+    lesPatientsParMetier=new modelArbreDesPatientsParMetier("Métier\nPatient",this);
+    ui->treeViewPatientsParMetiers->setModel(lesPatientsParMetier);
+    //ui->treeViewPatientsParMetiers->show();
 
 }
 void preparerRepas::initialiserCuisiniers()

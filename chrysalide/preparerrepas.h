@@ -7,6 +7,7 @@
 #include "cuisiniermodel.h"
 #include "autrepersonnelmodel.h"
 #include "tableamanger.h"
+#include "modelarbredespatientsparmetier.h"
 
 namespace Ui {
     class preparerRepas;
@@ -30,6 +31,7 @@ class preparerRepas : public QDialog {
         QMap <int, autrePersonnelModel*> mapAutrePersonnels;
         QVector<tableAManger*> tablesAManger;
         int repasCourant;
+        modelArbreDesPatientsParMetier* lesPatientsParMetier;
 
     private slots:
         void on_pushButtonFermer_clicked();

@@ -123,13 +123,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QTreeWidget" name="treeWidgetExterieur">
-             <column>
-              <property name="text">
-               <string notr="true">1</string>
-              </property>
-             </column>
-            </widget>
+            <widget class="QTreeView" name="treeViewPatientsParMetiers"/>
            </item>
           </layout>
          </item>
