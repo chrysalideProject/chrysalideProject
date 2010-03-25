@@ -86,7 +86,7 @@
            <item>
             <widget class="QLabel" name="label_3">
              <property name="text">
-              <string>Surveillants de service:</string>
+              <string>Surveillants qui travaillent:</string>
              </property>
             </widget>
            </item>
@@ -112,7 +112,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
@@ -126,7 +126,7 @@
             <widget class="QTreeWidget" name="treeWidgetPatientsParMetiers">
              <column>
               <property name="text">
-               <string notr="true">1</string>
+               <string notr="true">Métiers et patients</string>
               </property>
              </column>
             </widget>
@@ -138,12 +138,26 @@
            <item>
             <widget class="QLabel" name="label_5">
              <property name="text">
-              <string>Serveurs:</string>
+              <string>Serveurs(mangent au 1er service):</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QListWidget" name="listWidgetServeurs"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QComboBox" name="comboBoxPatientsPouvantServir"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButtonAjouterServeur">
+               <property name="text">
+                <string>&amp;Ajouter</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>
@@ -152,12 +166,26 @@
            <item>
             <widget class="QLabel" name="label_7">
              <property name="text">
-              <string>Absents:</string>
+              <string>Patients Absents:</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QListWidget" name="listWidgetAbsents"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QComboBox" name="comboBoxPatientsPouvantEtreAbsents"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButtonAjouterAbsent">
+               <property name="text">
+                <string>&amp;Ajouter</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>

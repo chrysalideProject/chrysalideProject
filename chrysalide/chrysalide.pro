@@ -10,7 +10,6 @@ INCLUDEPATH += .
 # Input
 HEADERS += gerertypestables.h \
     mainwindow.h \
-    patientmodel.h \
     personnemodel.h \
     tableamanger.h \
     typetable.h \
@@ -34,9 +33,7 @@ HEADERS += gerertypestables.h \
     surveillantview.h \
     autrepersonnelmodel.h \
     autrepersonnelview.h \
-    arbredespatientsparmetier.h \
-    modelarbredespatientsparmetier.h \
-    treeitempatient.h
+    patientmodel.h
 FORMS += gerertypestables.ui \
     mainwindow.ui \
     dialogsalleconceptor.ui \
@@ -47,7 +44,6 @@ FORMS += gerertypestables.ui \
 SOURCES += gerertypestables.cpp \
     main.cpp \
     mainwindow.cpp \
-    patientmodel.cpp \
     personnemodel.cpp \
     tableamanger.cpp \
     typetable.cpp \
@@ -72,8 +68,6 @@ SOURCES += gerertypestables.cpp \
     surveillantview.cpp \
     autrepersonnelmodel.cpp \
     autrepersonnelview.cpp \
-    arbredespatientsparmetier.cpp \
-    modelarbredespatientsparmetier.cpp \
-    treeitempatient.cpp
+    patientmodel.cpp
 QT += sql
 RESOURCES += chrysalide.qrc

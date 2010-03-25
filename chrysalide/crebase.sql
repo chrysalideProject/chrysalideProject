@@ -126,3 +126,14 @@ create table POSTE
 	id integer not null primary key,
 	libelle varchar not null
 );
+insert into typetable values(1,'Extèrieur');
+insert into typetable values(2,'Absents');
+insert into typetable values(3,'Cuisiniers');
+insert into typetable values(4,'Intèrieur');
+
+
+insert into tableamanger values(1,30,1,-150,-40);
+insert into tableamanger values(2,30,2,-150,-40);
+insert into tableamanger values(3,30,3,-150,-40);
+insert into tableamanger values(4,6,4,-150,-40);
+

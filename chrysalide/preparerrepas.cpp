@@ -5,15 +5,17 @@
 #include "surveillantview.h"
 #include "autrepersonnelview.h"
 #include <QVariant>
-#include "modelarbredespatientsparmetier.h"
 #include <QTreeWidgetItem>
 #include <QVariant>
+#include <QMessageBox>
+
 
 
 preparerRepas::preparerRepas(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::preparerRepas)
+        QDialog(parent),
+        ui(new Ui::preparerRepas)
 {
+    //constructeur
     ui->setupUi(this);
     ui->dateEdit->setDate(QDate::currentDate());
     changeRepasCourant();
@@ -21,9 +23,13 @@ preparerRepas::preparerRepas(QWidget *parent) :
     initialiserSurveillants();
     initialiserAutresPersonnels();
     initialiserTreeWidgetExterieur();
-
+    initialiserServeurs();
+    initialiserAbsents();
     connect(ui->dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(changeRepasCourant()));
     connect(ui->comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(changeRepasCourant()));
+    connect (ui->listWidgetCuisinier,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerCuisinier(QListWidgetItem*)));
+    connect (ui->listWidgetSurveillants,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerSurveillant(QListWidgetItem*)));
+    connect (ui->listWidgetAutrePersonnel,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerAutrePersonnel(QListWidgetItem*)));
 
     //placerPersonnes();
 }
@@ -38,9 +44,72 @@ void preparerRepas::changeRepasCourant()
     initialiserCuisiniers();
     initialiserSurveillants();
     initialiserAutresPersonnels();
-    initialiserTreeWidgetExterieur();
+    ui->treeWidgetPatientsParMetiers->setEnabled(midiSoir=="Midi");
+    if(midiSoir=="Midi")
+    {
+      initialiserTreeWidgetExterieur();
+    }
+    else ui->treeWidgetPatientsParMetiers->clear();
+
+    initialiserServeurs();
+    initialiserAbsents();
+
 
 }
+void preparerRepas::initialiserServeurs()
+{
+    //remplir et proposer
+    qDebug()<<"void preparerRepas::initialiserServeurs()";
+    //d'abord vider la liste
+    ui->listWidgetServeurs->clear();
+    //remplir la liste des serveurs du jour
+    QString texteRequete="select prenom||' '||nom,id from personne inner join patient on patient.idPersonne=personne.id inner join prendre on prendre.idPersonne=personne.id inner join tableAManger on prendre.idTableAManger=tableamanger.numero inner join typetable on typeTable.numero=tableamanger.typeTable  where prendre.idRepas="+QString::number(repasCourant)+" and typetable.libelle='Cuisiniers'";
+    qDebug()<<texteRequete;
+    QSqlQuery requete(texteRequete);
+    while(requete.next())
+    {
+        QListWidgetItem* serveur=new QListWidgetItem(requete.value(0).toString());
+        serveur->setData(32,requete.value(1));
+        ui->listWidgetServeurs->addItem(serveur);
+    }
+    //les autres vont aller dans la combo.
+    QString texteRequete1="select prenom||' '||nom,patient.idPersonne,((select count(*) from prendre inner join tableamanger on tableamanger.numero=prendre.idTableAManger inner join typetable on tableamanger.typeTable=typetable.numero where typetable.libelle='Cuisiniers' and prendre.idPersonne=patient.idPersonne)/(select max(count(*),1) from prendre where prendre.idPersonne=patient.idPersonne) ) as tauxDeService from personne inner join patient on patient.idPersonne=personne.id inner join surveillance on patient.idSurveillance=surveillance.id where surveillance.libelle<>'forte' and not exists (select * from prendre where idPersonne=patient.idPersonne and idRepas="+QString::number(repasCourant)+") order by tauxDeService asc, random() asc";
+    qDebug()<<texteRequete1;
+    QSqlQuery requete1(texteRequete1);
+    //vidons la combo
+    ui->comboBoxPatientsPouvantServir->clear();
+    while(requete1.next())
+    {
+        ui->comboBoxPatientsPouvantServir->addItem(requete1.value(0).toString(),requete1.value(1));
+    }
+}
+void preparerRepas::initialiserAbsents()
+{
+    ui->listWidgetAbsents->clear();
+    //obtention des absents et ajout à la liste
+    QString texteRequete="select prenom||' '||nom,id from personne inner join patient on patient.idPersonne=personne.id inner join prendre on prendre.idPersonne=personne.id inner join tableAManger on prendre.idTableAManger=tableamanger.numero inner join typetable on typeTable.numero=tableamanger.typeTable  where prendre.idRepas="+QString::number(repasCourant)+" and typetable.libelle='Absents'";
+    qDebug()<<texteRequete;
+    QSqlQuery requete(texteRequete);
+    while(requete.next())
+    {
+        QListWidgetItem* absent=new QListWidgetItem(requete.value(0).toString());
+        absent->setData(32,requete.value(1));
+        ui->listWidgetAbsents->addItem(absent);
+    }
+    //les autres vont aller dans la combo.
+    QString texteRequete1="select  prenom||' '||nom,patient.idPersonne from personne inner join patient on personne.id=patient.idPersonne  left outer join prendre on patient.idPersonne=prendre.idPersonne and prendre.idRepas="+QString::number(repasCourant)+" where prendre.idPersonne is null";
+
+    qDebug()<<texteRequete1;
+    QSqlQuery requete1(texteRequete1);
+    //vidons la combo
+    ui->comboBoxPatientsPouvantEtreAbsents->clear();
+    while(requete1.next())
+    {
+        ui->comboBoxPatientsPouvantEtreAbsents->addItem(requete1.value(0).toString(),requete1.value(1));
+    }
+
+}
+
 void preparerRepas::initialiserTreeWidgetExterieur()
 {
     ui->treeWidgetPatientsParMetiers->clear();
@@ -84,29 +153,29 @@ void preparerRepas::initialiserCuisiniers()
     //nettoyage de la map
     for(QMap<int,cuisinierModel*>::iterator it=mapCuisiniers.begin();it!=mapCuisiniers.end();it++)
     {
-      delete it.value();
+        delete it.value();
 
     }
     mapCuisiniers.clear();
     ui->listWidgetCuisinier->clear();
     //obtention de la map
-     mapCuisiniers=cuisinierModel::recupererCuisiniers();
-      for(QMap<int,cuisinierModel*>::iterator it=mapCuisiniers.begin();it!=mapCuisiniers.end();it++)
+    mapCuisiniers=cuisinierModel::recupererCuisiniers();
+    for(QMap<int,cuisinierModel*>::iterator it=mapCuisiniers.begin();it!=mapCuisiniers.end();it++)
     {
-      cuisinierView * nouv=new cuisinierView();
-      nouv->setModele(it.value());
-      nouv->setText(nouv->text());
-      qDebug()<<nouv->text();
-      Qt::CheckState etat;
-      if(nouv->modele->travaille(ui->dateEdit->date(),ui->comboBox->currentText()))
-          etat=Qt::Checked;
-      else etat=Qt::Unchecked;
-      nouv->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
-      nouv->setCheckState(etat);
-      ui->listWidgetCuisinier->insertItem(0,nouv);
+        cuisinierView * nouv=new cuisinierView();
+        nouv->setModele(it.value());
+        nouv->setText(nouv->text());
+        qDebug()<<nouv->text();
+        Qt::CheckState etat;
+        if(nouv->modele->travaille(ui->dateEdit->date(),ui->comboBox->currentText()))
+            etat=Qt::Checked;
+        else etat=Qt::Unchecked;
+        nouv->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+        nouv->setCheckState(etat);
+        ui->listWidgetCuisinier->insertItem(0,nouv);
 
     }
-    connect (ui->listWidgetCuisinier,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerCuisinier(QListWidgetItem*)));
+
 }
 void preparerRepas::initialiserSurveillants()
 {
@@ -114,29 +183,29 @@ void preparerRepas::initialiserSurveillants()
     //nettoyage de la map
     for(QMap<int,surveillantModel*>::iterator it=mapSurveillants.begin();it!=mapSurveillants.end();it++)
     {
-      delete it.value();
+        delete it.value();
 
     }
     mapSurveillants.clear();
     ui->listWidgetSurveillants->clear();
     //obtention de la map
-     mapSurveillants=surveillantModel::recupererSurveillants();
-      for(QMap<int,surveillantModel*>::iterator it=mapSurveillants.begin();it!=mapSurveillants.end();it++)
+    mapSurveillants=surveillantModel::recupererSurveillants();
+    for(QMap<int,surveillantModel*>::iterator it=mapSurveillants.begin();it!=mapSurveillants.end();it++)
     {
-      surveillantView * nouv=new surveillantView();
-      nouv->setModele(it.value());
-      nouv->setText(nouv->text());
-      qDebug()<<nouv->text();
-      Qt::CheckState etat;
-      if(nouv->modele->travaille(ui->dateEdit->date(),ui->comboBox->currentText()))
-          etat=Qt::Checked;
-      else etat=Qt::Unchecked;
-      nouv->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
-      nouv->setCheckState(etat);
-      ui->listWidgetSurveillants->insertItem(0,nouv);
+        surveillantView * nouv=new surveillantView();
+        nouv->setModele(it.value());
+        nouv->setText(nouv->text());
+        qDebug()<<nouv->text();
+        Qt::CheckState etat;
+        if(nouv->modele->travaille(ui->dateEdit->date(),ui->comboBox->currentText()))
+            etat=Qt::Checked;
+        else etat=Qt::Unchecked;
+        nouv->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+        nouv->setCheckState(etat);
+        ui->listWidgetSurveillants->insertItem(0,nouv);
 
     }
-    connect (ui->listWidgetSurveillants,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerSurveillant(QListWidgetItem*)));
+
 }
 void preparerRepas::initialiserAutresPersonnels()
 {
@@ -144,35 +213,35 @@ void preparerRepas::initialiserAutresPersonnels()
     //nettoyage de la map
     for(QMap<int,autrePersonnelModel*>::iterator it=mapAutrePersonnels.begin();it!=mapAutrePersonnels.end();it++)
     {
-      delete it.value();
+        delete it.value();
 
     }
     mapAutrePersonnels.clear();
     ui->listWidgetAutrePersonnel->clear();
     //obtention de la map
-     mapAutrePersonnels=autrePersonnelModel::recupererAutrePersonnels();
-      for(QMap<int,autrePersonnelModel*>::iterator it=mapAutrePersonnels.begin();it!=mapAutrePersonnels.end();it++)
+    mapAutrePersonnels=autrePersonnelModel::recupererAutrePersonnels();
+    for(QMap<int,autrePersonnelModel*>::iterator it=mapAutrePersonnels.begin();it!=mapAutrePersonnels.end();it++)
     {
-      autrePersonnelView * nouv=new autrePersonnelView();
-      nouv->setModele(it.value());
-      nouv->setText(nouv->text());
-      qDebug()<<nouv->text();
-      Qt::CheckState etat;
-      if(nouv->modele->travaille(ui->dateEdit->date(),ui->comboBox->currentText()))
-          etat=Qt::Checked;
-      else etat=Qt::Unchecked;
-      nouv->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
-      nouv->setCheckState(etat);
-      ui->listWidgetAutrePersonnel->insertItem(0,nouv);
+        autrePersonnelView * nouv=new autrePersonnelView();
+        nouv->setModele(it.value());
+        nouv->setText(nouv->text());
+        qDebug()<<nouv->text();
+        Qt::CheckState etat;
+        if(nouv->modele->travaille(ui->dateEdit->date(),ui->comboBox->currentText()))
+            etat=Qt::Checked;
+        else etat=Qt::Unchecked;
+        nouv->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+        nouv->setCheckState(etat);
+        ui->listWidgetAutrePersonnel->insertItem(0,nouv);
 
     }
-    connect (ui->listWidgetAutrePersonnel,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerAutrePersonnel(QListWidgetItem*)));
+
 }
 void preparerRepas::faireTravaillerCuisinier(QListWidgetItem * leCuisinier)
 {
     if (leCuisinier->checkState()==Qt::Checked)
     {
-        ((cuisinierView*)leCuisinier)->modele->prendreRepas(repasCourant);
+        ((cuisinierView*)leCuisinier)->modele->prendreRepasAvantLHeure(repasCourant);
     }
     else
     {
@@ -181,9 +250,21 @@ void preparerRepas::faireTravaillerCuisinier(QListWidgetItem * leCuisinier)
 }
 void preparerRepas::faireTravaillerSurveillant(QListWidgetItem * leSurveillant)
 {
+    qDebug()<<"void preparerRepas::faireTravaillerSurveillant(QListWidgetItem * leSurveillant)";
     if (leSurveillant->checkState()==Qt::Checked)
     {
-        ((surveillantView*)leSurveillant)->modele->prendreRepas(repasCourant);
+        //demander s'il surveille à l'intérieur ou l'extérieur
+        if(QMessageBox::information(this,"Lieu de travail","Ce suveillant surveille à l'extérieur",QMessageBox::No|QMessageBox::Yes,QMessageBox::No)==QMessageBox::Yes)
+            ((surveillantView*)leSurveillant)->modele->mangerExterieur(repasCourant,true);
+        else
+        {
+            //il faut lui affecter une table à l'intérieur à laquelle il n'y a pas encore de suveillant
+            QString texteRequete="select numero from tableamanger where typetable=(select numero from typeTable where libelle='"+QObject::tr("Intèrieur")+"') and not exists(select * from prendre inner join personne on prendre.idPersonne= personne.id inner join surveillant on surveillant.idPersonne=personne.id where idtableamanger=tableamanger.numero and idRepas="+QString::number(repasCourant)+")";
+            QSqlQuery reqTableSansSurveillant(texteRequete);
+            reqTableSansSurveillant.first();
+            int numeroDeLaTable=reqTableSansSurveillant.value(0).toInt();
+            ((surveillantView*)leSurveillant)->modele->prendreRepas(repasCourant,numeroDeLaTable);
+        }
     }
     else
     {
@@ -194,7 +275,7 @@ void preparerRepas::faireTravaillerAutrePersonnel(QListWidgetItem * employe)
 {
     if (employe->checkState()==Qt::Checked)
     {
-        ((autrePersonnelView*)employe)->modele->prendreRepas(repasCourant);//ils prennent leur repas à la table personnel
+        ((autrePersonnelView*)employe)->modele->prendreRepasAvantLHeure(repasCourant);//ils prennent leur repas à la table personnel
     }
     else
     {
@@ -204,7 +285,7 @@ void preparerRepas::faireTravaillerAutrePersonnel(QListWidgetItem * employe)
 void preparerRepas::updateView(){
 
     for (int cpt=0; cpt < tablesAManger.size(); cpt++){
-       tablesAManger[cpt]->afficher();
+        tablesAManger[cpt]->afficher();
     }
 
 }
@@ -279,22 +360,22 @@ void preparerRepas::placerPersonnes(){
         switch(typeRegime){
 
             // Régime
-            case 1:
-                qDebug()<<gary.value()->getNom()<<" est au régime";
-                patientsRegime[gary.key()] = mapPatients.take(gary.key());
-                break;
+        case 1:
+            qDebug()<<gary.value()->getNom()<<" est au régime";
+            patientsRegime[gary.key()] = mapPatients.take(gary.key());
+            break;
 
             // Surveillance
-            case 2:
-                qDebug()<<gary.value()->getNom()<<" n'a pas le droit au pain";
-                patientsSurveillance[gary.key()] = mapPatients.take(gary.key());
-                break;
+        case 2:
+            qDebug()<<gary.value()->getNom()<<" n'a pas le droit au pain";
+            patientsSurveillance[gary.key()] = mapPatients.take(gary.key());
+            break;
 
             // Normal
-            case 3:
-                qDebug()<<gary.value()->getNom()<<" peut bouffer autant de pain qu'il veut";
-                patientsNormaux[gary.key()] = mapPatients.take(gary.key());
-                break;
+        case 3:
+            qDebug()<<gary.value()->getNom()<<" peut bouffer autant de pain qu'il veut";
+            patientsNormaux[gary.key()] = mapPatients.take(gary.key());
+            break;
 
         }
 
@@ -403,16 +484,24 @@ void preparerRepas::on_pushButtonFermer_clicked()
 void preparerRepas::on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem* item, int column)
 {
     qDebug()<<"void preparerRepas::on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem* item, int column)";
-    //si c'est un metier
-    if(item->parent()==0)
+    //si c'est un metier qui vient d'être coché ou décoché
+    if(column==0)//changement d'état
     {
-        //tout cocher
-    }
-    else
-    {
-        //sinon c'est donc un patient
-        if(column==0)//changement d'état
+        if(item->parent()==0)
         {
+            //recupération de l'état: coché ou non
+            Qt::CheckState etat=item->checkState(0);
+            //on coche ou décoche tous les patients qui ont ce métier
+            for(int noEnfant=0;noEnfant<item->childCount();noEnfant++)
+            {
+                item->child(noEnfant)->setCheckState(0,etat);
+            }
+
+        }
+        else
+        {
+            //sinon c'est donc un patient
+
             Qt::CheckState etat=item->checkState(0);
             patientModel * lePatient=new patientModel(item->data(1,32).toInt());
             if(etat==Qt::Unchecked)
@@ -423,6 +512,22 @@ void preparerRepas::on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem*
             {
                 lePatient->mangerExterieur(repasCourant,true);
             }
+            //raffraichir la liste des serveurs
+            initialiserServeurs();
         }
     }
+}
+
+void preparerRepas::on_pushButtonAjouterServeur_clicked()
+{
+    patientModel * lePatient=new patientModel(ui->comboBoxPatientsPouvantServir->itemData(ui->comboBoxPatientsPouvantServir->currentIndex()).toInt());
+    lePatient->prendreRepasAvantLHeure(repasCourant);
+    this->initialiserServeurs();
+}
+
+void preparerRepas::on_pushButtonAjouterAbsent_clicked()
+{
+    patientModel * lePatient=new patientModel(ui->comboBoxPatientsPouvantEtreAbsents->itemData(ui->comboBoxPatientsPouvantEtreAbsents->currentIndex()).toInt());
+    lePatient->estAbsent(repasCourant,true);
+    this->initialiserAbsents();
 }

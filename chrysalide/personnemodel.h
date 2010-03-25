@@ -23,8 +23,9 @@ class personneModel : public QObject
         static int insert(QString,QString);
         void majProfil();
         void supprimer();
+        void estAbsent(int noRepas,bool absent);
         void prendreRepas(int noRepas,int noTable);
-        void prendreRepas(int noRepas);
+        void prendreRepasAvantLHeure(int noRepas);
         void mangerExterieur(int noRepas,bool exterieur);
         bool estALExterieur(int noRepas);
 };

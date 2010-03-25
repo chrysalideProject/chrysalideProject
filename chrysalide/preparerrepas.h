@@ -7,7 +7,6 @@
 #include "cuisiniermodel.h"
 #include "autrepersonnelmodel.h"
 #include "tableamanger.h"
-#include "modelarbredespatientsparmetier.h"
 #include <QTreeWidgetItem>
 
 namespace Ui {
@@ -32,9 +31,11 @@ class preparerRepas : public QDialog {
         QMap <int, autrePersonnelModel*> mapAutrePersonnels;
         QVector<tableAManger*> tablesAManger;
         int repasCourant;
-        modelArbreDesPatientsParMetier* lesPatientsParMetier;
+
 
     private slots:
+        void on_pushButtonAjouterAbsent_clicked();
+        void on_pushButtonAjouterServeur_clicked();
         void on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem* item, int column);
         void on_pushButtonFermer_clicked();
         void placerPersonnes();
@@ -43,6 +44,8 @@ class preparerRepas : public QDialog {
         void initialiserSurveillants();
         void initialiserAutresPersonnels();
         void initialiserTreeWidgetExterieur();
+        void initialiserServeurs();
+        void initialiserAbsents();
         void faireTravaillerCuisinier(QListWidgetItem*);
         void faireTravaillerSurveillant(QListWidgetItem*);
         void faireTravaillerAutrePersonnel(QListWidgetItem*);

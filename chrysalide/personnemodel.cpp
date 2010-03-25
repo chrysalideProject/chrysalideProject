@@ -47,41 +47,47 @@ void personneModel::supprimer(){
 bool personneModel::estALExterieur(int noRepas)
 {
     qDebug()<<"bool personneModel::estALExterieur(int noRepas)";
-    QSqlQuery req("select * from prendre natural join tableamanger natural join  typetable where typetable.libelle='Extèrieur' and idPersonne="+QString::number(id)+" and idRepas="+QString::number(noRepas));
+    QString texteRequete="select * from prendre inner join tableamanger on prendre.idTableamanger=tableamanger.numero inner join  typetable on typetable.numero=tableamanger.typetable where typetable.libelle='"+QObject::tr("Extèrieur")+"' and idPersonne="+QString::number(id)+" and idRepas="+QString::number(noRepas);
+    qDebug()<<texteRequete;
+    QSqlQuery req(texteRequete);
     return req.first();
 }
 
 void personneModel::mangerExterieur(int noRepas,bool exterieur)
 {
     qDebug()<<"void personneModel::mangerExterieur(int noRepas,bool exterieur)";
-    if(exterieur)
+    if(exterieur)//le patient est à l'extérieur
     {
-        prendreRepas(noRepas,2);//2 correspond au typetable extérieur
+        QString texteRequete="select tableAManger.numero from tableAManger inner join typeTable on typetable.numero=tableamanger.typetable where typetable.libelle='"+QObject::tr("Extèrieur")+"'";
+        qDebug()<<texteRequete;
+        QSqlQuery reqObtentionNotable(texteRequete);
+        reqObtentionNotable.first();//une seule table à l'extérieur
+        int noDeLaTable=reqObtentionNotable.value(0).toInt();
+        prendreRepas(noRepas,noDeLaTable);//
     }
-    else
+    else//le patient n'est pas à l'extérieur
     {
         prendreRepas(noRepas,0);
     }
 }
 
 void personneModel::prendreRepas(int noRepas,int pNoTable)//si noTable vaux 0 donc faux on efface l'inscription au repas
-{   QString texteReq;
+{   //si noTable vaux 0 donc faux on efface l'inscription au repas
+    qDebug()<<"void personneModel::prendreRepas(int noRepas,int pNoTable)";
+    QString texteReq;
     //repas des patients et surveillants
-    if(pNoTable==false)
+    texteReq="delete from prendre where idPersonne="+QString::number(id)+" and idRepas="+QString::number(noRepas);
+    QSqlQuery req;
+    req.exec(texteReq);
+    if(pNoTable!=false)
     {
-        texteReq="delete from prendre where idPersonne="+QString::number(id)+" and idRepas="+QString::number(noRepas);
+        texteReq="insert into PRENDRE (idPersonne,idRepas,idTableAManger)values("+QString::number(id)+","+QString::number(noRepas)+","+QString::number(pNoTable)+")";
+        req.exec(texteReq);//insertion
     }
-    else
-    {
-       texteReq="insert into PRENDRE (idPersonne,idRepas,idTableAManger)values("+QString::number(id)+","+QString::number(noRepas)+","+pNoTable+")";
-   }
-    QSqlQuery req2;
-    req2.exec(texteReq);
-
 }
-void personneModel::prendreRepas(int noRepas)
+void personneModel::prendreRepasAvantLHeure(int noRepas)
 {
-    //repas du personnel et des serveurs
+    //repas des cuisiniers et des serveurs uniquement
     QString texteReq1="select numero from tableamanger where typeTable=(select numero from typeTable where libelle='Cuisiniers')";
     QSqlQuery req1(texteReq1);
     req1.first();
@@ -89,4 +95,22 @@ void personneModel::prendreRepas(int noRepas)
     QString texteReq="insert into PRENDRE (idPersonne,idRepas,idTableAManger)values("+QString::number(id)+","+QString::number(noRepas)+","+numeroTable+")";
     QSqlQuery req2;
     req2.exec(texteReq);
+}
+void personneModel::estAbsent(int noRepas, bool absent)
+{
+    qDebug()<<"void personneModel::estAbsent(int noRepas, bool absent)";
+    if(absent)//le patient est absent
+    {
+        QString texteRequete="select tableAManger.numero from tableAManger inner join typeTable on typetable.numero=tableamanger.typetable where typetable.libelle='"+QObject::tr("Absents")+"'";
+        qDebug()<<texteRequete;
+        QSqlQuery reqObtentionNotable(texteRequete);
+        reqObtentionNotable.first();//une seule table à l'extérieur
+        int noDeLaTable=reqObtentionNotable.value(0).toInt();
+        //enregistrement de l'absence
+        prendreRepas(noRepas,noDeLaTable);//enregistrement de l'absence
+    }
+    else//le patient n'est pas absent
+    {
+        prendreRepas(noRepas,0);//on efface tout
+    }
 }
