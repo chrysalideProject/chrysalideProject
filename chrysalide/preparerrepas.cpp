@@ -8,7 +8,7 @@
 #include <QTreeWidgetItem>
 #include <QVariant>
 #include <QMessageBox>
-
+#include <QVector>
 
 
 preparerRepas::preparerRepas(QWidget *parent) :
@@ -30,6 +30,21 @@ preparerRepas::preparerRepas(QWidget *parent) :
     connect (ui->listWidgetCuisinier,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerCuisinier(QListWidgetItem*)));
     connect (ui->listWidgetSurveillants,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerSurveillant(QListWidgetItem*)));
     connect (ui->listWidgetAutrePersonnel,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerAutrePersonnel(QListWidgetItem*)));
+    qDebug()<<"void DialogSalleConceptor::remplirComboTypeDeTable()";
+    //vidons la combo
+    ui->comboBoxSalle->clear();
+    //ajout des types de tables de la base de données dans le vecteur
+    vectTypesTable=typeTable::recupererTypesTables();
+     //on remplit la combo de choix de la salle/typeDeTable
+    foreach(typeTable* tT,vectTypesTable)
+    {
+        ui->comboBoxSalle->insertItem(0,tT->getLibelle(),(qlonglong)tT);
+    }
+    //on raffrachit la vue du typeTable Courant
+    if(ui->comboBoxSalle->count()>0)
+    {
+    ui->comboBoxSalle->setCurrentIndex(0);
+}
 
     //placerPersonnes();
 }
@@ -82,6 +97,7 @@ void preparerRepas::initialiserServeurs()
     {
         ui->comboBoxPatientsPouvantServir->addItem(requete1.value(0).toString(),requete1.value(1));
     }
+    ui->salleViewCourante->setScene(new QGraphicsScene(this));
 }
 void preparerRepas::initialiserAbsents()
 {
@@ -283,7 +299,7 @@ void preparerRepas::faireTravaillerAutrePersonnel(QListWidgetItem * employe)
     }
 }
 void preparerRepas::updateView(){
-
+    //visualisation des tables:
     for (int cpt=0; cpt < tablesAManger.size(); cpt++){
         tablesAManger[cpt]->afficher();
     }
@@ -293,61 +309,36 @@ void preparerRepas::updateView(){
 void preparerRepas::placerPersonnes(){
 
     // On récupère nos patients à placer
-    mapPatients = patientModel::recupererPatients();
+    mapPatients = patientModel::recupererPatientsNonPlaces(repasCourant);
 
     // On récupère nos surveillants
-    mapSurveillants = surveillantModel::recupererSurveillants();
+    QMap<int, surveillantModel*> mapSurveillants = surveillantModel::recupererSurveillants(repasCourant);
+    //combien sont-ils
+    int nombreDeTablesAvecSurveillant=mapSurveillants.count();
 
-    // On récupère nos tables
-    tablesAManger = tableAManger::recupererTables();
-
-
-    // On a tout pour commencer
-
-    // On commence par regrouper les patients ayant un niveau de surveillance élevé
-
+    //obtention des tables des surveillants
+    QVector <tableAManger*> vecteurTablesSurveillees;
+    for (QMap<int, surveillantModel*>::iterator gary = mapSurveillants.begin(); gary != mapSurveillants.end(); gary++)
+    {
+        vecteurTablesSurveillees.push_back(new tableAManger((gary.value()->getNoTable(repasCourant))));
+    }
+    //distribution des patients à surveiller aux tables des surveillants
     QMap<int, patientModel*> mapPatientsSurveillanceElevee;
+    int nombreDePatientsASurveiller=0;
 
-    for (QMap<int, patientModel*>::iterator gary = mapPatients.begin(); gary != mapPatients.end(); gary++){
-        if (gary.value()->getIdSurveillance() == 3){
-            mapPatientsSurveillanceElevee[gary.key()] = mapPatients.take(gary.key());
+    for (QMap<int, patientModel*>::iterator itPatient = mapPatients.begin();  itPatient!= mapPatients.end(); itPatient++)
+    {
+        if (itPatient.value()->getIdSurveillance() == 3)
+        {
+            mapPatientsSurveillanceElevee[itPatient.key()] = mapPatients.take(itPatient.key());
+            //affectation à une des tables du vecteur
+            vecteurTablesSurveillees[nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant]->ajouterPatient(itPatient.value());
+            nombreDePatientsASurveiller++;
         }
     }
 
-    // On va les regrouper sur des tables
-    for (QMap<int, patientModel*>::iterator gary = mapPatientsSurveillanceElevee.begin(); gary != mapPatientsSurveillanceElevee.end(); gary++){
-
-        int cpt = 0;
-        bool patientAdded = false;
-
-        while (cpt < tablesAManger.size() && !patientAdded){
-
-            patientAdded = tablesAManger[cpt]->ajouterPatient(gary.value());
-            cpt++;
-
-        }
-
-    }
-
-    // On place nos surveillants
-    for (QMap<int, surveillantModel*>::iterator gary = mapSurveillants.begin(); gary != mapSurveillants.end(); gary++){
-
-        qDebug()<<"placement du surveillant "<<gary.value()->getNom();
-
-        bool assigned = false;
-        int cpt = 0;
-
-        while (!assigned && cpt < tablesAManger.size()){
-            if (tablesAManger[cpt]->needsSurveillant()) {
-                tablesAManger[cpt]->ajouterSurveillant(gary.value());
-                mapSurveillants.take(gary.key());
-                assigned = true;
-            }
-
-            else cpt++;
-        }
-
-    }
+    // On récupère nos tables de l'intérieur
+    tablesAManger = tableAManger::recupererTables();
 
     // On place ensuite le reste des patients en les répartissant dans trois groupes
     QMap<int, patientModel*> patientsRegime;
@@ -373,7 +364,7 @@ void preparerRepas::placerPersonnes(){
 
             // Normal
         case 3:
-            qDebug()<<gary.value()->getNom()<<" peut bouffer autant de pain qu'il veut";
+            qDebug()<<gary.value()->getNom()<<" peut manger autant de pain qu'il veut";
             patientsNormaux[gary.key()] = mapPatients.take(gary.key());
             break;
 
@@ -530,4 +521,25 @@ void preparerRepas::on_pushButtonAjouterAbsent_clicked()
     patientModel * lePatient=new patientModel(ui->comboBoxPatientsPouvantEtreAbsents->itemData(ui->comboBoxPatientsPouvantEtreAbsents->currentIndex()).toInt());
     lePatient->estAbsent(repasCourant,true);
     this->initialiserAbsents();
+}
+
+void preparerRepas::on_pushButtonValider_clicked()
+{
+    placerPersonnes();
+}
+
+void preparerRepas::on_comboBoxSalle_currentIndexChanged(int index)
+{
+    qDebug()<<"void preparerRepas::on_comboBoxSalle_currentIndexChanged(int index)";
+    //si il y a un type dans la combo
+    if(index!=-1)
+    {
+       //on fait correspondre la vue avec son modele
+        ui->salleViewCourante->setTypeTable(typeTableCourant()->getNumero(),true);
+   }
+}
+typeTable* preparerRepas::typeTableCourant()
+{
+    qDebug()<<"typeTable * preparerRepas::typeTableCourant()";
+    return (typeTable*) ui->comboBoxSalle->itemData(ui->comboBoxSalle->currentIndex()).toLongLong();
 }

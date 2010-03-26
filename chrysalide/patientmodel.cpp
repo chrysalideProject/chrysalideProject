@@ -60,19 +60,20 @@ patientModel::patientModel(long pId, QString pNom, QString pPrenom, int pIdRegim
     recupererIncompatibles();
 }
  
-/*QVector<patientModel*> patientModel::recupererPatients(){
+QMap<int,patientModel*> patientModel::recupererPatientsNonPlaces(int noRepas)
+{
+    QMap<int,patientModel*> resultat;
+
+    QSqlQuery recupPatients("SELECT idPersonne, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join PERSONNE on PATIENT.idPersonne = PERSONNE.id where not exists(select * from PRENDRE where prendre.idPersonne=PERSONNE.id and prendre.idRepas="+QString::number(noRepas)+")");
+
+    while (recupPatients.next())
+    {
+        resultat[recupPatients.value(0).toInt()]=new patientModel(recupPatients.value(0).toInt(), recupPatients.value(1).toString(), recupPatients.value(2).toString(), recupPatients.value(3).toInt(), recupPatients.value(4).toInt(), recupPatients.value(5).toInt());
+    }
+
+    return resultat;
  
-QVector<patientModel*> resultat;
- 
-QSqlQuery recupPatients("SELECT idPersonne, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join PERSONNE on PATIENT.idPersonne = PERSONNE.id");
- 
-while (recupPatients.next()){
-resultat.push_back(new patientModel(recupPatients.value(0).toInt(), recupPatients.value(1).toString(), recupPatients.value(2).toString(), recupPatients.value(3).toInt(), recupPatients.value(4).toInt(), recupPatients.value(5).toInt()));
 }
- 
-return resultat;
- 
-}*/
  
 void patientModel::majProfil(){
  

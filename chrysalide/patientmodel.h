@@ -22,6 +22,7 @@ public:
     //static QVector<patientModel*> recupererPatients();
     static QMap<int, patientModel*> recupererPatients();
     static QMap<int, patientModel*>recupererPatientsAvecSelection(QString where);
+    static QMap<int,patientModel*> recupererPatientsNonPlaces(int noRepas);
     void majProfil();
     void supprimer();
     int getIdRegime(){ return idRegime; }

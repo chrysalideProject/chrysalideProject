@@ -65,7 +65,7 @@ void DialogSalleConceptor::on_comboBoxSalle_currentIndexChanged(int index)
     if(index!=-1)
     {
        //on fait correspondre la vue avec son modele
-        m_ui->salleViewCourante->setTypeTable(typeTableCourant()->getNumero());
+        m_ui->salleViewCourante->setTypeTable(typeTableCourant()->getNumero(),false);
    }
 }
 

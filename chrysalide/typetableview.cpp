@@ -7,11 +7,11 @@ typeTableView::typeTableView(QWidget* parent): QGraphicsView(parent)
 {
 //rien à faire du tout...
 }
-void typeTableView::setTypeTable(int numeroTypeDeTable)
+void typeTableView::setTypeTable(int numeroTypeDeTable,bool affPersonnes)
 {
     //mise en relation de la vue avec son modele
     sonType=new typeTable(numeroTypeDeTable);
-    affiche();
+    affiche(affPersonnes);
 }
 void typeTableView::clear()
 {
@@ -23,7 +23,7 @@ void typeTableView::clear()
         delete(uneTable);
     }
 }
-void typeTableView::affiche()
+void typeTableView::affiche(bool affichePatient)
 {
     qDebug()<<"void typeTableView::affiche()";
   //recup de ttes les tables et instanciations correspondantes
@@ -34,9 +34,9 @@ void typeTableView::affiche()
     foreach(tableAManger* uneTable,mesTables)
     {
         //creation d'autant de tableAMangerView que de tableAManger
-        tableAMangerView * nouvelleTable=new tableAMangerView(this->scene());
+        tableAMangerView * nouvelleTable=new tableAMangerView(this->scene(),affichePatient);
         //on fait le rapprochement entre la vue et son modèle
-        nouvelleTable->setModel(uneTable);
+        nouvelleTable->setModel(uneTable,repasCourant);
     }
     centrer();
 }
@@ -69,8 +69,8 @@ void typeTableView::dropEvent(QDropEvent *event)
         int nombreDePlace=QInputDialog::getInt(this,"Saisie du nombre de place","Nombre de places:",6,2,30,2,&ok);
         if (ok)
         {
-            tableAMangerView * nouvelleTable= new tableAMangerView(this->scene());
-            nouvelleTable->setModel(new tableAManger(nombreDePlace,sonType->getNumero(),lePointMappe.x(),lePointMappe.y()));
+            tableAMangerView * nouvelleTable= new tableAMangerView(this->scene(),false);
+            nouvelleTable->setModel(new tableAManger(nombreDePlace,sonType->getNumero(),lePointMappe.x(),lePointMappe.y()),0);
         }
     }
 }

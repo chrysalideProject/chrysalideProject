@@ -17,9 +17,9 @@ class tableAManger : public QObject
         //salle de la table
         typeTable* type;
         //position
-        QPointF position;// Individus à la table
-        QMap<int, patientModel*> mapPatients;
-        QMap<int, surveillantModel*> mapSurveillants;
+        QPointF position;
+        int repasCourant;
+
         surveillantModel* surveillant;
 
 
@@ -27,6 +27,7 @@ class tableAManger : public QObject
         tableAManger(int, int, int);//hum....
         tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double pY);//constructeur qui cree la table ds le sgbd
         tableAManger(int);//constructeur depuis le sgbd
+        void setNoRepas(int noRepas){repasCourant=noRepas;remplirLesMaps();};
         void setCapacite(int);
         void setPos(QPointF pPos);
         int getCapacite(){return capacite;};
@@ -38,9 +39,11 @@ class tableAManger : public QObject
         static QVector<tableAManger*> recupererTables();
         void supprime();
         void afficher();
-
+        QMap<int, patientModel*> mapPatients;
+        QMap<int, surveillantModel*> mapSurveillants;
+        void remplirLesMaps();
         void setTypeTable(int);
-bool needsSurveillant();
+        bool needsSurveillant();
         bool isCompatibleWith(patientModel*);
         bool estPleineSansSurveillant();
         bool estPleine();
@@ -54,6 +57,7 @@ bool needsSurveillant();
         void capaciteChanged(int);
         void typeChanged(typeTable*);
         void tableSupprimee();
+        // Individus à la table
 
 };
 

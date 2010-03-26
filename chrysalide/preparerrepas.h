@@ -19,6 +19,8 @@ class preparerRepas : public QDialog {
     public:
         preparerRepas(QWidget *parent = 0);
         ~preparerRepas();
+        typeTable* typeTableCourant();
+        QVector <typeTable*> vectTypesTable;
 
     protected:
         void changeEvent(QEvent *e);
@@ -34,6 +36,8 @@ class preparerRepas : public QDialog {
 
 
     private slots:
+        void on_comboBoxSalle_currentIndexChanged(int index);
+        void on_pushButtonValider_clicked();
         void on_pushButtonAjouterAbsent_clicked();
         void on_pushButtonAjouterServeur_clicked();
         void on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem* item, int column);

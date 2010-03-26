@@ -11,14 +11,16 @@ class tableAMangerView : public QGraphicsRectItem
     //son modèle
         tableAManger * model;
         bool doitEtreEnregistree;
+        bool affichePatients;
+        QVector<QGraphicsTextItem*> vecteurPersonne;
 public:
     //le constructeur
-    tableAMangerView(QGraphicsScene*);
+    tableAMangerView(QGraphicsScene*,bool);
     //destructeur
     ~tableAMangerView();
 
     //réalise le lien entre la vue et le modèle
-    void setModel(tableAManger*);
+    void setModel(tableAManger*,int noRepas);
     //enregistre le changement de position
     void enregistrePosition();
     //modif de position par exemple

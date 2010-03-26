@@ -11,11 +11,14 @@ class typeTableView : public QGraphicsView
 {
 public:
     typeTableView(QWidget*);
+    int repasCourant;
+    void setRepasCourant(int noRepas){repasCourant=noRepas;};
     typeTable* sonType;
+
     //mise en rapport avec le modele
-    void setTypeTable(int numeroTypeDeTable);
+    void setTypeTable(int numeroTypeDeTable,bool);
     //affichage
-    void affiche();
+    void affiche(bool patient=false);
     //efface les tables de la vue
     void clear();
     //drag and drop
