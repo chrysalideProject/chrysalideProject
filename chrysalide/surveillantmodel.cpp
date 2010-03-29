@@ -4,6 +4,7 @@
 
 surveillantModel::surveillantModel(int pNumSurveillant) : personneModel(pNumSurveillant)
 {
+    type="surveillant";
 }
 
 QMap<int, surveillantModel*> surveillantModel::recupererSurveillants(){

@@ -8,6 +8,7 @@ patientModel::patientModel(int pNumPatient) : personneModel(pNumPatient)
         idRegime = recupInfos.value(2).toInt();
         idSurveillance = recupInfos.value(3).toInt();
         idTravail = recupInfos.value(1).toInt();
+        type="patient";
         recupererAffinites();
         recupererIncompatibles();
     }

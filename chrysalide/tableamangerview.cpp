@@ -15,6 +15,7 @@ void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)
     qDebug()<<"void tableAMangerView::setModel(tableAManger* pModele)";
     model=pModele;
     model->setNoRepas(NoRepas);
+    model->remplirLesMaps(NoRepas);
     //obtention de l'abscisse et de l'odonnée ainsi que du nombre de place
     int nomBreDePlace=model->getCapacite();
     QPointF pos=model->getPosition();

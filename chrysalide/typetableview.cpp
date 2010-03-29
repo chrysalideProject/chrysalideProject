@@ -23,6 +23,8 @@ void typeTableView::clear()
         delete(uneTable);
     }
 }
+
+
 void typeTableView::affiche(bool affichePatient)
 {
     qDebug()<<"void typeTableView::affiche()";

@@ -77,14 +77,52 @@ void tableAManger::setType(typeTable* pTypeTable)
     emit typeChanged(type);
 }
 
-
 QVector<tableAManger*> tableAManger::recupererTables()
 {
     qDebug()<<"QVector<tableAManger*> tableAManger::recupererTables()";
 
     QVector<tableAManger*> resultat;
 
-    QSqlQuery tables("SELECT * FROM TABLEAMANGER");
+    QSqlQuery tables("SELECT * FROM TABLEAMANGER WHERE");
+
+    while (tables.next())
+    {
+        resultat.push_back(new tableAManger(tables.value(0).toInt(), tables.value(1).toInt(), tables.value(2).toInt()));
+    }
+    return resultat;
+
+}
+void tableAManger::remplirLesMaps(int noRepas)
+{
+    qDebug()<<"voidtableAManger::remplirLesMaps(int noRepas)";
+    QString texteReq="SELECT idPersonne FROM  prendre  where idtableamanger="+QString::number(numero)+" and idrepas="+QString::number(noRepas);
+    qDebug()<<texteReq;
+    QSqlQuery personnes(texteReq);
+
+    while (personnes.next())
+    {
+        if(personneModel(personnes.value(0).toInt()).type=="surveillant")
+        {
+            mapSurveillants[personnes.value(0).toInt()]=new surveillantModel(personnes.value(0).toInt());
+        }
+        else
+        {
+            if(personneModel(personnes.value(0).toInt()).type=="patient")
+            {
+                mapPatients[personnes.value(0).toInt()]=new patientModel(personnes.value(0).toInt());
+            }
+        }
+
+    }
+}
+
+QVector<tableAManger*> tableAManger::recupererTables(QString typeTable)
+{
+    qDebug()<<"QVector<tableAManger*> tableAManger::recupererTables()";
+
+    QVector<tableAManger*> resultat;
+
+    QSqlQuery tables("SELECT * FROM TABLEAMANGER ta inner join typetable ty on ta.id= ty.idtypetable left outer join prendre on prendre.idtypetable=ta.id where typetable.libelle='"+typeTable+"' ");
 
     while (tables.next())
     {
@@ -197,6 +235,25 @@ bool tableAManger::ajouterPatientSansCompatibilite(patientModel* lePatient){
     }
 
     else return false;
+
+}
+void tableAManger::enregistrer(int noRepas)
+{
+    //enregistrement dans la base de données des patients à la table ce repas
+
+    foreach(surveillantModel* surveillant,mapSurveillants)
+    {
+        int num=surveillant->getId();
+        QSqlQuery insertion("insert into prendre(idPersonne,idRepas,idTableAManger) values("+QString::number(num)+","+QString::number(noRepas)+","+QString::number(numero)+")");
+        insertion.exec();
+    }
+    foreach(patientModel* patient,mapPatients)
+    {
+        int num=patient->getId();
+        QSqlQuery insertion("insert into prendre(idPersonne,idRepas,idTableAManger) values("+QString::number(num)+","+QString::number(noRepas)+","+QString::number(numero)+")");
+        insertion.exec();
+    }
+
 
 }
 

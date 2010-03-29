@@ -3,6 +3,7 @@
 
 cuisinierModel::cuisinierModel(int numero):personneModel(numero)
 {
+    type="cuisinier";
 }
 bool cuisinierModel::travaille(QDate when,QString soirMidi)
 {

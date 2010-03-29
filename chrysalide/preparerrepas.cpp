@@ -68,6 +68,8 @@ void preparerRepas::changeRepasCourant()
 
     initialiserServeurs();
     initialiserAbsents();
+    //la vue doit porter sur le nouveau repas
+    ui->salleViewCourante->setRepasCourant(repasCourant);
 
 
 }
@@ -298,15 +300,18 @@ void preparerRepas::faireTravaillerAutrePersonnel(QListWidgetItem * employe)
         ((personneModel*) ((autrePersonnelView*)employe)->modele)->prendreRepas(repasCourant,false);
     }
 }
-void preparerRepas::updateView(){
+void preparerRepas::enregistrer(){
     //visualisation des tables:
-    for (int cpt=0; cpt < tablesAManger.size(); cpt++){
-        tablesAManger[cpt]->afficher();
+    for (int cpt=0; cpt < tablesAManger.size(); cpt++)
+    {
+        tablesAManger[cpt]->enregistrer(repasCourant);;
     }
 
 }
 
-void preparerRepas::placerPersonnes(){
+void preparerRepas::placerPersonnes()
+{
+    qDebug()<<"void preparerRepas::placerPersonnes()";
 
     // On récupère nos patients à placer
     mapPatients = patientModel::recupererPatientsNonPlaces(repasCourant);
@@ -338,7 +343,7 @@ void preparerRepas::placerPersonnes(){
     }
 
     // On récupère nos tables de l'intérieur
-    tablesAManger = tableAManger::recupererTables();
+    tablesAManger = tableAManger::recupererTables("Intèrieur");
 
     // On place ensuite le reste des patients en les répartissant dans trois groupes
     QMap<int, patientModel*> patientsRegime;
@@ -445,8 +450,10 @@ void preparerRepas::placerPersonnes(){
         }
 
     }
-
-    updateView();
+    //enregistrement dans la bdd:
+    enregistrer();
+    //actualiserLaVue
+    ui->comboBoxSalle->setCurrentIndex(ui->comboBoxSalle->findText("Intèrieur"));
 
 }
 

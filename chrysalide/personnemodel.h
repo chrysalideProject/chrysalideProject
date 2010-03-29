@@ -19,6 +19,7 @@ class personneModel : public QObject
         personneModel(int);
         QString getNom(){return nom;};
         QString getPrenom(){return prenom;};
+        QString type;
         long getId(){return id;};
         static int insert(QString,QString);
         void majProfil();

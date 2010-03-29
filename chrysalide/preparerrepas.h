@@ -43,7 +43,7 @@ class preparerRepas : public QDialog {
         void on_treeWidgetPatientsParMetiers_itemChanged(QTreeWidgetItem* item, int column);
         void on_pushButtonFermer_clicked();
         void placerPersonnes();
-        void updateView();
+        void enregistrer();
         void initialiserCuisiniers();
         void initialiserSurveillants();
         void initialiserAutresPersonnels();
