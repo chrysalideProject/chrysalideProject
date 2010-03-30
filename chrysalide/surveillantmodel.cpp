@@ -8,6 +8,7 @@ surveillantModel::surveillantModel(int pNumSurveillant) : personneModel(pNumSurv
 }
 
 QMap<int, surveillantModel*> surveillantModel::recupererSurveillants(){
+    qDebug()<<"QMap<int, surveillantModel*> surveillantModel::recupererSurveillants()";
 
     QMap<int, surveillantModel*> resultat;
 
@@ -24,7 +25,11 @@ QMap<int, surveillantModel*> surveillantModel::recupererSurveillants(int noRepas
 
     QMap<int, surveillantModel*> resultat;
 
-    QSqlQuery recupSurveillants("SELECT idPersonne FROM SURVEILLANT INNER JOIN PRENDRE on SURVEILLANT.idPersonne=prendre.idPersonne where PRENDRE.idRepas="+QString::number(noRepas));
+    QString texteRequete="SELECT SURVEILLANT.idPersonne FROM SURVEILLANT INNER JOIN PRENDRE on SURVEILLANT.idPersonne=prendre.idPersonne where PRENDRE.idRepas="+QString::number(noRepas);
+
+    qDebug()<<texteRequete;
+
+    QSqlQuery recupSurveillants(texteRequete);
 
     while (recupSurveillants.next()){
         resultat[recupSurveillants.value(0).toInt()] = new surveillantModel(recupSurveillants.value(0).toInt());

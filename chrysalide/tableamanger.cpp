@@ -207,6 +207,7 @@ bool tableAManger::isCompatibleWith(patientModel* lePatient){
 
 bool tableAManger::ajouterPatient(patientModel* lePatient){
 
+    qDebug()<<"bool tableAManger::ajouterPatient(patientModel* lePatient)";
     // On regarde si la table n'est pas pleine
     if (!estPleineSansSurveillant()){
 
@@ -227,6 +228,7 @@ bool tableAManger::ajouterPatient(patientModel* lePatient){
 
 bool tableAManger::ajouterPatientSansCompatibilite(patientModel* lePatient){
 
+    qDebug()<<"bool tableAManger::ajouterPatientSansCompatibilite(patientModel* lePatient)";
     // On regarde si la table n'est pas pleine
     if (!estPleineSansSurveillant()){
 
@@ -239,6 +241,7 @@ bool tableAManger::ajouterPatientSansCompatibilite(patientModel* lePatient){
 }
 void tableAManger::enregistrer(int noRepas)
 {
+    qDebug()<<"void tableAManger::enregistrer(int noRepas)";
     //enregistrement dans la base de données des patients à la table ce repas
 
     foreach(surveillantModel* surveillant,mapSurveillants)

@@ -86,7 +86,7 @@ create table SERT
 (
 	idPersonne integer not null references PATIENT(idPersonne),
 	idRepas integer not null references REPAS(id),
-	idTableAManger integer not null references TABLEAMANGER(id),
+	idTableAManger integer not null references TABLEAMANGER(numero),
 	primary key(idPersonne, idRepas, idTableAManger)
 );
 
@@ -101,7 +101,7 @@ create table PRENDRE
 (
 	idRepas integer not null references REPAS(id),
 	idPersonne integer not null references PERSONNE(id),
-	idTableAManger integer not null references TABLEAMANGER(id),
+	idTableAManger integer not null references TABLEAMANGER(numero),
 	primary key(idRepas, idPersonne)
 );
 

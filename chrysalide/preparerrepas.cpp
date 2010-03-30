@@ -71,7 +71,6 @@ void preparerRepas::changeRepasCourant()
     //la vue doit porter sur le nouveau repas
     ui->salleViewCourante->setRepasCourant(repasCourant);
 
-
 }
 void preparerRepas::initialiserServeurs()
 {
@@ -278,6 +277,9 @@ void preparerRepas::faireTravaillerSurveillant(QListWidgetItem * leSurveillant)
         {
             //il faut lui affecter une table à l'intérieur à laquelle il n'y a pas encore de suveillant
             QString texteRequete="select numero from tableamanger where typetable=(select numero from typeTable where libelle='"+QObject::tr("Intèrieur")+"') and not exists(select * from prendre inner join personne on prendre.idPersonne= personne.id inner join surveillant on surveillant.idPersonne=personne.id where idtableamanger=tableamanger.numero and idRepas="+QString::number(repasCourant)+")";
+
+            qDebug()<<texteRequete;
+
             QSqlQuery reqTableSansSurveillant(texteRequete);
             reqTableSansSurveillant.first();
             int numeroDeLaTable=reqTableSansSurveillant.value(0).toInt();
@@ -301,6 +303,7 @@ void preparerRepas::faireTravaillerAutrePersonnel(QListWidgetItem * employe)
     }
 }
 void preparerRepas::enregistrer(){
+    qDebug()<<"void preparerRepas::enregistrer()";
     //visualisation des tables:
     for (int cpt=0; cpt < tablesAManger.size(); cpt++)
     {
@@ -316,8 +319,11 @@ void preparerRepas::placerPersonnes()
     // On récupère nos patients à placer
     mapPatients = patientModel::recupererPatientsNonPlaces(repasCourant);
 
+
     // On récupère nos surveillants
     QMap<int, surveillantModel*> mapSurveillants = surveillantModel::recupererSurveillants(repasCourant);
+
+
     //combien sont-ils
     int nombreDeTablesAvecSurveillant=mapSurveillants.count();
 
@@ -331,16 +337,31 @@ void preparerRepas::placerPersonnes()
     QMap<int, patientModel*> mapPatientsSurveillanceElevee;
     int nombreDePatientsASurveiller=0;
 
+
+
     for (QMap<int, patientModel*>::iterator itPatient = mapPatients.begin();  itPatient!= mapPatients.end(); itPatient++)
     {
+
         if (itPatient.value()->getIdSurveillance() == 3)
         {
             mapPatientsSurveillanceElevee[itPatient.key()] = mapPatients.take(itPatient.key());
+
+            qDebug("JE PASSE ICI - BIS");
+
+            //int test = nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant;
+
+            qDebug()<<" nombreDePatientsASurveiller : "<<nombreDePatientsASurveiller;
+            qDebug()<<" nombreDeTablesAvecSurveillant : "<<nombreDeTablesAvecSurveillant;
             //affectation à une des tables du vecteur
             vecteurTablesSurveillees[nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant]->ajouterPatient(itPatient.value());
+
+            qDebug("JE PASSE ICI - BIS - BIS");
+
             nombreDePatientsASurveiller++;
         }
     }
+
+qDebug("JE PASSE ICI");
 
     // On récupère nos tables de l'intérieur
     tablesAManger = tableAManger::recupererTables("Intèrieur");
@@ -349,6 +370,8 @@ void preparerRepas::placerPersonnes()
     QMap<int, patientModel*> patientsRegime;
     QMap<int, patientModel*> patientsSurveillance;
     QMap<int, patientModel*> patientsNormaux;
+
+
 
     for (QMap<int, patientModel*>::iterator gary = mapPatients.begin(); gary != mapPatients.end(); gary++){
 

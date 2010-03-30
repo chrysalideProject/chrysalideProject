@@ -26,7 +26,7 @@ public:
     void majProfil();
     void supprimer();
     int getIdRegime(){ return idRegime; }
-    int getIdSurveillance(){ return idSurveillance; }
+    int getIdSurveillance(){return idSurveillance; }
     int getIdTravail(){ return idTravail; }
     bool getIsServeur(){ return isServeur; }
  

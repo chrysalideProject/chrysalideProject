@@ -2,6 +2,7 @@
 #include <QDebug>
 patientModel::patientModel(int pNumPatient) : personneModel(pNumPatient)
 {
+    qDebug()<<"patientModel::patientModel(int pNumPatient) : personneModel(pNumPatient)";
     QSqlQuery recupInfos("SELECT * FROM PATIENT WHERE idPersonne = "+QString::number(pNumPatient));
  
     if (recupInfos.first()){
@@ -53,22 +54,30 @@ QMap<int, patientModel*> patientModel::recupererPatientsAvecSelection(QString wh
 }
 patientModel::patientModel(long pId, QString pNom, QString pPrenom, int pIdRegime, int pIdSurveillance, int pIdTravail) : personneModel(pId, pNom, pPrenom)
 {
+    qDebug()<<"patientModel::patientModel(long pId, QString pNom, QString pPrenom, int pIdRegime, int pIdSurveillance, int pIdTravail)";
     idRegime = pIdRegime;
     idSurveillance = pIdSurveillance;
     idTravail = pIdTravail;
  
     recupererAffinites();
     recupererIncompatibles();
+    qDebug("fin constructeur");
 }
  
 QMap<int,patientModel*> patientModel::recupererPatientsNonPlaces(int noRepas)
 {
+    qDebug()<<"QMap<int,patientModel*> patientModel::recupererPatientsNonPlaces(int noRepas)";
     QMap<int,patientModel*> resultat;
 
-    QSqlQuery recupPatients("SELECT idPersonne, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join PERSONNE on PATIENT.idPersonne = PERSONNE.id where not exists(select * from PRENDRE where prendre.idPersonne=PERSONNE.id and prendre.idRepas="+QString::number(noRepas)+")");
+    QString texteRequete="SELECT idPersonne, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join PERSONNE on PATIENT.idPersonne = PERSONNE.id where not exists(select * from PRENDRE where prendre.idPersonne=PERSONNE.id and prendre.idRepas="+QString::number(noRepas)+")";
+
+    qDebug()<<texteRequete;
+
+    QSqlQuery recupPatients(texteRequete);
 
     while (recupPatients.next())
     {
+        qDebug()<<"    while (recupPatients.next())";
         resultat[recupPatients.value(0).toInt()]=new patientModel(recupPatients.value(0).toInt(), recupPatients.value(1).toString(), recupPatients.value(2).toString(), recupPatients.value(3).toInt(), recupPatients.value(4).toInt(), recupPatients.value(5).toInt());
     }
 
@@ -95,20 +104,32 @@ void patientModel::supprimer(){
 }
  
 void patientModel::recupererAffinites(){
+    qDebug()<<"void patientModel::recupererAffinites()";
  
-    QSqlQuery recupAffinites("SELECT idPersonne2, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join AFFINITE on AFFINITE.idPersonne2 = PATIENT.idPersonne WHERE idPersonne1 = "+QString::number(id));
+    QString texteRequete="SELECT idPersonne2, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join AFFINITE on AFFINITE.idPersonne2 = PATIENT.idPersonne inner join PERSONNE on AFFINITE.idPersonne2=PERSONNE.id WHERE idPersonne1 = "+QString::number(id);
+
+    qDebug()<<texteRequete;
+
+    QSqlQuery recupAffinites(texteRequete);
  
     while(recupAffinites.next()){
+        qDebug()<<"  while(recupAffinites.next())";
         affinites.push_back(new patientModel(recupAffinites.value(0).toInt(), recupAffinites.value(1).toString(), recupAffinites.value(2).toString(), recupAffinites.value(3).toInt(), recupAffinites.value(4).toInt(), recupAffinites.value(5).toInt()));
     }
  
 }
  
 void patientModel::recupererIncompatibles(){
+    qDebug()<<"void patientModel::recupererIncompatibles()";
  
-    QSqlQuery recupIncompatibles("SELECT idPersonne2, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join INCOMPATIBILITE on INCOMPATIBILITE.idPersonne2 = PATIENT.idPersonne WHERE idPersonne1 = "+QString::number(id));
+    QString texteRequete="SELECT idPersonne2, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join INCOMPATIBILITE on INCOMPATIBILITE.idPersonne2 = PATIENT.idPersonne inner join PERSONNE on INCOMPATIBILITE.idPersonne2=PERSONNE.id WHERE idPersonne1 = "+QString::number(id);
+
+    qDebug()<<texteRequete;
+
+    QSqlQuery recupIncompatibles(texteRequete);
  
     while(recupIncompatibles.next()){
+        qDebug()<<"    while(recupIncompatibles.next())";
         incompatibles.push_back(new patientModel(recupIncompatibles.value(0).toInt(), recupIncompatibles.value(1).toString(), recupIncompatibles.value(2).toString(), recupIncompatibles.value(3).toInt(), recupIncompatibles.value(4).toInt(), recupIncompatibles.value(5).toInt()));
     }
  

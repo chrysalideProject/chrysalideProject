@@ -58,7 +58,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -207,13 +207,13 @@
         </rect>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>18</x>
          <y>10</y>
          <width>155</width>
-         <height>27</height>
+         <height>31</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -303,7 +303,7 @@
         <string>&amp;Fermer</string>
        </property>
        <property name="icon">
-        <iconset resource="chrysalide.qrc">
+        <iconset>
          <normaloff>:/new/prefix1/images/dialog-close.png</normaloff>:/new/prefix1/images/dialog-close.png</iconset>
        </property>
       </widget>
@@ -319,9 +319,7 @@
    <header>typetableview.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="chrysalide.qrc"/>
- </resources>
+ <resources/>
  <connections/>
  <slots>
   <slot>checkBoxExterieurStateChanged(QTreeWidgetItem*,int)</slot>
