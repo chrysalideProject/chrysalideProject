@@ -15,13 +15,17 @@ void typeTableView::setTypeTable(int numeroTypeDeTable,bool affPersonnes)
 }
 void typeTableView::clear()
 {
-    //effacement graphique des tablesAManger
+    //effacement graphique des tablesAManger    
     qDebug()<<"void typeTableView::clear()";
-    QList<QGraphicsItem*> all =this->items();
-    foreach(QGraphicsItem* uneTable,all)
+/*
+    foreach(tableAMangerView* uneTable,vecteurDesTablesDuType)
     {
+        qDebug()<<"FOREACH - avant le Delete - foreach(QGraphicsItem* uneTable,all)";
+
         delete(uneTable);
+        qDebug()<<"FOREACH - apres le Delete - foreach(QGraphicsItem* uneTable,all)";
     }
+    qDebug()<<"FIN - void typeTableView::clear()";*/
 }
 
 
@@ -30,15 +34,21 @@ void typeTableView::affiche(bool affichePatient)
     qDebug()<<"void typeTableView::affiche()";
   //recup de ttes les tables et instanciations correspondantes
     QVector<tableAManger*> mesTables=sonType->getTablesAManger();
+    qDebug()<<"TEST 1 ";
     //j'efface tout
     clear();
     //et on y va
+    qDebug()<<"TEST 2 ";
     foreach(tableAManger* uneTable,mesTables)
     {
+
         //creation d'autant de tableAMangerView que de tableAManger
         tableAMangerView * nouvelleTable=new tableAMangerView(this->scene(),affichePatient);
+
         //on fait le rapprochement entre la vue et son modèle
         nouvelleTable->setModel(uneTable,repasCourant);
+        //ajout au vecteur
+        vecteurDesTablesDuType.push_back(nouvelleTable);
     }
     centrer();
 }
@@ -71,7 +81,9 @@ void typeTableView::dropEvent(QDropEvent *event)
         int nombreDePlace=QInputDialog::getInt(this,"Saisie du nombre de place","Nombre de places:",6,2,30,2,&ok);
         if (ok)
         {
+
             tableAMangerView * nouvelleTable= new tableAMangerView(this->scene(),false);
+
             nouvelleTable->setModel(new tableAManger(nombreDePlace,sonType->getNumero(),lePointMappe.x(),lePointMappe.y()),0);
         }
     }

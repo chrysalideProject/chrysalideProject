@@ -25,6 +25,7 @@ class tableAManger : public QObject
 
     public:
         tableAManger(int, int, int);//hum....
+        ~tableAManger();
         tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double pY);//constructeur qui cree la table ds le sgbd
         tableAManger(int);//constructeur depuis le sgbd
         void setNoRepas(int noRepas){repasCourant=noRepas;remplirLesMaps(noRepas);};

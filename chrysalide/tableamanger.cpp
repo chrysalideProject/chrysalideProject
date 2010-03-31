@@ -6,6 +6,23 @@ void tableAManger::nouvelleTable(){
     QSqlQuery nouvelle("INSERT INTO TABLEAMANGER (capacite, typeTable) VALUES (6, (SELECT numero FROM TYPETABLE LIMIT 0,1))");
 
 }
+tableAManger::~tableAManger()
+{
+    qDebug()<<"tableAManger::~tableAManger()";
+    delete type;
+    //les maps
+    foreach(patientModel* lePatient, mapPatients)
+    {
+        delete lePatient;
+    }
+    mapPatients.clear();
+    foreach(surveillantModel* leSurveillant, mapSurveillants)
+    {
+        delete leSurveillant;
+    }
+    mapSurveillants.clear();
+
+}
 tableAManger::tableAManger(int pNumero)
 {
     //construction d'une table à partir du sgbd
@@ -19,6 +36,7 @@ tableAManger::tableAManger(int pNumero)
         capacite = selectTable.value(0).toInt();
         type=new typeTable(selectTable.value(1).toInt());
         this->position=QPointF(selectTable.value(2).toDouble(),selectTable.value(3).toDouble());
+
 
     }
 

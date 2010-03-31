@@ -22,6 +22,7 @@ void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)
     setRect(0,0,LARGEUR*nomBreDePlace/2,HAUTEUR);
     setPos(pos);
     //on efface le vecteur des personnes(repr graphique) mangeant à la table
+
     foreach (QGraphicsTextItem* personne,vecteurPersonne)
     {
         delete(personne);
@@ -79,8 +80,11 @@ tableAMangerView::~tableAMangerView()
     if(doitEtreEnregistree)
     {
         model->setPos(pos());
+
     }
     delete(model);
+    qDebug()<<"FIN - tableAMangerView::~tableAMangerView()";
+
 }
 QVariant tableAMangerView::itemChange(GraphicsItemChange change,const QVariant &value)
 {

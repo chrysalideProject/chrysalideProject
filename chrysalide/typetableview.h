@@ -6,11 +6,13 @@
 #include <QDragMoveEvent>
 #include <QDropEvent>
 #include "typetable.h"
+#include "tableamangerview.h"
 
 class typeTableView : public QGraphicsView
 {
 public:
     typeTableView(QWidget*);
+    QVector<tableAMangerView*> vecteurDesTablesDuType;
     int repasCourant;
     void setRepasCourant(int noRepas){repasCourant=noRepas;};
     typeTable* sonType;
