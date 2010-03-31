@@ -317,7 +317,8 @@ void preparerRepas::placerPersonnes()
     qDebug()<<"void preparerRepas::placerPersonnes()";
 
     // On récupère nos patients à placer
-    mapPatients = patientModel::recupererPatientsNonPlaces(repasCourant);
+    QMap<int,patientModel*> lesPatientsAPlacer=patientModel::recupererPatientsNonPlaces(repasCourant);
+
 
 
     // On récupère nos surveillants
@@ -329,22 +330,23 @@ void preparerRepas::placerPersonnes()
 
     //obtention des tables des surveillants
     QVector <tableAManger*> vecteurTablesSurveillees;
-    for (QMap<int, surveillantModel*>::iterator gary = mapSurveillants.begin(); gary != mapSurveillants.end(); gary++)
+    foreach (surveillantModel* leSurveillant,mapSurveillants)
     {
-        vecteurTablesSurveillees.push_back(new tableAManger((gary.value()->getNoTable(repasCourant))));
+        vecteurTablesSurveillees.push_back(new tableAManger((leSurveillant->getNoTable(repasCourant))));
     }
+
     //distribution des patients à surveiller aux tables des surveillants
     QMap<int, patientModel*> mapPatientsSurveillanceElevee;
     int nombreDePatientsASurveiller=0;
 
+    qDebug()<<vecteurTablesSurveillees;
 
-
-    for (QMap<int, patientModel*>::iterator itPatient = mapPatients.begin();  itPatient!= mapPatients.end(); itPatient++)
+    foreach (patientModel* lePatient, lesPatientsAPlacer)
     {
 
-        if (itPatient.value()->getIdSurveillance() == 3)
+        if (lePatient->getIdSurveillance() == 3)
         {
-            mapPatientsSurveillanceElevee[itPatient.key()] = mapPatients.take(itPatient.key());
+            mapPatientsSurveillanceElevee[lePatient->getId()] = lePatient;
 
             qDebug("JE PASSE ICI - BIS");
 
@@ -352,16 +354,21 @@ void preparerRepas::placerPersonnes()
 
             qDebug()<<" nombreDePatientsASurveiller : "<<nombreDePatientsASurveiller;
             qDebug()<<" nombreDeTablesAvecSurveillant : "<<nombreDeTablesAvecSurveillant;
-            //affectation à une des tables du vecteur
-            vecteurTablesSurveillees[nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant]->ajouterPatient(itPatient.value());
-
-            qDebug("JE PASSE ICI - BIS - BIS");
+            //affectation à une des tables du vecteur des tables surveillées
+            if(! vecteurTablesSurveillees.empty() && nombreDeTablesAvecSurveillant!=0)
+            {
+                vecteurTablesSurveillees[nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant]->ajouterPatient(lePatient);
+            }
+            else
+            {
+                QMessageBox::critical(this,"Placement des patients","Vous n'avez pas désigné de surveillant alors que des patients nécessitent \n une surveillance forte.");
+            }
 
             nombreDePatientsASurveiller++;
         }
     }
 
-qDebug("JE PASSE ICI");
+
 
     // On récupère nos tables de l'intérieur
     tablesAManger = tableAManger::recupererTables("Intèrieur");
@@ -371,29 +378,31 @@ qDebug("JE PASSE ICI");
     QMap<int, patientModel*> patientsSurveillance;
     QMap<int, patientModel*> patientsNormaux;
 
+    //on raffraichit la liste des patients qui restent à placer
+    lesPatientsAPlacer.clear();
+    lesPatientsAPlacer=patientModel::recupererPatientsNonPlaces(repasCourant);
+    foreach (patientModel* lePatient,lesPatientsAPlacer)
+    {
 
-
-    for (QMap<int, patientModel*>::iterator gary = mapPatients.begin(); gary != mapPatients.end(); gary++){
-
-        int typeRegime = gary.value()->getIdRegime();
+        int typeRegime = lePatient->getIdRegime();
         switch(typeRegime){
 
             // Régime
         case 1:
-            qDebug()<<gary.value()->getNom()<<" est au régime";
-            patientsRegime[gary.key()] = mapPatients.take(gary.key());
+            qDebug()<<lePatient->getNom()<<" est au régime";
+            patientsRegime[lePatient->getId()] = lePatient;
             break;
 
             // Surveillance
         case 2:
-            qDebug()<<gary.value()->getNom()<<" n'a pas le droit au pain";
-            patientsSurveillance[gary.key()] = mapPatients.take(gary.key());
+            qDebug()<<lePatient->getNom()<<" n'a pas le droit au pain";
+            patientsSurveillance[lePatient->getId()] = lePatient;
             break;
 
             // Normal
         case 3:
-            qDebug()<<gary.value()->getNom()<<" peut manger autant de pain qu'il veut";
-            patientsNormaux[gary.key()] = mapPatients.take(gary.key());
+            qDebug()<<lePatient->getNom()<<" peut manger autant de pain qu'il veut";
+            patientsNormaux[lePatient->getId()] = lePatient;
             break;
 
         }
@@ -476,7 +485,7 @@ qDebug("JE PASSE ICI");
     //enregistrement dans la bdd:
     enregistrer();
     //actualiserLaVue
-    ui->comboBoxSalle->setCurrentIndex(ui->comboBoxSalle->findText("Intèrieur"));
+    ui->comboBoxSalle->setCurrentIndex(ui->comboBoxSalle->findText(tr("Intèrieur")));
 
 }
 

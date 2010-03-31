@@ -15,7 +15,7 @@ tableAManger::tableAManger(int pNumero)
 
     if (selectTable.first())
     {
-
+        this->numero=pNumero;
         capacite = selectTable.value(0).toInt();
         type=new typeTable(selectTable.value(1).toInt());
         this->position=QPointF(selectTable.value(2).toDouble(),selectTable.value(3).toDouble());
@@ -65,8 +65,9 @@ void tableAManger::setPos(QPointF pPos)
     qDebug()<<"void tableAManger::setPos(QPointF pPos)";
   position=pPos;
   QString texteRequete="UPDATE TABLEAMANGER SET x= "+QString::number(position.x())+", y="+QString::number(position.y())+" where numero="+ QString::number(numero);
-  QSqlQuery query(texteRequete);
-    query.exec();
+  qDebug()<<texteRequete;
+  QSqlQuery query;
+  query.exec(texteRequete);
 
 }
 
@@ -83,11 +84,11 @@ QVector<tableAManger*> tableAManger::recupererTables()
 
     QVector<tableAManger*> resultat;
 
-    QSqlQuery tables("SELECT * FROM TABLEAMANGER WHERE");
+    QSqlQuery tables("SELECT * FROM TABLEAMANGER");
 
     while (tables.next())
     {
-        resultat.push_back(new tableAManger(tables.value(0).toInt(), tables.value(1).toInt(), tables.value(2).toInt()));
+        resultat.push_back(new tableAManger(tables.value(0).toInt()));
     }
     return resultat;
 
@@ -121,12 +122,12 @@ QVector<tableAManger*> tableAManger::recupererTables(QString typeTable)
     qDebug()<<"QVector<tableAManger*> tableAManger::recupererTables()";
 
     QVector<tableAManger*> resultat;
-
-    QSqlQuery tables("SELECT * FROM TABLEAMANGER ta inner join typetable ty on ta.id= ty.idtypetable left outer join prendre on prendre.idtypetable=ta.id where typetable.libelle='"+typeTable+"' ");
+    QString texteRequete="SELECT * FROM TABLEAMANGER ta inner join typetable ty on ta.typetable= ty.idtypetable  where ty.libelle='"+typeTable+"' ";
+    QSqlQuery tables(texteRequete);
 
     while (tables.next())
     {
-        resultat.push_back(new tableAManger(tables.value(0).toInt(), tables.value(1).toInt(), tables.value(2).toInt()));
+        resultat.push_back(new tableAManger(tables.value(0).toInt()));
     }
     return resultat;
 

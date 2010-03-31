@@ -12,7 +12,7 @@ tableAMangerView::tableAMangerView(QGraphicsScene* pScene,bool patient)
 }
 void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)
 {
-    qDebug()<<"void tableAMangerView::setModel(tableAManger* pModele)";
+    qDebug()<<"void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)";
     model=pModele;
     model->setNoRepas(NoRepas);
     model->remplirLesMaps(NoRepas);
@@ -21,6 +21,7 @@ void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)
     QPointF pos=model->getPosition();
     setRect(0,0,LARGEUR*nomBreDePlace/2,HAUTEUR);
     setPos(pos);
+    //on efface le vecteur des personnes(repr graphique) mangeant à la table
     foreach (QGraphicsTextItem* personne,vecteurPersonne)
     {
         delete(personne);
@@ -34,72 +35,32 @@ void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)
     }
     else
     {
+        qDebug()<<"affichage des personnes demandé";
         //affichage des patients
         //boucle pour chaque personne
         int ordonnee=0;
         foreach(surveillantModel* unSurveillant,model->mapSurveillants)
         {
-        QGraphicsTextItem * pSurveillant=new QGraphicsTextItem(this);
-        vecteurPersonne.push_back(pSurveillant);
-        pSurveillant->setFont(QFont("Verdana",10,QFont::Bold,false));
-        pSurveillant->setHtml(unSurveillant->getNom());
-        pSurveillant->setPos(0,ordonnee);
-        ordonnee+=pSurveillant->boundingRect().height();
+            qDebug("affichage d'un surveillant à la table");
+            QGraphicsTextItem * pSurveillant=new QGraphicsTextItem(this);
+            vecteurPersonne.push_back(pSurveillant);
+            pSurveillant->setFont(QFont("Verdana",10,QFont::Bold,false));
+            pSurveillant->setHtml(unSurveillant->getNom());
+            pSurveillant->setPos(0,ordonnee);
+            ordonnee+=pSurveillant->boundingRect().height();
         }
         foreach(patientModel* unPatient,model->mapPatients)
         {
-        QGraphicsTextItem * gpatient=new QGraphicsTextItem(this);
-        vecteurPersonne.push_back(gpatient);
-        gpatient->setFont(QFont("Verdana",10,QFont::Bold,false));
-        gpatient->setHtml(unPatient->getNom());
-        gpatient->setPos(0,ordonnee);
-        ordonnee+=gpatient->boundingRect().height();
+            qDebug("affichage d'un patient à la table");
+            QGraphicsTextItem * gpatient=new QGraphicsTextItem(this);
+            vecteurPersonne.push_back(gpatient);
+            gpatient->setFont(QFont("Verdana",10,QFont::Bold,false));
+            gpatient->setHtml(unPatient->getNom());
+            gpatient->setPos(0,ordonnee);
+            ordonnee+=gpatient->boundingRect().height();
         }
-        //finboucle
-        /*title=new QGraphicsTextItem(this);
-        title->setFont(QFont("Verdana",10,QFont::Bold,false));
-        //déterminons la largeur de la table:
-        long largeurMaxi=QFontMetrics(title->font()).width(nomTableTronque());
-        for(int noChamp=0;noChamp<listeDesChamps.count();noChamp++)
-        {
-            long largeurDuChamp=QFontMetrics(title->font()).width(listeDesChamps[noChamp]);
-            if (largeurDuChamp>largeurMaxi) largeurMaxi=largeurDuChamp;
-        }
-        //construction du QGraphicsRectItem
-        setRect(x,y,largeurMaxi+10,200);
-        //création du titre
-        setBrush(QColor("#FFFF00"));//jaune
-        title->setPos(0,0);//par rapport à son parent
-        title->setTextWidth(boundingRect().width());
-        title->setHtml("<center>"+nomTableTronque()+"</center>");
 
-        //stockage de quelques infos
-        //c'est une table
-        title->setData(32,"Table");
-        title->setData(34,qVariantFromValue((qlonglong)this));
-        //on stocke son nom
-        title->setData(33,nomTable);
-        setData(32,"Table");
-        setData(33,nomTable);
-        setData(34,qVariantFromValue((qlonglong)this));
 
-        //ajout d'une ligne sous le titre
-        laLigne=new QGraphicsLineItem(0,ordonne,boundingRect().width(),ordonne,this,laScene);
-        this->setRect(0,0,largeurMaxi+10,ordonne+10);
-        //création des champs dans la table
-        for(int noChamp=0;noChamp<listeDesChamps.count();noChamp++)
-        {
-            vecteurChamps.push_back(new field(maman,false,laScene,listeDesChamps[noChamp],this));
-            vecteurChamps[noChamp]->setPos(10,ordonne);
-            //sa table c'est moi
-            vecteurChamps[noChamp]->laTable=this;
-            //les champs d'origine ne peuvent être modifiés
-              //vecteurChamps[noChamp]->setTextInteractionFlags(Qt::TextEditable);
-            vecteurChamps[noChamp]->setData(32,"Field");
-            vecteurChamps[noChamp]->setData(33,nom+"."+listeDesChamps[noChamp]);
-            ordonne+=vecteurChamps[noChamp]->boundingRect().height();
-            this->setRect(0,0,largeurMaxi+20,ordonne+10);
-        }*/
     }
 }
 void tableAMangerView::enregistrePosition()

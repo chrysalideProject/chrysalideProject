@@ -69,7 +69,7 @@ QMap<int,patientModel*> patientModel::recupererPatientsNonPlaces(int noRepas)
     qDebug()<<"QMap<int,patientModel*> patientModel::recupererPatientsNonPlaces(int noRepas)";
     QMap<int,patientModel*> resultat;
 
-    QString texteRequete="SELECT idPersonne, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join PERSONNE on PATIENT.idPersonne = PERSONNE.id where not exists(select * from PRENDRE where prendre.idPersonne=PERSONNE.id and prendre.idRepas="+QString::number(noRepas)+")";
+    QString texteRequete="SELECT idPersonne FROM PATIENT inner join PERSONNE on PATIENT.idPersonne = PERSONNE.id where not exists(select * from PRENDRE where prendre.idPersonne=PERSONNE.id and prendre.idRepas="+QString::number(noRepas)+")";
 
     qDebug()<<texteRequete;
 
@@ -77,8 +77,7 @@ QMap<int,patientModel*> patientModel::recupererPatientsNonPlaces(int noRepas)
 
     while (recupPatients.next())
     {
-        qDebug()<<"    while (recupPatients.next())";
-        resultat[recupPatients.value(0).toInt()]=new patientModel(recupPatients.value(0).toInt(), recupPatients.value(1).toString(), recupPatients.value(2).toString(), recupPatients.value(3).toInt(), recupPatients.value(4).toInt(), recupPatients.value(5).toInt());
+        resultat[recupPatients.value(0).toInt()]=new patientModel(recupPatients.value(0).toInt());
     }
 
     return resultat;
@@ -122,15 +121,14 @@ void patientModel::recupererAffinites(){
 void patientModel::recupererIncompatibles(){
     qDebug()<<"void patientModel::recupererIncompatibles()";
  
-    QString texteRequete="SELECT idPersonne2, nom, prenom, idRegime, idSurveillance, idTravail FROM PATIENT inner join INCOMPATIBILITE on INCOMPATIBILITE.idPersonne2 = PATIENT.idPersonne inner join PERSONNE on INCOMPATIBILITE.idPersonne2=PERSONNE.id WHERE idPersonne1 = "+QString::number(id);
+    QString texteRequete="SELECT idPersonne2 FROM PATIENT inner join INCOMPATIBILITE on INCOMPATIBILITE.idPersonne2 = PATIENT.idPersonne inner join PERSONNE on INCOMPATIBILITE.idPersonne2=PERSONNE.id WHERE idPersonne1 = "+QString::number(id);
 
     qDebug()<<texteRequete;
 
     QSqlQuery recupIncompatibles(texteRequete);
  
     while(recupIncompatibles.next()){
-        qDebug()<<"    while(recupIncompatibles.next())";
-        incompatibles.push_back(new patientModel(recupIncompatibles.value(0).toInt(), recupIncompatibles.value(1).toString(), recupIncompatibles.value(2).toString(), recupIncompatibles.value(3).toInt(), recupIncompatibles.value(4).toInt(), recupIncompatibles.value(5).toInt()));
+        incompatibles.push_back(new patientModel(recupIncompatibles.value(0).toInt()));
     }
  
 }

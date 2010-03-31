@@ -11,6 +11,32 @@ personneModel::personneModel(int pNumPersonne){
         prenom = recupInfos.value(2).toString();
 
     }
+    QSqlQuery monType;
+    monType.exec("SELECT * FROM PATIENT WHERE idPersonne="+QString::number(id));
+    if(monType.first())
+    {
+        type="patient";
+    }
+    else
+    {
+        monType.exec("SELECT * FROM Cuisinier WHERE idPersonne="+QString::number(id));
+        if(monType.first())
+        {
+            type="cuisinier";
+        }
+        else
+        {
+            monType.exec("SELECT * FROM surveillant WHERE idPersonne="+QString::number(id));
+            if(monType.first())
+            {
+                type="surveillant";
+            }
+            else
+            {
+                type="personnel";
+            }
+        }
+    }
 
 }
 
