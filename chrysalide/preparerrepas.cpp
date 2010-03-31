@@ -25,17 +25,27 @@ preparerRepas::preparerRepas(QWidget *parent) :
     initialiserTreeWidgetExterieur();
     initialiserServeurs();
     initialiserAbsents();
+    initialiseComboTypeSalle();
     connect(ui->dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(changeRepasCourant()));
     connect(ui->comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(changeRepasCourant()));
     connect (ui->listWidgetCuisinier,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerCuisinier(QListWidgetItem*)));
     connect (ui->listWidgetSurveillants,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerSurveillant(QListWidgetItem*)));
     connect (ui->listWidgetAutrePersonnel,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(faireTravaillerAutrePersonnel(QListWidgetItem*)));
-    qDebug()<<"void DialogSalleConceptor::remplirComboTypeDeTable()";
+
+
+
+    //placerPersonnes();
+}
+void preparerRepas::initialiseComboTypeSalle()
+{
+    qDebug()<<"void preparerRepas::initialiseComboTypeSalle()";
+    //déconnection du signal du slot
+    disconnect(ui->comboBoxSalle,SIGNAL(currentIndexChanged(int)),this,SLOT(on_comboBoxSalle_currentIndexChanged(int)));
     //vidons la combo
     ui->comboBoxSalle->clear();
     //ajout des types de tables de la base de données dans le vecteur
     vectTypesTable=typeTable::recupererTypesTables();
-     //on remplit la combo de choix de la salle/typeDeTable
+    //on remplit la combo de choix de la salle/typeDeTable
     foreach(typeTable* tT,vectTypesTable)
     {
         ui->comboBoxSalle->insertItem(0,tT->getLibelle(),(qlonglong)tT);
@@ -43,11 +53,12 @@ preparerRepas::preparerRepas(QWidget *parent) :
     //on raffrachit la vue du typeTable Courant
     if(ui->comboBoxSalle->count()>0)
     {
-    ui->comboBoxSalle->setCurrentIndex(0);
+        ui->comboBoxSalle->setCurrentIndex(0);
+    }
+    //reconnexion
+    connect(ui->comboBoxSalle,SIGNAL(currentIndexChanged(int)),this,SLOT(on_comboBoxSalle_currentIndexChanged(int)));
 }
 
-    //placerPersonnes();
-}
 void preparerRepas::changeRepasCourant()
 {
     //qd la date ou midi soir change cgt du repas courant

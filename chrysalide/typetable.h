@@ -15,7 +15,6 @@ class typeTable : public QObject
     private:
         int numero;
         QString libelle;
-
     public:
         //construction à partir de l'identifiant et du sgbd
         typeTable(int);
@@ -24,7 +23,6 @@ class typeTable : public QObject
         void setLibelle(QString);
         void save();
         void supprimer();
-
         bool isUsedByATable();
 //méthodes métier
         QVector  <tableAManger*>getTablesAManger(); //obtient la liste des tables du  type/salle

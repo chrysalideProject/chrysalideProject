@@ -7,26 +7,26 @@ const int LARGEUR =30;
 tableAMangerView::tableAMangerView(QGraphicsScene* pScene,bool patient)
     :QGraphicsRectItem(0,pScene)
 {
-    affichePatients=patient;
+  affichePatients=patient;
   doitEtreEnregistree=false;
 }
 void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)
 {
     qDebug()<<"void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)";
     model=pModele;
-    model->setNoRepas(NoRepas);
-    model->remplirLesMaps(NoRepas);
+    model->setNoRepas(NoRepas);  
     //obtention de l'abscisse et de l'odonnée ainsi que du nombre de place
     int nomBreDePlace=model->getCapacite();
     QPointF pos=model->getPosition();
     setRect(0,0,LARGEUR*nomBreDePlace/2,HAUTEUR);
     setPos(pos);
-    //on efface le vecteur des personnes(repr graphique) mangeant à la table
+    //on efface les QGraphicsitem*  du vecteur des personnes(repr graphique) mangeant à la table
 
     foreach (QGraphicsTextItem* personne,vecteurPersonne)
     {
         delete(personne);
     }
+    //on efface le vecteur
     vecteurPersonne.clear();
 
     qDebug()<<"hauteur"<<rect().height()<<"largeur"<<rect().width();
@@ -60,6 +60,16 @@ void tableAMangerView::setModel(tableAManger* pModele,int NoRepas)
             gpatient->setPos(0,ordonnee);
             ordonnee+=gpatient->boundingRect().height();
         }
+        foreach(personneModel* unePersonne,model->mapAutresPersonnes)
+        {
+            qDebug("affichage d'une autre personne à la table");
+            QGraphicsTextItem * gpersonne=new QGraphicsTextItem(this);
+            vecteurPersonne.push_back(gpersonne);
+            gpersonne->setFont(QFont("Verdana",10,QFont::Bold,false));
+            gpersonne->setHtml(unePersonne->getNom());
+            gpersonne->setPos(0,ordonnee);
+            ordonnee+=gpersonne->boundingRect().height();
+        }
 
 
     }
@@ -80,7 +90,6 @@ tableAMangerView::~tableAMangerView()
     if(doitEtreEnregistree)
     {
         model->setPos(pos());
-
     }
     delete(model);
     qDebug()<<"FIN - tableAMangerView::~tableAMangerView()";
@@ -91,8 +100,11 @@ QVariant tableAMangerView::itemChange(GraphicsItemChange change,const QVariant &
     qDebug()<<"QVariant tableAMangerView::itemChange(GraphicsItemChange change,const QVariant &value)";
     if (change == QGraphicsItem::ItemPositionHasChanged)
     {
-         //model->setPos(pos());
-         doitEtreEnregistree=true;
+        if(!affichePatients)
+        {
+            //model->setPos(pos());
+            doitEtreEnregistree=true;
+        }
      }
      return value;
 }

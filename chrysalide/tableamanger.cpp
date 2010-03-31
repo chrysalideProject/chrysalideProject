@@ -1,16 +1,9 @@
 #include "tableamanger.h"
 #include <QDebug>
 
-void tableAManger::nouvelleTable(){
-
-    QSqlQuery nouvelle("INSERT INTO TABLEAMANGER (capacite, typeTable) VALUES (6, (SELECT numero FROM TYPETABLE LIMIT 0,1))");
-
-}
-tableAManger::~tableAManger()
+void tableAManger::viderLesMaps()
 {
-    qDebug()<<"tableAManger::~tableAManger()";
-    delete type;
-    //les maps
+    qDebug()<<"void tableAManger::viderLesMaps()";
     foreach(patientModel* lePatient, mapPatients)
     {
         delete lePatient;
@@ -22,13 +15,31 @@ tableAManger::~tableAManger()
     }
     mapSurveillants.clear();
 
+    foreach(personneModel* laPersonne, mapAutresPersonnes)
+    {
+        delete laPersonne;
+    }
+    mapAutresPersonnes.clear();
+}
+
+tableAManger::~tableAManger()
+{
+    qDebug()<<"tableAManger::~tableAManger()";
+    //effacement du type
+    delete type;
+    //effacement de ce qu'il y a dans les maps
+    viderLesMaps();
+
+
 }
 tableAManger::tableAManger(int pNumero)
 {
     //construction d'une table à partir du sgbd
     qDebug()<<"tableAManger::tableAManger(int pNumero)";
     numero = pNumero;
-    QSqlQuery selectTable("SELECT capacite,typetable,x,y FROM TABLEAMANGER WHERE numero = "+QString::number(numero));
+    QString texteReq="SELECT capacite,typetable,x,y FROM TABLEAMANGER WHERE numero = "+QString::number(numero);
+    qDebug()<<texteReq;
+    QSqlQuery selectTable(texteReq);
 
     if (selectTable.first())
     {
@@ -36,14 +47,13 @@ tableAManger::tableAManger(int pNumero)
         capacite = selectTable.value(0).toInt();
         type=new typeTable(selectTable.value(1).toInt());
         this->position=QPointF(selectTable.value(2).toDouble(),selectTable.value(3).toDouble());
-
-
     }
 
 }
 tableAManger::tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double pY)
 {
-    //constructeur sans numéro
+    qDebug()<<"tableAManger::tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double pY)";
+    //constructeur sans numéro cela cree la tableamanger dans le sgbd
     QSqlQuery selectNumero("SELECT max(numero)+1 FROM TABLEAMANGER");
     if(selectNumero.first())
     {
@@ -53,39 +63,35 @@ tableAManger::tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double 
         position=QPointF(pX,pY);
         this->type=new typeTable(pNumeroTypeTable);
         QString texteRequete="insert into TABLEAMANGER (numero,capacite,x,y,typetable) values("+QString::number(identifiant)+
-                              ","+QString::number(pCapacite)+","+QString::number(pX)+","+QString::number(pY)+","+QString::number(pNumeroTypeTable)+")";
+                             ","+QString::number(pCapacite)+","+QString::number(pX)+","+QString::number(pY)+","+QString::number(pNumeroTypeTable)+")";
         qDebug()<<texteRequete;
         QSqlQuery insertTable(texteRequete);
         insertTable.exec();
     }
 }
-tableAManger::tableAManger(int pNumero, int pCapacite, int pNumeroTypeTable)
+void tableAManger::setNoRepas(int noRepas)
 {
-    numero = pNumero;
-    capacite = pCapacite;
-
-    type = new typeTable(pNumeroTypeTable);
+    qDebug()<<"void tableAManger::setNoRepas(int noRepas)";
+    repasCourant=noRepas;
+    remplirLesMaps(noRepas);
 }
 
-
-void tableAManger::setCapacite(int pCapacite){
-
+void tableAManger::setCapacite(int pCapacite)
+{
     capacite = pCapacite;
     QSqlQuery query("UPDATE TABLEAMANGER SET capacite = "+QString::number(capacite) +" where numero="+ QString::number(numero));
     query.exec();
-
     emit capaciteChanged(capacite);
-
 }
 void tableAManger::setPos(QPointF pPos)
 {
     //sauvegarde de la position de la tableAManger dans le sgbd
     qDebug()<<"void tableAManger::setPos(QPointF pPos)";
-  position=pPos;
-  QString texteRequete="UPDATE TABLEAMANGER SET x= "+QString::number(position.x())+", y="+QString::number(position.y())+" where numero="+ QString::number(numero);
-  qDebug()<<texteRequete;
-  QSqlQuery query;
-  query.exec(texteRequete);
+    position=pPos;
+    QString texteRequete="UPDATE TABLEAMANGER SET x= "+QString::number(position.x())+", y="+QString::number(position.y())+" where numero="+ QString::number(numero);
+    qDebug()<<texteRequete;
+    QSqlQuery query;
+    query.exec(texteRequete);
 
 }
 
@@ -114,6 +120,7 @@ QVector<tableAManger*> tableAManger::recupererTables()
 void tableAManger::remplirLesMaps(int noRepas)
 {
     qDebug()<<"voidtableAManger::remplirLesMaps(int noRepas)";
+    viderLesMaps();
     QString texteReq="SELECT idPersonne FROM  prendre  where idtableamanger="+QString::number(numero)+" and idrepas="+QString::number(noRepas);
     qDebug()<<texteReq;
     QSqlQuery personnes(texteReq);
@@ -129,6 +136,10 @@ void tableAManger::remplirLesMaps(int noRepas)
             if(personneModel(personnes.value(0).toInt()).type=="patient")
             {
                 mapPatients[personnes.value(0).toInt()]=new patientModel(personnes.value(0).toInt());
+            }
+            else
+            {
+                mapAutresPersonnes[personnes.value(0).toInt()]=new personneModel(personnes.value(0).toInt());
             }
         }
 
@@ -164,7 +175,7 @@ void tableAManger::supprimer(){
 
 }void tableAManger::setTypeTable(int pType){
 
-    type->setTypeTable(pType);
+type->setTypeTable(pType);
 
 }
 void tableAManger::save(){
@@ -197,30 +208,31 @@ bool tableAManger::needsSurveillant(){
 
 }
 
-bool tableAManger::isCompatibleWith(patientModel* lePatient){
+bool tableAManger::isCompatibleWith(patientModel* lePatient)
+{
 
-        // La table contient-elle quelqu'un qui n'ait pas le meme regime ?
-        bool foundNotCompatible = false;
-        int cpt = 0;
+    // La table contient-elle quelqu'un qui n'ait pas le meme regime ?
+    bool foundNotCompatible = false;
+    int cpt = 0;
 
-        while (!foundNotCompatible && cpt < mapPatients.size()){
-            qDebug()<<mapPatients.value(mapPatients.keys().at(cpt))->getNom()<<" : "<<mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime();
-            qDebug()<<lePatient->getNom()<<" : "<<lePatient->getIdRegime();
-            if (mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime() != lePatient->getIdRegime()){
-                foundNotCompatible = true;
-            }
-            else cpt++;
+    while (!foundNotCompatible && cpt < mapPatients.size()){
+        qDebug()<<mapPatients.value(mapPatients.keys().at(cpt))->getNom()<<" : "<<mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime();
+        qDebug()<<lePatient->getNom()<<" : "<<lePatient->getIdRegime();
+        if (mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime() != lePatient->getIdRegime()){
+            foundNotCompatible = true;
         }
+        else cpt++;
+    }
 
-        if (foundNotCompatible){
-            return false;
-        }
+    if (foundNotCompatible){
+        return false;
+    }
 
-        else{
-            // La table est compatible avec le patient
-            qDebug()<<lePatient->getNom()<<" est compatible avec la table "<<numero;
-            return true;
-        }
+    else{
+        // La table est compatible avec le patient
+        qDebug()<<lePatient->getNom()<<" est compatible avec la table "<<numero;
+        return true;
+    }
 
 }
 
@@ -251,8 +263,8 @@ bool tableAManger::ajouterPatientSansCompatibilite(patientModel* lePatient){
     // On regarde si la table n'est pas pleine
     if (!estPleineSansSurveillant()){
 
-            mapPatients[lePatient->getId()] = lePatient;
-            return true;
+        mapPatients[lePatient->getId()] = lePatient;
+        return true;
     }
 
     else return false;
@@ -275,7 +287,12 @@ void tableAManger::enregistrer(int noRepas)
         QSqlQuery insertion("insert into prendre(idPersonne,idRepas,idTableAManger) values("+QString::number(num)+","+QString::number(noRepas)+","+QString::number(numero)+")");
         insertion.exec();
     }
-
+    foreach(personneModel* laPersonne,mapAutresPersonnes)
+    {
+        int num=laPersonne->getId();
+        QSqlQuery insertion("insert into prendre(idPersonne,idRepas,idTableAManger) values("+QString::number(num)+","+QString::number(noRepas)+","+QString::number(numero)+")");
+        insertion.exec();
+    }
 
 }
 

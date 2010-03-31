@@ -85,7 +85,7 @@ QVector <tableAManger*> typeTable::getTablesAManger()
     qDebug()<<"QVector& <tableAManger*> typeTable::getTablesAManger();";
     QVector<tableAManger*> resultat;
 
-    QString texteRequete="SELECT * FROM TABLEAMANGER WHERE TYPETABLE="+QString::number(numero);
+    QString texteRequete="SELECT numero FROM TABLEAMANGER WHERE TYPETABLE="+QString::number(numero);
 
     qDebug()<<texteRequete;
 
@@ -96,7 +96,6 @@ QVector <tableAManger*> typeTable::getTablesAManger()
         resultat.push_back(new tableAManger(requeteLesTables.value(0).toInt()));
 
     }
-    qDebug()<<"FIN -QVector <tableAManger*> typeTable::getTablesAManger() ";
     return resultat;
 }
 QPointF typeTable::centre()

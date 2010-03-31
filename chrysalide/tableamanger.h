@@ -20,15 +20,20 @@ class tableAManger : public QObject
         QPointF position;
         int repasCourant;
 
+        void remplirLesMaps(int noRepas);
         surveillantModel* surveillant;
-
+        void viderLesMaps();
 
     public:
-        tableAManger(int, int, int);//hum....
+
         ~tableAManger();
         tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double pY);//constructeur qui cree la table ds le sgbd
-        tableAManger(int);//constructeur depuis le sgbd
-        void setNoRepas(int noRepas){repasCourant=noRepas;remplirLesMaps(noRepas);};
+        tableAManger(int);//constructeur à partir de l'identifiant va chercher les infos dans le sgbd
+        QMap<int, patientModel*> mapPatients;
+        QMap<int, surveillantModel*> mapSurveillants;
+        QMap<int, personneModel*>mapAutresPersonnes;
+
+        void setNoRepas(int noRepas);
         void setCapacite(int);
         void setPos(QPointF pPos);
         int getCapacite(){return capacite;};
@@ -41,9 +46,7 @@ class tableAManger : public QObject
         static QVector<tableAManger*> recupererTables(QString typeTable);
         void supprime();
         void afficher();
-        QMap<int, patientModel*> mapPatients;
-        QMap<int, surveillantModel*> mapSurveillants;
-        void remplirLesMaps(int noRepas);
+
         void setTypeTable(int);
         bool needsSurveillant();
         bool isCompatibleWith(patientModel*);
@@ -55,7 +58,6 @@ class tableAManger : public QObject
         bool ajouterPatientSansCompatibilite(patientModel*);
         void recupererPersonnes(int noRepas);
         void enregistrer(int noRepas);
-        static void nouvelleTable();
         void supprimer();
     signals:
         void capaciteChanged(int);

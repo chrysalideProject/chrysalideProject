@@ -50,6 +50,7 @@ class preparerRepas : public QDialog {
         void initialiserTreeWidgetExterieur();
         void initialiserServeurs();
         void initialiserAbsents();
+        void initialiseComboTypeSalle();
         void faireTravaillerCuisinier(QListWidgetItem*);
         void faireTravaillerSurveillant(QListWidgetItem*);
         void faireTravaillerAutrePersonnel(QListWidgetItem*);
