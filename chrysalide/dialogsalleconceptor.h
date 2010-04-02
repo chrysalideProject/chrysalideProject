@@ -19,19 +19,13 @@ protected:
 
 private:
     Ui::DialogSalleConceptor *m_ui;
-    void remplirComboTypeDeTable();
-    //tous les types de table dispos
-    QVector<typeTable*> vectTypesTable;
-    //le type de table en cours d'édition
-    typeTable* typeTableCourant();
-    void viderVecteur();
-
+    typeTable* typeTableInterieur;
 
 private slots:
     void on_pushButtonQuitter_clicked();
     void on_actionSupprimerTable_triggered();
-    void on_pushButtonNewSalle_clicked();
-    void on_comboBoxSalle_currentIndexChanged(int index);
+    void remplirLaVue();
+
 };
 
 #endif // DIALOGSALLECONCEPTOR_H

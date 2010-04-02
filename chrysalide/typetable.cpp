@@ -43,6 +43,20 @@ QVector<typeTable*> typeTable::recupererTypesTables(){
     return resultat;
 }
 
+typeTable* typeTable::recupererTypeTableInterieur()
+{
+    qDebug()<<"typeTable* typeTable::recupererTypesTablesInterieur()";
+
+  typeTable* resultat;
+
+    QSqlQuery typesTables("SELECT numero FROM TYPETABLE where libelle='"+tr("Intèrieur")+"' ");
+
+    if(typesTables.first())
+    {
+        resultat=new typeTable(typesTables.value(0).toInt());
+    }
+    return resultat;
+}
 
 
 void typeTable::save()

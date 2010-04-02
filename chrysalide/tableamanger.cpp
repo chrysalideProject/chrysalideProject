@@ -4,10 +4,11 @@
 void tableAManger::viderLesMaps()
 {
     qDebug()<<"void tableAManger::viderLesMaps()";
-    foreach(patientModel* lePatient, mapPatients)
+    /*foreach(patientModel* lePatient, mapPatients)
     {
         delete lePatient;
-    }
+    }*/
+
     mapPatients.clear();
     foreach(surveillantModel* leSurveillant, mapSurveillants)
     {

@@ -32,6 +32,7 @@ class typeTable : public QObject
         QString getLibelle(){ return libelle; }
 //méthodes et propriétés de portée classe
         static QVector<typeTable*> recupererTypesTables();
+        static typeTable* recupererTypeTableInterieur();
 
 
     signals:

@@ -7,28 +7,20 @@ DialogSalleConceptor::DialogSalleConceptor(QWidget *parent) :
         QDialog(parent),
         m_ui(new Ui::DialogSalleConceptor)
 {
-    m_ui->setupUi(this);
-    remplirComboTypeDeTable();
+    m_ui->setupUi(this);   
     //toute QGraphics View doit avoir une scene donc on la crée
     m_ui->salleViewCourante->setScene(new QGraphicsScene(this));
     m_ui->salleViewCourante->addAction(m_ui->actionSupprimerTable);
+    remplirLaVue();
+
 }
 
 DialogSalleConceptor::~DialogSalleConceptor()
 {
-    viderVecteur();
     delete m_ui;
 }
 
-void DialogSalleConceptor::viderVecteur()
-{
-    foreach(typeTable* leTypeDeTable,vectTypesTable)
-    {
-        delete(leTypeDeTable);
-    }
-    vectTypesTable.clear();
 
-}
 
 void DialogSalleConceptor::changeEvent(QEvent *e)
 {
@@ -42,62 +34,18 @@ void DialogSalleConceptor::changeEvent(QEvent *e)
     }
 }
 
-void DialogSalleConceptor::remplirComboTypeDeTable()
+void DialogSalleConceptor::remplirLaVue()
 {
     qDebug()<<"void DialogSalleConceptor::remplirComboTypeDeTable()";
-    //si le vecteur contient qlq chose on le vide
-    if(!vectTypesTable.empty())viderVecteur();
-    //vidons la combo
-    m_ui->comboBoxSalle->clear();
-    //ajout des types de tables de la base de données dans le vecteur
-    vectTypesTable=typeTable::recupererTypesTables();
-    //on remplit la combo de choix de la salle/typeDeTable
-    foreach(typeTable* tT,vectTypesTable)
-    {
-        m_ui->comboBoxSalle->insertItem(0,tT->getLibelle(),(qlonglong)tT);
-    }
-    //on raffrachit la vue du typeTable Courant
-    if(m_ui->comboBoxSalle->count()>0)
-    {
-        m_ui->comboBoxSalle->setCurrentIndex(0);
-
-    }
-}
-typeTable* DialogSalleConceptor::typeTableCourant()
-{
-    qDebug()<<"typeTable* DialogSalleConceptor::typeTableCourant()";
-    return (typeTable*) m_ui->comboBoxSalle->itemData(m_ui->comboBoxSalle->currentIndex()).toLongLong();
-}
-
-
-
-void DialogSalleConceptor::on_comboBoxSalle_currentIndexChanged(int index)
-{
-    qDebug()<<"void DialogSalleConceptor::on_comboBoxSalle_currentIndexChanged(int index)";
-    //si il y a un type dans la combo
-    if(index!=-1)
-    {
-        //on fait correspondre la vue avec son modele
-        m_ui->salleViewCourante->setTypeTable(typeTableCourant()->getNumero(),false);
-    }
-}
-
-void DialogSalleConceptor::on_pushButtonNewSalle_clicked()
-{
-    qDebug()<<"void DialogSalleConceptor::on_pushButtonNewSalle_clicked()";
-    bool ok;
-    QString nouveauType = QInputDialog::getText(0, QObject::tr("Nouveau type"),QObject::tr("Nom:"), QLineEdit::Normal,"", &ok);
-    if (ok && !nouveauType.isEmpty())
-    {
-        //on crée le nouveau type
-        typeTable* newType=new typeTable(nouveauType);
-        //raffraichissement de la combo:
-        remplirComboTypeDeTable();
-        //selection du type Qui vient d'être créé
-        m_ui->comboBoxSalle->setCurrentIndex(m_ui->comboBoxSalle->findText(newType->getLibelle()));
-    }
+    m_ui->salleViewCourante->setTypeTable(typeTable::recupererTypeTableInterieur()->getNumero(),false);
 
 }
+
+
+
+
+
+
 
 
 
