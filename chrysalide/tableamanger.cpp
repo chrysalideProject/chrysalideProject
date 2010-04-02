@@ -32,11 +32,12 @@ tableAManger::~tableAManger()
 
 
 }
-tableAManger::tableAManger(int pNumero)
+tableAManger::tableAManger(int pNumero,int pRepas)
 {
     //construction d'une table à partir du sgbd
-    qDebug()<<"tableAManger::tableAManger(int pNumero)";
+    qDebug()<<"tableAManger::tableAManger(int pNumero,int pRepas)";
     numero = pNumero;
+    repasCourant=pRepas;
     QString texteReq="SELECT capacite,typetable,x,y FROM TABLEAMANGER WHERE numero = "+QString::number(numero);
     qDebug()<<texteReq;
     QSqlQuery selectTable(texteReq);
@@ -48,9 +49,10 @@ tableAManger::tableAManger(int pNumero)
         type=new typeTable(selectTable.value(1).toInt());
         this->position=QPointF(selectTable.value(2).toDouble(),selectTable.value(3).toDouble());
     }
+    if(repasCourant!=-1)remplirLesMaps(repasCourant);
 
 }
-tableAManger::tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double pY)
+tableAManger::tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double pY,int pRepas)
 {
     qDebug()<<"tableAManger::tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double pY)";
     //constructeur sans numéro cela cree la tableamanger dans le sgbd
@@ -68,13 +70,9 @@ tableAManger::tableAManger(int pCapacite, int pNumeroTypeTable,double pX,double 
         QSqlQuery insertTable(texteRequete);
         insertTable.exec();
     }
+    repasCourant=pRepas;
 }
-void tableAManger::setNoRepas(int noRepas)
-{
-    qDebug()<<"void tableAManger::setNoRepas(int noRepas)";
-    repasCourant=noRepas;
-    remplirLesMaps(noRepas);
-}
+
 
 void tableAManger::setCapacite(int pCapacite)
 {
@@ -102,9 +100,9 @@ void tableAManger::setType(typeTable* pTypeTable)
     emit typeChanged(type);
 }
 
-QVector<tableAManger*> tableAManger::recupererTables()
+QVector<tableAManger*> tableAManger::recupererTables(int noRepas)
 {
-    qDebug()<<"QVector<tableAManger*> tableAManger::recupererTables()";
+    qDebug()<<"QVector<tableAManger*> tableAManger::recupererTables(int noRepas)";
 
     QVector<tableAManger*> resultat;
 
@@ -112,7 +110,7 @@ QVector<tableAManger*> tableAManger::recupererTables()
 
     while (tables.next())
     {
-        resultat.push_back(new tableAManger(tables.value(0).toInt()));
+        resultat.push_back(new tableAManger(tables.value(0).toInt(),noRepas));
     }
     return resultat;
 
@@ -146,17 +144,17 @@ void tableAManger::remplirLesMaps(int noRepas)
     }
 }
 
-QVector<tableAManger*> tableAManger::recupererTables(QString typeTable)
+QVector<tableAManger*> tableAManger::recupererTables(QString typeTable, int noRepas)
 {
-    qDebug()<<"QVector<tableAManger*> tableAManger::recupererTables()";
+    qDebug()<<"QVector<tableAManger*> tableAManger::recupererTables(QString typeTable)";
 
     QVector<tableAManger*> resultat;
-    QString texteRequete="SELECT * FROM TABLEAMANGER ta inner join typetable ty on ta.typetable= ty.idtypetable  where ty.libelle='"+typeTable+"' ";
+    QString texteRequete="SELECT * FROM TABLEAMANGER ta inner join typetable ty on ta.typetable= ty.numero  where ty.libelle='"+typeTable+"' ";
     QSqlQuery tables(texteRequete);
 
     while (tables.next())
     {
-        resultat.push_back(new tableAManger(tables.value(0).toInt()));
+        resultat.push_back(new tableAManger(tables.value(0).toInt(),noRepas));
     }
     return resultat;
 
@@ -184,54 +182,29 @@ void tableAManger::save(){
 
 }
 
-bool tableAManger::needsSurveillant(){
 
-    bool found = false;
-    int cpt = 0;
-
-    // Pour voir si la table a besoin d'un surveillant, on regarde si elle contient quelqu'un qui
-    // a besoin d'etre surveillé
-
-    while(cpt < mapPatients.size() && !found){
-        if (mapPatients.value(mapPatients.keys().at(cpt))->getIdSurveillance() == 3){
-            found = true;
-        }
-        else cpt++;
-    }
-
-    // On a trouvé quelqu'un qui a besoin d'etre surveillé, on regarde si il n'y aurait pas déja un surveillant
-    if (found){
-        return (mapSurveillants.size() == 0);
-    }
-
-    else return false;
-
-}
 
 bool tableAManger::isCompatibleWith(patientModel* lePatient)
 {
+    qDebug()<<"bool tableAManger::isCompatibleWith(patientModel* lePatient)";
 
     // La table contient-elle quelqu'un qui n'ait pas le meme regime ?
     bool foundNotCompatible = false;
     int cpt = 0;
+    if(estVide()) return(true);
+    else
+    {
+        while (!(foundNotCompatible || cpt >=mapPatients.size()))
+        {
 
-    while (!foundNotCompatible && cpt < mapPatients.size()){
-        qDebug()<<mapPatients.value(mapPatients.keys().at(cpt))->getNom()<<" : "<<mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime();
-        qDebug()<<lePatient->getNom()<<" : "<<lePatient->getIdRegime();
-        if (mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime() != lePatient->getIdRegime()){
-            foundNotCompatible = true;
+            if (mapPatients.value(mapPatients.keys().at(cpt))->getIdRegime() != lePatient->getIdRegime()){
+                foundNotCompatible = true;
+            }
+            else cpt++;
         }
-        else cpt++;
-    }
 
-    if (foundNotCompatible){
-        return false;
-    }
 
-    else{
-        // La table est compatible avec le patient
-        qDebug()<<lePatient->getNom()<<" est compatible avec la table "<<numero;
-        return true;
+        return foundNotCompatible;
     }
 
 }
@@ -240,12 +213,18 @@ bool tableAManger::ajouterPatient(patientModel* lePatient){
 
     qDebug()<<"bool tableAManger::ajouterPatient(patientModel* lePatient)";
     // On regarde si la table n'est pas pleine
-    if (!estPleineSansSurveillant()){
+    if (!estPleine())
+    {
 
         // On vérifie que le patient soit compatible avec la table
-        if (isCompatibleWith(lePatient)){
+        if (isCompatibleWith(lePatient))
+        {
 
             mapPatients[lePatient->getId()] = lePatient;
+            QString texteRequete="insert into prendre(idRepas,idPersonne,idTableAManger) values("+QString::number(repasCourant)+","+QString::number(lePatient->getId())+","+QString::number(numero)+")";
+            qDebug()<<texteRequete;
+            QSqlQuery req;
+            req.exec(texteRequete);
             return true;
 
         }
@@ -261,9 +240,14 @@ bool tableAManger::ajouterPatientSansCompatibilite(patientModel* lePatient){
 
     qDebug()<<"bool tableAManger::ajouterPatientSansCompatibilite(patientModel* lePatient)";
     // On regarde si la table n'est pas pleine
-    if (!estPleineSansSurveillant()){
+    if (!estPleine())
+    {
 
         mapPatients[lePatient->getId()] = lePatient;
+        QString texteRequete="insert into prendre(idRepas,idPersonne,idTableAManger) values("+QString::number(repasCourant)+","+QString::number(lePatient->getId())+","+QString::number(numero)+")";
+        qDebug()<<texteRequete;
+        QSqlQuery req;
+        req.exec(texteRequete);
         return true;
     }
 
@@ -278,67 +262,41 @@ void tableAManger::enregistrer(int noRepas)
     foreach(surveillantModel* surveillant,mapSurveillants)
     {
         int num=surveillant->getId();
+        QSqlQuery effacement("delete from prendre where idPersonne="+QString::number(num)+" and idRepas="+QString::number(noRepas));
+        effacement.exec();
         QSqlQuery insertion("insert into prendre(idPersonne,idRepas,idTableAManger) values("+QString::number(num)+","+QString::number(noRepas)+","+QString::number(numero)+")");
         insertion.exec();
     }
     foreach(patientModel* patient,mapPatients)
     {
         int num=patient->getId();
+        QSqlQuery effacement("delete from prendre where idPersonne="+QString::number(num)+" and idRepas="+QString::number(noRepas));
+        effacement.exec();
         QSqlQuery insertion("insert into prendre(idPersonne,idRepas,idTableAManger) values("+QString::number(num)+","+QString::number(noRepas)+","+QString::number(numero)+")");
         insertion.exec();
     }
     foreach(personneModel* laPersonne,mapAutresPersonnes)
     {
         int num=laPersonne->getId();
+        QSqlQuery effacement("delete from prendre where idPersonne="+QString::number(num)+" and idRepas="+QString::number(noRepas));
+        effacement.exec();
         QSqlQuery insertion("insert into prendre(idPersonne,idRepas,idTableAManger) values("+QString::number(num)+","+QString::number(noRepas)+","+QString::number(numero)+")");
         insertion.exec();
     }
 
 }
 
-void tableAManger::afficher(){
-
-    qDebug()<<"************************";
-    qDebug()<<QString::fromUtf8("Table N°")<<numero;
-
-    for (int cpt=0; cpt < mapSurveillants.size(); cpt++){
-
-        qDebug()<<cpt+1<<" : "<<mapSurveillants.value(mapSurveillants.keys().at(cpt))->getNom()<<" (surveillant)";
-
-    }
-
-    for (int cpt=0; cpt < mapPatients.size(); cpt++){
-
-        qDebug()<<cpt+2<<" : "<<mapPatients.value(mapPatients.keys().at(cpt))->getNom();
-
-    }
-
-    qDebug()<<"****************************";
-
-}
-
-bool tableAManger::ajouterSurveillant(surveillantModel* leSurveillant){
-
-    if (!estPleine()){
-        mapSurveillants[leSurveillant->getId()] = leSurveillant;
-        return true;
-    }
-
-    else return false;
-
-}
-
-bool tableAManger::estPleineSansSurveillant(){
-
-    return (mapPatients.size() == 5);
-}
 
 bool tableAManger::estPleine(){
-
-    return (mapPatients.size()+mapSurveillants.size() == 6);
+    qDebug()<<"bool tableAManger::estPleine()";
+    bool resultat=mapPatients.size()+mapSurveillants.size() == capacite;
+    qDebug()<<"-------------------------------------------------";
+    return resultat;
 }
 
-bool tableAManger::estVide(){
+bool tableAManger::estVide()
+{
+    qDebug()<<"bool tableAManger::estVide()";
     return (mapPatients.size() == 0);
 }
 

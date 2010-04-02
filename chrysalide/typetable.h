@@ -25,7 +25,7 @@ class typeTable : public QObject
         void supprimer();
         bool isUsedByATable();
 //méthodes métier
-        QVector  <tableAManger*>getTablesAManger(); //obtient la liste des tables du  type/salle
+        QVector  <tableAManger*>getTablesAManger(int noRepas); //obtient la liste des tables du  type/salle
         QPointF centre();//renvoie le centre des tables d'un certain type
 //accesseur en lecture seule
         int getNumero(){ return numero; }

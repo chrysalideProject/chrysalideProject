@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>445</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Fichier">
@@ -53,7 +53,6 @@
     <addaction name="actionRentrer_les_Tables"/>
     <addaction name="action_Sauvegarde"/>
     <addaction name="action_Salles_typeTable"/>
-    <addaction name="actionRentrerBis"/>
    </widget>
    <widget class="QMenu" name="menu_Quotidien">
     <property name="title">
@@ -79,7 +78,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Ouvrir">
    <property name="icon">
-    <iconset>
+    <iconset resource="chrysalide.qrc">
      <normaloff>:/new/prefix1/fileOpen</normaloff>:/new/prefix1/fileOpen</iconset>
    </property>
    <property name="text">
@@ -88,7 +87,7 @@
   </action>
   <action name="action_Quitter">
    <property name="icon">
-    <iconset>
+    <iconset resource="chrysalide.qrc">
      <normaloff>:/new/prefix1/fileQuit</normaloff>:/new/prefix1/fileQuit</iconset>
    </property>
    <property name="text">
@@ -112,7 +111,7 @@
   </action>
   <action name="action_Nouveau">
    <property name="icon">
-    <iconset>
+    <iconset resource="chrysalide.qrc">
      <normaloff>:/new/prefix1/fileNew</normaloff>:/new/prefix1/fileNew</iconset>
    </property>
    <property name="text">
@@ -166,6 +165,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="chrysalide.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -8,6 +8,7 @@ class surveillantModel : public personneModel
         surveillantModel(int);
         static QMap<int, surveillantModel*> recupererSurveillants();
         static QMap<int, surveillantModel*> recupererSurveillants(int noRepas);
+        static QMap<int, surveillantModel*> recupererSurveillantsInterieur(int noRepas);
         bool travaille(QDate when,QString soirMidi);
         int getNoTable(int noRepas);
 };

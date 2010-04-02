@@ -4,8 +4,8 @@
 #include <QInputDialog>
 
 DialogSalleConceptor::DialogSalleConceptor(QWidget *parent) :
-    QDialog(parent),
-    m_ui(new Ui::DialogSalleConceptor)
+        QDialog(parent),
+        m_ui(new Ui::DialogSalleConceptor)
 {
     m_ui->setupUi(this);
     remplirComboTypeDeTable();
@@ -16,7 +16,18 @@ DialogSalleConceptor::DialogSalleConceptor(QWidget *parent) :
 
 DialogSalleConceptor::~DialogSalleConceptor()
 {
+    viderVecteur();
     delete m_ui;
+}
+
+void DialogSalleConceptor::viderVecteur()
+{
+    foreach(typeTable* leTypeDeTable,vectTypesTable)
+    {
+        delete(leTypeDeTable);
+    }
+    vectTypesTable.clear();
+
 }
 
 void DialogSalleConceptor::changeEvent(QEvent *e)
@@ -34,11 +45,13 @@ void DialogSalleConceptor::changeEvent(QEvent *e)
 void DialogSalleConceptor::remplirComboTypeDeTable()
 {
     qDebug()<<"void DialogSalleConceptor::remplirComboTypeDeTable()";
+    //si le vecteur contient qlq chose on le vide
+    if(!vectTypesTable.empty())viderVecteur();
     //vidons la combo
     m_ui->comboBoxSalle->clear();
     //ajout des types de tables de la base de données dans le vecteur
-     vectTypesTable=typeTable::recupererTypesTables();
-     //on remplit la combo de choix de la salle/typeDeTable
+    vectTypesTable=typeTable::recupererTypesTables();
+    //on remplit la combo de choix de la salle/typeDeTable
     foreach(typeTable* tT,vectTypesTable)
     {
         m_ui->comboBoxSalle->insertItem(0,tT->getLibelle(),(qlonglong)tT);
@@ -46,9 +59,9 @@ void DialogSalleConceptor::remplirComboTypeDeTable()
     //on raffrachit la vue du typeTable Courant
     if(m_ui->comboBoxSalle->count()>0)
     {
-    m_ui->comboBoxSalle->setCurrentIndex(0);
+        m_ui->comboBoxSalle->setCurrentIndex(0);
 
-}
+    }
 }
 typeTable* DialogSalleConceptor::typeTableCourant()
 {
@@ -64,9 +77,9 @@ void DialogSalleConceptor::on_comboBoxSalle_currentIndexChanged(int index)
     //si il y a un type dans la combo
     if(index!=-1)
     {
-       //on fait correspondre la vue avec son modele
+        //on fait correspondre la vue avec son modele
         m_ui->salleViewCourante->setTypeTable(typeTableCourant()->getNumero(),false);
-   }
+    }
 }
 
 void DialogSalleConceptor::on_pushButtonNewSalle_clicked()
@@ -88,11 +101,7 @@ void DialogSalleConceptor::on_pushButtonNewSalle_clicked()
 
 
 
-void DialogSalleConceptor::on_pushButtonSauver_clicked()
-{
-    qDebug()<<"void DialogSalleConceptor::on_pushButtonSauver_clicked()";
-    m_ui->salleViewCourante->enregistrePositions();
-}
+
 
 void DialogSalleConceptor::on_actionSupprimerTable_triggered()
 {

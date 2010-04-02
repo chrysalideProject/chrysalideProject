@@ -39,7 +39,6 @@ FORMS += gerertypestables.ui \
     dialogsalleconceptor.ui \
     gestionaffinites.ui \
     sauvegarde.ui \
-    tableview.ui \
     preparerrepas.ui
 SOURCES += gerertypestables.cpp \
     main.cpp \

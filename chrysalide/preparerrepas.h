@@ -36,6 +36,7 @@ class preparerRepas : public QDialog {
 
 
     private slots:
+        void on_pushButtonRAZ_clicked();
         void on_comboBoxSalle_currentIndexChanged(int index);
         void on_pushButtonValider_clicked();
         void on_pushButtonAjouterAbsent_clicked();

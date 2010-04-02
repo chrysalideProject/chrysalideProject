@@ -49,7 +49,7 @@ personneModel::personneModel(long pId, QString pNom, QString pPrenom)
 
 int personneModel::insert(QString pNom, QString pPrenom)
 {
-    QSqlQuery max("select max(id)+1 from PERSONNE");
+    QSqlQuery max("select ifnull(max(id),0)+1 from PERSONNE");
     max.first();
     QString numero=max.value(0).toString();
     QSqlQuery insert("insert into personne values("+numero+",'"+pNom+"','"+pPrenom+"')");

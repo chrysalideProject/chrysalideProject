@@ -5,7 +5,7 @@
 
 typeTableView::typeTableView(QWidget* parent): QGraphicsView(parent)
 {
-  sonType=NULL;
+    sonType=NULL;
 }
 void typeTableView::setTypeTable(int numeroTypeDeTable,bool affPersonnes)
 {
@@ -30,10 +30,10 @@ void typeTableView::clear()
 void typeTableView::affiche(bool affichePatient)
 {
     qDebug()<<"void typeTableView::affiche(bool affichePatient)";
-  //recup de ttes les tables du type et instanciations correspondantes
+    //recup de ttes les tables du type et instanciations correspondantes
     if(sonType!=NULL)
     {
-        QVector<tableAManger*> mesTables=sonType->getTablesAManger();
+        QVector<tableAManger*> mesTables=sonType->getTablesAManger(repasCourant);
 
         //j'efface tout ce qu'il y a déjà
         clear();
@@ -46,37 +46,37 @@ void typeTableView::affiche(bool affichePatient)
             tableAMangerView * nouvelleTable=new tableAMangerView(this->scene(),affichePatient);
 
             //on fait le rapprochement entre la vue et son modèle
-            nouvelleTable->setModel(uneTable,repasCourant);
+            nouvelleTable->setModel(uneTable);
             //ajout au vecteur
             vecteurDesTablesDuType.push_back(nouvelleTable);
         }
         centrer();
-}
+    }
     else
         qDebug()<<"Le type de table intérieur... n'est pas défini";
 }
 void typeTableView::dragEnterEvent(QDragEnterEvent *event)
- {
+{
     qDebug("void typeTableView::::dragEnterEvent(QDragEnterEvent *event)");
     if(event->source()->objectName()=="listWidgetTable")
     {
         event->accept();
     }
- }
+}
 void typeTableView::dragMoveEvent(QDragMoveEvent *event)
- {
+{
     qDebug()<<":typeTableView:::dragMoveEvent(QDragMoveEvent *event)";
     if(event->source()->objectName()=="listWidgetTable")
     {
         event->accept();
     }
- }
+}
 
 void typeTableView::dropEvent(QDropEvent *event)
 {
     qDebug()<<"void typeTableView::dropEvent(QDropEvent *event)";
     QPointF lePointMapp=this->mapToScene(event->pos());
-   QPoint  lePointMappe=lePointMapp.toPoint();
+    QPoint  lePointMappe=lePointMapp.toPoint();
     if(event->source()->objectName()=="listWidgetTable")
     {
 
@@ -87,7 +87,10 @@ void typeTableView::dropEvent(QDropEvent *event)
 
             tableAMangerView * nouvelleTable= new tableAMangerView(this->scene(),false);
 
-            nouvelleTable->setModel(new tableAManger(nombreDePlace,sonType->getNumero(),lePointMappe.x(),lePointMappe.y()),0);
+            nouvelleTable->setModel(new tableAManger(nombreDePlace,sonType->getNumero(),lePointMappe.x(),lePointMappe.y(),-1));
+            //ajout au vecteur
+            vecteurDesTablesDuType.push_back(nouvelleTable);
+
         }
     }
 }
@@ -104,7 +107,7 @@ void typeTableView::enregistrePositions()
 void typeTableView::supprimeTablesSelectionnees()
 {
     //supression des tables de la vue puis de la base de donnée
-      //effacement des tablesAManger
+    //effacement des tablesAManger
     qDebug()<<"void typeTableView::supprimeTablesSelectionnees()";
     QList<QGraphicsItem*> listeDesTablesSelectionnees =this->scene()->selectedItems();
     foreach(QGraphicsItem* uneTable,listeDesTablesSelectionnees)

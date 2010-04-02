@@ -80,7 +80,7 @@ typeTable::typeTable(QString pLibelle)
 }
 
 
-QVector <tableAManger*> typeTable::getTablesAManger()
+QVector <tableAManger*> typeTable::getTablesAManger(int noRepas)
 {
     qDebug()<<"QVector& <tableAManger*> typeTable::getTablesAManger();";
     QVector<tableAManger*> resultat;
@@ -93,7 +93,7 @@ QVector <tableAManger*> typeTable::getTablesAManger()
 
     while (requeteLesTables.next()){
 
-        resultat.push_back(new tableAManger(requeteLesTables.value(0).toInt()));
+        resultat.push_back(new tableAManger(requeteLesTables.value(0).toInt(),noRepas));
 
     }
     return resultat;

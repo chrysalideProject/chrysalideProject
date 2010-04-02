@@ -89,8 +89,8 @@ void preparerRepas::initialiserServeurs()
     qDebug()<<"void preparerRepas::initialiserServeurs()";
     //d'abord vider la liste
     ui->listWidgetServeurs->clear();
-    //remplir la liste des serveurs du jour
-    QString texteRequete="select prenom||' '||nom,id from personne inner join patient on patient.idPersonne=personne.id inner join prendre on prendre.idPersonne=personne.id inner join tableAManger on prendre.idTableAManger=tableamanger.numero inner join typetable on typeTable.numero=tableamanger.typeTable  where prendre.idRepas="+QString::number(repasCourant)+" and typetable.libelle='Cuisiniers'";
+    //remplir la liste des serveurs du jour pas de serveur chez les patients nécessitant une forte surveillance
+    QString texteRequete="select prenom||' '||nom,id from personne inner join patient on patient.idPersonne=personne.id inner join prendre on prendre.idPersonne=personne.id inner join tableAManger on prendre.idTableAManger=tableamanger.numero inner join typetable on typeTable.numero=tableamanger.typeTable  where  prendre.idRepas="+QString::number(repasCourant)+" and typetable.libelle='Cuisiniers'";
     qDebug()<<texteRequete;
     QSqlQuery requete(texteRequete);
     while(requete.next())
@@ -100,7 +100,7 @@ void preparerRepas::initialiserServeurs()
         ui->listWidgetServeurs->addItem(serveur);
     }
     //les autres vont aller dans la combo.
-    QString texteRequete1="select prenom||' '||nom,patient.idPersonne,((select count(*) from prendre inner join tableamanger on tableamanger.numero=prendre.idTableAManger inner join typetable on tableamanger.typeTable=typetable.numero where typetable.libelle='Cuisiniers' and prendre.idPersonne=patient.idPersonne)/(select max(count(*),1) from prendre where prendre.idPersonne=patient.idPersonne) ) as tauxDeService from personne inner join patient on patient.idPersonne=personne.id inner join surveillance on patient.idSurveillance=surveillance.id where surveillance.libelle<>'forte' and not exists (select * from prendre where idPersonne=patient.idPersonne and idRepas="+QString::number(repasCourant)+") order by tauxDeService asc, random() asc";
+    QString texteRequete1="select prenom||' '||nom,patient.idPersonne,((select count(*) from prendre inner join tableamanger on tableamanger.numero=prendre.idTableAManger inner join typetable on tableamanger.typeTable=typetable.numero where patient.idSurveillance <3 and typetable.libelle='Cuisiniers' and prendre.idPersonne=patient.idPersonne)/(select max(count(*),1) from prendre where prendre.idPersonne=patient.idPersonne) ) as tauxDeService from personne inner join patient on patient.idPersonne=personne.id inner join surveillance on patient.idSurveillance=surveillance.id where surveillance.libelle<>'forte' and not exists (select * from prendre where idPersonne=patient.idPersonne and idRepas="+QString::number(repasCourant)+") order by tauxDeService asc, random() asc";
     qDebug()<<texteRequete1;
     QSqlQuery requete1(texteRequete1);
     //vidons la combo
@@ -282,7 +282,7 @@ void preparerRepas::faireTravaillerSurveillant(QListWidgetItem * leSurveillant)
     if (leSurveillant->checkState()==Qt::Checked)
     {
         //demander s'il surveille à l'intérieur ou l'extérieur
-        if(QMessageBox::information(this,"Lieu de travail","Ce suveillant surveille à l'extérieur",QMessageBox::No|QMessageBox::Yes,QMessageBox::No)==QMessageBox::Yes)
+        if(QMessageBox::information(this,"Lieu de travail",tr("Ce surveillant surveille à l'extérieur?"),QMessageBox::No|QMessageBox::Yes,QMessageBox::No)==QMessageBox::Yes)
             ((surveillantView*)leSurveillant)->modele->mangerExterieur(repasCourant,true);
         else
         {
@@ -326,16 +326,8 @@ void preparerRepas::enregistrer(){
 void preparerRepas::placerPersonnes()
 {
     qDebug()<<"void preparerRepas::placerPersonnes()";
-
-    // On récupère nos patients à placer
-    QMap<int,patientModel*> lesPatientsAPlacer=patientModel::recupererPatientsNonPlaces(repasCourant);
-
-
-
-    // On récupère nos surveillants
-    QMap<int, surveillantModel*> mapSurveillants = surveillantModel::recupererSurveillants(repasCourant);
-
-
+    // On récupère nos surveillants de l'intérieur
+    QMap<int, surveillantModel*> mapSurveillants = surveillantModel::recupererSurveillantsInterieur(repasCourant);
     //combien sont-ils
     int nombreDeTablesAvecSurveillant=mapSurveillants.count();
 
@@ -343,36 +335,37 @@ void preparerRepas::placerPersonnes()
     QVector <tableAManger*> vecteurTablesSurveillees;
     foreach (surveillantModel* leSurveillant,mapSurveillants)
     {
-        vecteurTablesSurveillees.push_back(new tableAManger((leSurveillant->getNoTable(repasCourant))));
+        vecteurTablesSurveillees.push_back(new tableAManger(leSurveillant->getNoTable(repasCourant),repasCourant));
     }
 
     //distribution des patients à surveiller aux tables des surveillants
-    QMap<int, patientModel*> mapPatientsSurveillanceElevee;
+
     int nombreDePatientsASurveiller=0;
+    qDebug()<<"repas courant:"<<repasCourant;
 
-    qDebug()<<vecteurTablesSurveillees;
-
+    qDebug()<<"******************************************************************************************";
+    // On récupère nos patients à placer
+    QMap<int,patientModel*> lesPatientsAPlacer=patientModel::recupererPatientsNonPlaces(repasCourant);
     foreach (patientModel* lePatient, lesPatientsAPlacer)
     {
+        qDebug()<<lePatient->getNom()<<" "<<lePatient->getPrenom()<<" "<<lePatient->getIdSurveillance();
 
         if (lePatient->getIdSurveillance() == 3)
         {
-            mapPatientsSurveillanceElevee[lePatient->getId()] = lePatient;
-
-            qDebug("JE PASSE ICI - BIS");
-
-            //int test = nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant;
 
             qDebug()<<" nombreDePatientsASurveiller : "<<nombreDePatientsASurveiller;
             qDebug()<<" nombreDeTablesAvecSurveillant : "<<nombreDeTablesAvecSurveillant;
             //affectation à une des tables du vecteur des tables surveillées
             if(! vecteurTablesSurveillees.empty() && nombreDeTablesAvecSurveillant!=0)
             {
-                vecteurTablesSurveillees[nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant]->ajouterPatient(lePatient);
+                vecteurTablesSurveillees[nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant]->ajouterPatientSansCompatibilite(lePatient);
+                qDebug()<<"ajout a la table surveillée n°"<<nombreDePatientsASurveiller%nombreDeTablesAvecSurveillant;
+                //retrait de la map:
+                lesPatientsAPlacer.remove(lePatient->getId());
             }
             else
             {
-                QMessageBox::critical(this,"Placement des patients","Vous n'avez pas désigné de surveillant alors que des patients nécessitent \n une surveillance forte.");
+                QMessageBox::critical(this,"Placement des patients",tr("Vous n'avez pas encore désigné de surveillant \n alors que des patients nécessitent \n une surveillance forte."));
             }
 
             nombreDePatientsASurveiller++;
@@ -381,17 +374,15 @@ void preparerRepas::placerPersonnes()
 
 
 
+
     // On récupère nos tables de l'intérieur
-    tablesAManger = tableAManger::recupererTables("Intèrieur");
+    QVector <tableAManger*> lesTablesInterieures =tableAManger::recupererTables(tr("Intèrieur"),repasCourant);
 
-    // On place ensuite le reste des patients en les répartissant dans trois groupes
-    QMap<int, patientModel*> patientsRegime;
-    QMap<int, patientModel*> patientsSurveillance;
-    QMap<int, patientModel*> patientsNormaux;
+    // On place ensuite le reste des patients en les répartissant dans trois groupes en fonction du pain
+    QMap<int, patientModel*> patientsRegime;//sans pain
+    QMap<int, patientModel*> patientsSurveillance;//un pain
+    QMap<int, patientModel*> patientsNormaux;//pain à volonté
 
-    //on raffraichit la liste des patients qui restent à placer
-    lesPatientsAPlacer.clear();
-    lesPatientsAPlacer=patientModel::recupererPatientsNonPlaces(repasCourant);
     foreach (patientModel* lePatient,lesPatientsAPlacer)
     {
 
@@ -400,19 +391,19 @@ void preparerRepas::placerPersonnes()
 
             // Régime
         case 1:
-            qDebug()<<lePatient->getNom()<<" est au régime";
+
             patientsRegime[lePatient->getId()] = lePatient;
             break;
 
             // Surveillance
         case 2:
-            qDebug()<<lePatient->getNom()<<" n'a pas le droit au pain";
+
             patientsSurveillance[lePatient->getId()] = lePatient;
             break;
 
             // Normal
         case 3:
-            qDebug()<<lePatient->getNom()<<" peut manger autant de pain qu'il veut";
+
             patientsNormaux[lePatient->getId()] = lePatient;
             break;
 
@@ -420,83 +411,55 @@ void preparerRepas::placerPersonnes()
 
     }
 
-    // Tant que tous les patients Régime n'ont pas été placés
-    int cpt=0;
-    while (patientsRegime.size() > 0 && cpt < tablesAManger.size()){
+    // Tant que tous les patients Régime sans pain n'ont pas été placés
 
-        if (!tablesAManger[cpt]->ajouterPatient(patientsRegime.begin().value())){
+    foreach(patientModel* lePatient,patientsRegime)
+    {  int cpt=0;
+        while (!(cpt==lesTablesInterieures.size()||lesTablesInterieures[cpt]->ajouterPatient(lePatient)))
+        {
             cpt++;
         }
-        else patientsRegime.take(patientsRegime.begin().key());
-
+        delete lePatient;
     }
+    patientsRegime.clear();
 
-    // Tant que tous les patients Surveillance n'ont pas été placés
-    cpt = 0;
-    while (patientsSurveillance.size() > 0 && cpt < tablesAManger.size()){
+    // Tant que tous les patients "1 pain" n'ont pas été placés
 
-        if (!tablesAManger[cpt]->ajouterPatient(patientsSurveillance.begin().value())){
+    foreach(patientModel* lePatient,patientsSurveillance)
+    {  int cpt=0;
+        while (!(cpt==lesTablesInterieures.size()||lesTablesInterieures[cpt]->ajouterPatient(lePatient)))
+        {
+
             cpt++;
         }
-        else patientsSurveillance.take(patientsSurveillance.begin().key());
-
+        delete lePatient;
     }
+    patientsSurveillance.clear();
 
-    // Tant que tous les patients Normaux n'ont pas été placés
-    cpt = 0;
-    while (patientsNormaux.size() > 0 && cpt < tablesAManger.size()){
+    // Tant que tous les patients pain à volonté n'ont pas été placés
 
-        if (!tablesAManger[cpt]->ajouterPatient(patientsNormaux.begin().value())){
+    foreach(patientModel* lePatient,patientsNormaux)
+    {  int cpt=0;
+        while (!(cpt==lesTablesInterieures.size()||lesTablesInterieures[cpt]->ajouterPatient(lePatient)))
+        {
+
             cpt++;
         }
-        else patientsNormaux.take(patientsNormaux.begin().key());
-
+        delete lePatient;
     }
+    patientsNormaux.clear();
 
-    mapPatients.clear();
-
-    for (QMap<int, patientModel*>::iterator gary = patientsRegime.begin(); gary != patientsRegime.end(); gary++){
-        mapPatients[gary.key()] = gary.value();
-    }
-
-    for (QMap<int, patientModel*>::iterator gary = patientsSurveillance.begin(); gary != patientsSurveillance.end(); gary++){
-        mapPatients[gary.key()] = gary.value();
-    }
-
-    for (QMap<int, patientModel*>::iterator gary = patientsNormaux.begin(); gary != patientsNormaux.end(); gary++){
-        mapPatients[gary.key()] = gary.value();
-    }
-
-    // On place maintenant le reste des patient qui n'ont pas trouvé de place là où il en reste
-    cpt = 0;
-    while (mapPatients.size() > 0 && cpt < tablesAManger.size()){
-
-        if (!tablesAManger[cpt]->ajouterPatientSansCompatibilite(mapPatients.begin().value())){
-            cpt++;
-        }
-
-        else{
-            mapPatients.take(mapPatients.begin().key());
-        }
-
-    }
-
-    // On place maintenant le reste des surveillants qui n'ont pas trouvé de place là où il en reste
-    cpt = 0;
-    while (mapSurveillants.size() > 0 && cpt < tablesAManger.size()){
-
-        if (!tablesAManger[cpt]->ajouterSurveillant(mapSurveillants.begin().value())){
-            cpt++;
-        }
-        else {
-            mapSurveillants.take(mapSurveillants.begin().key());
-        }
-
-    }
-    //enregistrement dans la bdd:
-    enregistrer();
     //actualiserLaVue
     ui->comboBoxSalle->setCurrentIndex(ui->comboBoxSalle->findText(tr("Intèrieur")));
+    //nettoyage du vecteur des tablesamanger
+    foreach(tableAManger* laTable,lesTablesInterieures )
+    {
+        delete laTable;
+    }
+    lesTablesInterieures.clear();
+
+
+
 
 }
 
@@ -592,4 +555,17 @@ typeTable* preparerRepas::typeTableCourant()
 {
     qDebug()<<"typeTable * preparerRepas::typeTableCourant()";
     return (typeTable*) ui->comboBoxSalle->itemData(ui->comboBoxSalle->currentIndex()).toLongLong();
+}
+
+void preparerRepas::on_pushButtonRAZ_clicked()
+{
+    qDebug()<<"void preparerRepas::on_pushButtonRAZ_clicked()";
+    QSqlQuery raz;
+    if(QMessageBox::question(this,tr("Confirmation"),tr("Cela effacera toutes les inscriptions du repas courant\n Etes vous sûr de vouloir effacer ?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No)==QMessageBox::Yes)
+    {
+        QString texteReq="delete from prendre where idRepas="+QString::number(repasCourant);
+        qDebug()<<texteReq;
+        raz.exec(texteReq);
+        changeRepasCourant();
+    }
 }
